@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.axway.adi.tools.DisturbCaseController">
+    <top>
+        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <children>
+                <GridPane>
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.0" minWidth="10.0" prefWidth="150.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="356.0" minWidth="10.0" prefWidth="350.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="150.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="350.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label text="Support case">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                            <GridPane.margin>
+                                <Insets left="5.0" />
+                            </GridPane.margin>
+                        </Label>
+                        <TextField fx:id="supportCaseId" GridPane.columnIndex="1" />
+                        <Button mnemonicParsing="false" onAction="#onLoadJira" text="Load from Jira" GridPane.rowIndex="1" />
+                        <TextField fx:id="remotePath" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Button mnemonicParsing="false" onAction="#onLoadDisk" text="Load from Disk" GridPane.rowIndex="2" />
+                        <TextField fx:id="localPath" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="Summary" GridPane.columnIndex="2">
+                            <GridPane.margin>
+                                <Insets left="20.0" />
+                            </GridPane.margin>
+                        </Label>
+                        <TextField fx:id="summary" GridPane.columnIndex="3" />
+                        <Label text="Release" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                            <GridPane.margin>
+                                <Insets left="20.0" />
+                            </GridPane.margin>
+                        </Label>
+                        <TextField fx:id="releaseName" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <Label text="Customer" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                            <GridPane.margin>
+                                <Insets left="20.0" />
+                            </GridPane.margin>
+                        </Label>
+                        <TextField fx:id="customerName" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                    </children>
+                    <VBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                    </VBox.margin>
+                </GridPane>
+                <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0">
+                    <items>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                            <top>
+                                <Label text="Resources" BorderPane.alignment="CENTER">
+                                    <font>
+                                        <Font name="System Bold" size="18.0" />
+                                    </font>
+                                </Label>
+                            </top>
+                            <center>
+                                <TableView fx:id="resourceTable" editable="true" onKeyPressed="#onResourceKeyPressed" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                    <columns>
+                                        <TableColumn editable="false" prefWidth="300.0" text="Name" />
+                                        <TableColumn prefWidth="200.0" text="Type" />
+                                    </columns>
+                                </TableView>
+                            </center>
+                        </BorderPane>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                            <top>
+                                <Label alignment="TOP_CENTER" contentDisplay="CENTER" text="Diagnostics" BorderPane.alignment="CENTER">
+                                    <font>
+                                        <Font name="System Bold" size="18.0" />
+                                    </font>
+                                </Label>
+                            </top>
+                            <center>
+                                <GridPane BorderPane.alignment="CENTER">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Button fx:id="runButton" mnemonicParsing="false" onAction="#onRun" text="RUN NOW">
+                                            <GridPane.margin>
+                                                <Insets left="5.0" />
+                                            </GridPane.margin>
+                                        </Button>
+                                        <Label fx:id="lastRunLabel" text="Last run: " GridPane.columnIndex="1" />
+                                        <ProgressBar fx:id="progress" prefWidth="5000.0" progress="0.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+                                            <GridPane.margin>
+                                                <Insets left="5.0" right="5.0" />
+                                            </GridPane.margin>
+                                        </ProgressBar>
+                                        <Label fx:id="progressLabel" prefWidth="5000.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                                            <GridPane.margin>
+                                                <Insets left="5.0" top="5.0" />
+                                            </GridPane.margin>
+                                        </Label>
+                                    </children>
+                                </GridPane>
+                            </center>
+                        </BorderPane>
+                    </items>
+                    <VBox.margin>
+                        <Insets top="5.0" />
+                    </VBox.margin>
+                </SplitPane>
+            </children>
+        </VBox>
+    </top>
+    <center>
+        <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <top>
+                <Label text="Results" BorderPane.alignment="CENTER">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+            </top>
+         <center>
+            <TableView fx:id="resultTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <columns>
+                <TableColumn editable="false" prefWidth="50.0" text="Level" />
+                <TableColumn editable="false" prefWidth="200.0" text="Resource" />
+                  <TableColumn editable="false" prefWidth="750.0" text="Diagnostic result" />
+              </columns>
+            </TableView>
+         </center>
+        </BorderPane>
+    </center>
+    <padding>
+        <Insets top="5.0" />
+    </padding>
+   <bottom>
+      <Button mnemonicParsing="false" onAction="#onSave" text="Save &amp; Exit" BorderPane.alignment="CENTER" />
+   </bottom>
+</BorderPane>
