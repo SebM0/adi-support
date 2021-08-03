@@ -1,6 +1,10 @@
 package com.axway.adi.tools.util;
 
 import java.util.*;
+import java.util.stream.*;
+import com.axway.adi.tools.diagnostics.ThreadDumpStatistics;
+import com.axway.adi.tools.util.db.DbConstants;
+import com.axway.adi.tools.util.db.DbConstants.ResourceType;
 import com.axway.adi.tools.util.db.DbConstants.Status;
 import com.axway.adi.tools.util.db.DiagnosticSpecification;
 import com.axway.adi.tools.util.db.SupportCase;
@@ -31,6 +35,8 @@ public class DiagnosticCatalog {
         Map<String, DiagnosticSpecification> customSpecifications = MAIN.DB.select(DiagnosticSpecification.class).stream().collect(toMap(c -> c.id, c -> c));
         customSpecifications.values().forEach(DiagnosticSpecification::setCustom);
         specifications.putAll(customSpecifications);
+        // built-in
+        addDiagnostic(new ThreadDumpStatistics());
     }
 
     public List<SupportCase> getSupportCasesByStatus(Status status) {
@@ -41,7 +47,15 @@ public class DiagnosticCatalog {
         return supportCases.get(id);
     }
 
-    public DiagnosticSpecification getSpecification(String id) {
+    public DiagnosticSpecification getDiagnostic(String id) {
         return specifications.get(id);
+    }
+
+    public void addDiagnostic(DiagnosticSpecification diag) {
+        specifications.put(diag.id, diag);
+    }
+
+    public List<DiagnosticSpecification> getDiagnosticsByType(ResourceType resourceType) {
+        return specifications.values().stream().filter(diag -> diag.getResourceType() == resourceType).collect(toList());
     }
 }

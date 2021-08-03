@@ -89,6 +89,18 @@ public class DiagnosticPersistence {
     }
 
     public <K extends DbObject> void insert(K item) {
+        insert(item, true);
+    }
+
+    public <K extends DbObject> void insert(Collection<K> items) {
+        boolean first = true;
+        for (K item : items) {
+            insert(item, first);
+            first = false;
+        }
+    }
+
+    private <K extends DbObject> void insert(K item, boolean deleteIfNeeded) {
         Class<? extends DbObject> clazz = item.getClass();
         DbBind dbBind = clazz.getDeclaredAnnotation(DbBind.class);
         if (dbBind == null) {
@@ -100,6 +112,8 @@ public class DiagnosticPersistence {
             StringBuilder query = new StringBuilder("INSERT INTO \"" + tableName + "\"(");
             LinkedList<String> fieldList = new LinkedList<>();
             LinkedList<String> valueList = new LinkedList<>();
+            String primaryField = null;
+            String foreignClause = null;
             for (Field field : clazz.getDeclaredFields()) {
                 if (!field.canAccess(item))
                     continue;
@@ -108,22 +122,38 @@ public class DiagnosticPersistence {
                     continue;
                 DbBind fieldBind = field.getDeclaredAnnotation(DbBind.class);
                 boolean isPrimary = fieldBind != null && fieldBind.primary();
-                if (isPrimary)
+                if (isPrimary) {
+                    primaryField = field.getName();
                     fieldList.addFirst(field.getName());
-                else
+                } else {
                     fieldList.addLast(field.getName());
+                }
+                boolean isForeign = fieldBind != null && fieldBind.foreign();
                 boolean isString = field.getType().isAssignableFrom(String.class);
                 String valueStr = isString ? "'" + value.toString() + "'" : value.toString();
-                if (isPrimary)
+                if (isPrimary) {
                     valueList.addFirst(valueStr);
-                else
+                } else {
                     valueList.addLast(valueStr);
+                }
+                if (isForeign) {
+                    foreignClause = field.getName() + " = " + valueStr;
+                }
             }
             query.append(String.join(", ", fieldList));
             query.append(") VALUES (");
             query.append(String.join(", ", valueList));
-            query.append(") ON CONFLICT DO UPDATE ");
-            fieldList.stream().skip(1).forEach(field -> query.append(" SET ").append(field).append(" = EXCLUDED.").append(field));
+            query.append(")");
+            if (primaryField != null) {
+                query.append(" ON CONFLICT (");
+                query.append(primaryField);
+                query.append(") DO UPDATE SET ");
+                String[] updates = fieldList.stream().skip(1).map(field -> field + " = EXCLUDED." + field).toArray(String[]::new);
+                query.append(String.join(", ", updates));
+            } else if (deleteIfNeeded && foreignClause != null) {
+                String deleteQuery = "DELETE FROM \"" + tableName + "\" WHERE " + foreignClause;
+                executeUpdate(deleteQuery);
+            }
             executeUpdate(query.toString());
         } catch (SQLException ex) {
             System.out.println("Exception while executing statement. Terminating program... " + ex.getMessage());

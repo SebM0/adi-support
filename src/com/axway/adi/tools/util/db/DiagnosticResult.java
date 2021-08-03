@@ -25,6 +25,20 @@ public class DiagnosticResult implements DbObject {
     }
 
     public DiagnosticSpecification getSpec() {
-        return MAIN.CAT.getSpecification(parent_case);
+        return MAIN.CAT.getDiagnostic(spec);
+    }
+
+    public Integer getLevel() {
+        DiagnosticSpecification spec = getSpec();
+        return spec != null ? spec.level : 0;
+    }
+
+    public String getSpecName() {
+        DiagnosticSpecification spec = getSpec();
+        return spec != null ? spec.name : "";
+    }
+
+    public String toString() {
+        return notes;
     }
 }

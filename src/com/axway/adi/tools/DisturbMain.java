@@ -22,6 +22,7 @@ public class DisturbMain extends Application {
     public final DiagnosticCatalog CAT = new DiagnosticCatalog();
 
     private static final String PROPERTIES_PATH = "disturb.properties";
+    private static final String ROOT = "LocalRoot";
     private final Properties properties = new Properties();
 
     private Stage stage;
@@ -110,6 +111,10 @@ public class DisturbMain extends Application {
 
     public String getProperty(String key) {
         return properties.getProperty(key);
+    }
+
+    public String getRootDirectory() {
+        return getProperty(ROOT);
     }
 
     public static void main(String[] args) {

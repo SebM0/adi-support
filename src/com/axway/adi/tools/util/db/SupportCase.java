@@ -1,7 +1,10 @@
 package com.axway.adi.tools.util.db;
 
+import java.nio.file.Path;
 import java.util.*;
 import com.axway.adi.tools.util.db.DbConstants.Status;
+
+import static com.axway.adi.tools.DisturbMain.MAIN;
 
 @DbBind("SUPPORT_CASE")
 public class SupportCase implements DbObject {
@@ -12,10 +15,10 @@ public class SupportCase implements DbObject {
     public String customer;
     public int run_version;
     public int status;
+    public String remote_path = "";
+    public String local_path = "";
 
-    private Map<String, SupportCaseResource> items = new HashMap<>();
-    private String remotePath;
-    private String localPath;
+    private Map<String, SupportCaseResource> resources = new HashMap<>();
 
     public Status getStatus() {
         if (status < 0 || status >= Status.values().length)
@@ -24,31 +27,22 @@ public class SupportCase implements DbObject {
     }
 
     public void addItem(SupportCaseResource item) {
-        items.put(item.name, item);
+        resources.put(item.name, item);
+        item.parent_case = id;
     }
 
     public SupportCaseResource getItem(String name) {
-        return items.get(name);
+        return resources.get(name);
     }
 
-    public Collection<SupportCaseResource> getItems() {
-        return items.values();
-    }
-
-    public String getRemotePath() {
-        return remotePath;
-    }
-
-    public void setRemotePath(String remotePath) {
-        this.remotePath = remotePath;
+    public Collection<SupportCaseResource> getResources() {
+        return resources.values();
     }
 
     public String getLocalPath() {
-        return localPath;
-    }
-
-    public void setLocalPath(String localPath) {
-        this.localPath = localPath;
+        if (local_path == null || local_path.isEmpty())
+            return "";
+        return Path.of(MAIN.getRootDirectory(), local_path).toString();
     }
 
     @Override

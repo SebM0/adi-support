@@ -14,4 +14,9 @@ public @interface DbBind {
      * @return true if field is primary key, false otherwise
      */
     boolean primary() default false;
+
+    /**
+     * @return true if field is foreign key, false otherwise
+     */
+    boolean foreign() default false;
 }

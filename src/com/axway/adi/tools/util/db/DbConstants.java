@@ -14,7 +14,8 @@ public class DbConstants {
         SupportArchive,
         ThreadDump,
         Log,
-        Appx
+        Appx,
+        FileList
     }
 
     private DbConstants() {

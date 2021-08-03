@@ -4,9 +4,14 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import com.axway.adi.tools.operatiions.DeployOperation;
+import com.axway.adi.tools.operatiions.DiscoverOperation;
 import com.axway.adi.tools.operatiions.DownloadOperation;
 import com.axway.adi.tools.operatiions.OperationExecutor;
+import com.axway.adi.tools.operatiions.ScanOperation;
 import com.axway.adi.tools.util.AlertHelper;
+import com.axway.adi.tools.util.ImageTableCell;
+import com.axway.adi.tools.util.db.DbConstants.Level;
 import com.axway.adi.tools.util.db.DbConstants.ResourceType;
 import com.axway.adi.tools.util.db.DiagnosticResult;
 import com.axway.adi.tools.util.db.SupportCase;
@@ -15,6 +20,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import javafx.application.Platform;
+import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
@@ -50,7 +57,6 @@ public class DisturbCaseController extends AbstractController {
 
     private SupportCase supportCase;
     private OperationExecutor executor;
-    private static final String ROOT = "LocalRoot";
 
     private static final class ResourceTypeProperty extends SimpleStringProperty {
         ResourceTypeProperty(SupportCaseResource item) {
@@ -61,6 +67,7 @@ public class DisturbCaseController extends AbstractController {
 
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     void bindControls(Stage parentStage) {
         super.bindControls(parentStage);
@@ -77,8 +84,13 @@ public class DisturbCaseController extends AbstractController {
         // Bind resultTable
         {
             ObservableList<TableColumn<DiagnosticResult, ?>> columns = resultTable.getColumns();
-            TableColumn<DiagnosticResult, String> nameColumn = (TableColumn<DiagnosticResult, String>) columns.get(0);
-            nameColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().toString()));
+            TableColumn<DiagnosticResult, Number> LevelColumn = (TableColumn<DiagnosticResult, Number>) columns.get(0);
+            LevelColumn.setCellFactory(column -> new ImageTableCell<>(Arrays.stream(Level.values()).map(Object::toString).toArray(String[]::new)));
+            LevelColumn.setCellValueFactory(cellData -> new ReadOnlyIntegerWrapper(cellData.getValue().getLevel()));
+            TableColumn<DiagnosticResult, String> diagColumn = (TableColumn<DiagnosticResult, String>) columns.get(1);
+            diagColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getSpecName()));
+            TableColumn<DiagnosticResult, String> resultColumn = (TableColumn<DiagnosticResult, String>) columns.get(2);
+            resultColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().toString()));
         }
     }
 
@@ -89,19 +101,21 @@ public class DisturbCaseController extends AbstractController {
         releaseName.setText(supportCase.release);
         customerName.setText(supportCase.customer);
         summary.setText(supportCase.summary);
+        remotePath.setText(supportCase.remote_path);
+        localPath.setText(supportCase.getLocalPath());
 
         // Reset other fields
         lastRunLabel.setText("Last run: -");
         ObservableList<SupportCaseResource> resourceTableItems = resourceTable.getItems();
         resourceTableItems.clear();
-        supportCase.getItems().stream().filter(i -> !i.ignored).forEach(resourceTableItems::add);
+        supportCase.getResources().stream().filter(i -> !i.ignored).forEach(resourceTableItems::add);
     }
 
     public void onLoadJira(ActionEvent actionEvent) {
         String caseId = supportCaseId.getText();
         // Browse cases
         if (caseId.trim().isEmpty()) {
-            //TODO browse
+            //TODO browse open tornado cases
         }
         String remote = "https://jira.axway.com/rest/api/2/issue/" + caseId;
         try (Reader reader = new InputStreamReader(Runtime.getRuntime().exec("curl --user rd-tnd-viewer:axwaydi2017 --silent " + remote + "?expand=fields").getInputStream())) {
@@ -126,7 +140,8 @@ public class DisturbCaseController extends AbstractController {
                 }
             });
             remotePath.setText(remote);
-            supportCase.setRemotePath(remote);
+            supportCase.remote_path = remote;
+            buildDefaultLocalDirectory();
         } catch (IOException e) {
             AlertHelper.show(ERROR, e.getMessage());
         }
@@ -152,24 +167,35 @@ public class DisturbCaseController extends AbstractController {
         supportCase.addItem(res);
     }
 
-    public void onLoadDisk(ActionEvent actionEvent) {
-        String caseId = supportCaseId.getText();
-        // search local path
-        Path root = Path.of(MAIN.getProperty(ROOT));
+    public void buildDefaultLocalDirectory() {
         try {
-            if (Files.exists(root)) {
-                Files.createDirectories(root);
-            }
-            if (Files.isDirectory(root)) {
-                Path resDir = Path.of(root.toString(), caseId);
-                Files.createDirectories(resDir);
-                String local = resDir.toString();
-                localPath.setText(local);
-                supportCase.setLocalPath(local);
+            if (supportCase.local_path == null || supportCase.local_path.isEmpty()) {
+                String caseId = supportCaseId.getText();
+                // search local path
+                Path root = Path.of(MAIN.getRootDirectory());
+                if (Files.exists(root)) {
+                    Files.createDirectories(root);
+                }
+                if (Files.isDirectory(root)) {
+                    supportCase.local_path = caseId;
+                    Path resDir = Path.of(root.toString(), caseId);
+                    Files.createDirectories(resDir);
+                    localPath.setText(resDir.toString());
+                }
             }
         } catch (IOException e) {
             AlertHelper.show(ERROR, e.getMessage());
         }
+    }
+
+    public void onLoadDisk(ActionEvent actionEvent) {
+        String caseId = supportCaseId.getText();
+        // Browse cases
+        if (caseId.trim().isEmpty()) {
+            //TODO browse root directory sub folders
+        }
+        // search local path
+        buildDefaultLocalDirectory();
     }
 
     public void onResourceKeyPressed(KeyEvent keyEvent) {
@@ -194,13 +220,17 @@ public class DisturbCaseController extends AbstractController {
             executor = null;
             return;
         }
+        // Reset
+        progress.progressProperty().unbind();
+        progressLabel.textProperty().unbind();
         progress.setProgress(0);
-        executor = new OperationExecutor();
+        progressLabel.setText("Initializing");
+        resultTable.getItems().clear();
+        // build executor
+        executor = new OperationExecutor(this::addResult);
         resourceTable.getItems().forEach(this::submit);
         // bind progress properties
-        progress.progressProperty().unbind();
         progress.progressProperty().bind(executor.progressProperty());
-        progressLabel.textProperty().unbind();
         progressLabel.textProperty().bind(executor.messageProperty());
         // When completed tasks
         executor.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED, //
@@ -213,17 +243,31 @@ public class DisturbCaseController extends AbstractController {
         new Thread(executor).start();
     }
 
+    private void addResult(DiagnosticResult result) {
+        Platform.runLater(() -> resultTable.getItems().add(result));
+    }
+
     private void submit(SupportCaseResource res) {
         executor.addOperation(new DownloadOperation(res));
         String testName = res.name.toLowerCase();
-        if (testName.endsWith(".zip") || testName.endsWith(".gz") || testName.endsWith(".tar")) {
+        if (testName.endsWith(".zip") || testName.endsWith(".gz") || testName.endsWith(".tar") || res.getResourceType() == ResourceType.Appx) {
             // deploy
+            executor.addOperation(new DeployOperation(res));
+            // discover
+            if (res.getResourceType() == ResourceType.SupportArchive) {
+                executor.addOperation(new DiscoverOperation(res));
+            }
         }
+        executor.addOperation(new ScanOperation(res));
     }
 
     public void onSave(ActionEvent actionEvent) {
+        // flush editor fields
+        supportCase.id = supportCaseId.getText();
+
         MAIN.DB.insert(supportCase);
-        supportCase.getItems().forEach(item -> MAIN.DB.insert(item));
-        MAIN.welcome();
+        MAIN.DB.insert(supportCase.getResources());
+        //MAIN.welcome();
+        actionEvent.consume();
     }
 }

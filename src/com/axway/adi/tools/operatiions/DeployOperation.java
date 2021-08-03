@@ -8,8 +8,8 @@ import com.axway.adi.tools.util.db.SupportCaseResource;
 
 import static javafx.scene.control.Alert.AlertType.ERROR;
 
-public class DownloadOperation extends Operation {
-    public DownloadOperation(SupportCaseResource resource) {
+public class DeployOperation extends Operation {
+    public DeployOperation(SupportCaseResource resource) {
         super(resource);
     }
 
@@ -17,12 +17,18 @@ public class DownloadOperation extends Operation {
     public void run() {
         try {
             String localPath = getLocalPath();
-            if (Files.exists(Path.of(localPath))) {
-                // File already exists, skip
-                return;
+            if (!Files.exists(Path.of(localPath))) {
+                // File does not exist, fail
+                throw new FileNotFoundException(resource.local_path);
             }
+            String testPath = localPath.toLowerCase();
+            int extSep = testPath.lastIndexOf('.');
+            if (extSep != -1) {
+                resource.local_ex_path = localPath.substring(0, extSep);
+            }
+
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    Runtime.getRuntime().exec("curl --user rd-tnd-viewer:axwaydi2017 --silent " + resource.remote_path + " --output " + resource.local_path).getInputStream()))) {
+                    Runtime.getRuntime().exec("7z x \"" + localPath + "\" -bd -y -o\"" + resource.local_ex_path + "\"").getInputStream()))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     System.out.println(line);

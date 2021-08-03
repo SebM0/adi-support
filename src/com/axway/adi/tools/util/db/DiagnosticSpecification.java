@@ -1,7 +1,8 @@
 package com.axway.adi.tools.util.db;
 
-import java.util.*;
+import com.axway.adi.tools.parsers.DiagnosticParseContext;
 import com.axway.adi.tools.util.db.DbConstants.Level;
+import com.axway.adi.tools.util.db.DbConstants.ResourceType;
 
 @DbBind("DIAG_SPEC")
 public class DiagnosticSpecification implements DbObject {
@@ -12,6 +13,7 @@ public class DiagnosticSpecification implements DbObject {
     public String remediation;
     public String diagnostic; //script
     public int level;
+    public int type; //Unknown, support archive, thread dump(s), log(s), appx
 
     private boolean custom = false;
 
@@ -27,5 +29,30 @@ public class DiagnosticSpecification implements DbObject {
         if (level < 0 || level >= Level.values().length)
             level = 0;
         return Level.values()[level];
+    }
+
+    public final void setLevel(Level level) {
+        this.level = level.ordinal();
+    }
+
+    public ResourceType getResourceType() {
+        if (type < 0 || type >= ResourceType.values().length)
+            type = 0;
+        return ResourceType.values()[type];
+    }
+
+    public final void setResourceType(ResourceType rt) {
+        type = rt.ordinal();
+    }
+
+    public DiagnosticResult createResult(SupportCaseResource res) {
+        DiagnosticResult result = new DiagnosticResult();
+        result.parent_case = res.parent_case;
+        result.spec = id;
+        return result;
+    }
+
+    public DiagnosticParseContext<?> createContext(SupportCaseResource res) {
+        return null;
     }
 }
