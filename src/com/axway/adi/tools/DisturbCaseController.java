@@ -214,12 +214,7 @@ public class DisturbCaseController extends AbstractController {
             AlertHelper.show(ERROR, "No resource to analyze");
             return;
         }
-        // kill if running
-        if (executor != null) {
-            executor.kill();
-            executor = null;
-            return;
-        }
+        onRunStarted();
         // Reset
         progress.progressProperty().unbind();
         progressLabel.textProperty().unbind();
@@ -233,18 +228,40 @@ public class DisturbCaseController extends AbstractController {
         progress.progressProperty().bind(executor.progressProperty());
         progressLabel.textProperty().bind(executor.messageProperty());
         // When completed tasks
-        executor.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED, //
-                                 t -> {
-                                     progressLabel.textProperty().unbind();
-                                     progressLabel.setText("Done");
-                                 });
+        //executor.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED, //
+        //                         t -> {
+        //                             progressLabel.textProperty().unbind();
+        //                             progressLabel.setText("Done");
+        //                         });
 
         // Start the Task.
-        new Thread(executor).start();
+        executor.start();
+    }
+
+    private void onRunStarted() {
+        runButton.setDisable(true);
+    }
+
+    private void onRunTerminated() {
+        progress.progressProperty().unbind();
+        progressLabel.textProperty().unbind();
+        // kill if running
+        if (executor != null) {
+            executor.kill();
+            executor = null;
+        }
+        progressLabel.setText("Done");
+        runButton.setDisable(false);
     }
 
     private void addResult(DiagnosticResult result) {
-        Platform.runLater(() -> resultTable.getItems().add(result));
+        Platform.runLater(() -> {
+            if (result != null) {
+                resultTable.getItems().add(result);
+            } else { // end with empty result
+                onRunTerminated();
+            }
+        });
     }
 
     private void submit(SupportCaseResource res) {

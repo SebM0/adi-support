@@ -17,8 +17,8 @@ public class ScanOperation extends Operation {
         try {
             switch (resource.getResourceType()) {
                 case ThreadDump:
-                    ThreadDumpParser parser = new ThreadDumpParser();
-                    parser.parse(resource, driver::addResult);
+                    ThreadDumpParser parser = new ThreadDumpParser(resource);
+                    parser.parse(driver::addResult);
                     break;
                 default:
                     AlertHelper.show(INFORMATION, resource.getResourceType().name() + " not handled yet");

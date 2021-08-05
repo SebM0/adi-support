@@ -5,14 +5,19 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.util.*;
+import com.axway.adi.tools.util.DiagnosticBuilder;
 import com.axway.adi.tools.util.DiagnosticCatalog;
 import com.axway.adi.tools.util.DiagnosticPersistence;
+import com.axway.adi.tools.util.db.DbConstants;
+import com.axway.adi.tools.util.db.DiagnosticSpecification;
 import com.axway.adi.tools.util.db.SupportCase;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import static com.axway.adi.tools.util.db.DbConstants.Level.Error;
+import static com.axway.adi.tools.util.db.DbConstants.ResourceType.ThreadDump;
 
 public class DisturbMain extends Application {
 
@@ -45,8 +50,14 @@ public class DisturbMain extends Application {
         primaryStage.setScene(welcomeScene);
 
         DB.connect();
+        debugData();
         CAT.load();
 
+        welcomeController.loadData();
+        primaryStage.show();
+    }
+
+    private void debugData() {
 /*        DB.executeUpdate("DELETE from \"SUPPORT_CASE\"");
         List<SupportCase> supportCases = DB.select(SupportCase.class);
         if (supportCases.isEmpty()) {
@@ -60,8 +71,15 @@ public class DisturbMain extends Application {
             DB.insert(def);
             supportCases = DB.select(SupportCase.class);
         }*/
-        welcomeController.loadData();
-        primaryStage.show();
+        DiagnosticSpecification diag = new DiagnosticSpecification();
+        diag.id = "TD-0001";
+        diag.name = "Counter-performant plan operator";
+        diag.setLevel(Error);
+        diag.setResourceType(ThreadDump);
+        diag.diagnostic = new DiagnosticBuilder().addThreadDumpStackRule("InstantCompositeInstanceIdJoinPhysicalOperator").build();
+        diag.description = "";
+        diag.remediation = "Migrate to version 20210607 or higher";
+        DB.insert(diag);
     }
 
     void editSupportCase(SupportCase supportCase) {

@@ -1,7 +1,7 @@
 package com.axway.adi.tools.diagnostics;
 
 import com.axway.adi.tools.parsers.DiagnosticParseContext;
-import com.axway.adi.tools.parsers.ThreadDumpContext;
+import com.axway.adi.tools.parsers.ThreadDump;
 import com.axway.adi.tools.util.db.DiagnosticResult;
 import com.axway.adi.tools.util.db.DiagnosticSpecification;
 import com.axway.adi.tools.util.db.SupportCaseResource;
@@ -23,7 +23,7 @@ public class ThreadDumpStatistics extends DiagnosticSpecification {
         return new ThreadDumpStatisticsContext(this, res);
     }
 
-    private static class ThreadDumpStatisticsContext extends ThreadDumpContext {
+    private static class ThreadDumpStatisticsContext extends DiagnosticParseContext<ThreadDump> {
         private int totalCount = 0;
 
         protected ThreadDumpStatisticsContext(DiagnosticSpecification specification, SupportCaseResource resource) {
@@ -31,7 +31,7 @@ public class ThreadDumpStatistics extends DiagnosticSpecification {
         }
 
         @Override
-        public void accept(com.axway.adi.tools.parsers.ThreadDump threadDump) {
+        public void accept(ThreadDump threadDump) {
             totalCount++;
         }
 

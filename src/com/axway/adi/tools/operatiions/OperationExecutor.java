@@ -10,6 +10,7 @@ public class OperationExecutor extends Task<Void> implements OperationDriver {
     private final List<CallbackOperation> pendingOperations = new LinkedList<>();
     private final Consumer<DiagnosticResult> resultConsumer;
     private ExecutorService executorService = null;
+    private Thread thread = null;
     private int currentOperation = 0;
     private int totalOperations = 0;
 
@@ -17,9 +18,24 @@ public class OperationExecutor extends Task<Void> implements OperationDriver {
         this.resultConsumer = resultConsumer;
     }
 
+    public void start() {
+        thread = new Thread(this);
+        thread.start();
+    }
+
     public void kill() {
-        if (executorService != null)
+        if (executorService != null) {
             executorService.shutdownNow();
+            executorService = null;
+        }
+        if (thread != null) {
+            try {
+                thread.join(10_000);
+            } catch (InterruptedException e) {
+                // skip
+            }
+            thread = null;
+        }
     }
 
     @Override
@@ -41,6 +57,10 @@ public class OperationExecutor extends Task<Void> implements OperationDriver {
 
     private void updateProgress() {
         this.updateProgress(currentOperation, totalOperations);
+        if (currentOperation >= totalOperations) {
+            // completed
+            resultConsumer.accept(null);
+        }
     }
 
     @Override

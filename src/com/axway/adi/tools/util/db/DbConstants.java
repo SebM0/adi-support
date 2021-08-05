@@ -1,5 +1,7 @@
 package com.axway.adi.tools.util.db;
 
+import java.util.*;
+
 public class DbConstants {
     public enum Status {
         New, InProgress, Done
@@ -15,7 +17,11 @@ public class DbConstants {
         ThreadDump,
         Log,
         Appx,
-        FileList
+        FileList;
+
+        public static EnumSet<ResourceType> concrete() {
+            return EnumSet.range(SupportArchive, FileList);
+        }
     }
 
     private DbConstants() {

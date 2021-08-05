@@ -9,6 +9,7 @@ import java.util.stream.*;
 import com.axway.adi.tools.util.AlertHelper;
 import com.axway.adi.tools.util.db.DbConstants;
 import com.axway.adi.tools.util.db.DiagnosticResult;
+import com.axway.adi.tools.util.db.DiagnosticSpecification;
 import com.axway.adi.tools.util.db.SupportCaseResource;
 
 import static com.axway.adi.tools.DisturbMain.MAIN;
@@ -16,9 +17,13 @@ import static com.axway.adi.tools.parsers.ThreadDump.THREAD_NAME_HEADER;
 import static javafx.scene.control.Alert.AlertType.WARNING;
 
 public class ThreadDumpParser {
-
+    private final SupportCaseResource resource;
     private final List<ThreadDump> dumps = new ArrayList<>();
     private ThreadDump current = null;
+
+    public ThreadDumpParser(SupportCaseResource res) {
+        resource = res;
+    }
 
     void addThread(String header) {
         current = new ThreadDump(header);
@@ -31,19 +36,19 @@ public class ThreadDumpParser {
         }
     }
 
-    public void parse(SupportCaseResource res, Consumer<DiagnosticResult> resultConsumer) throws IOException {
-        Path path = Path.of(res.getAnalysisPath());
+    public void parse(Consumer<DiagnosticResult> resultConsumer) throws IOException {
+        Path path = Path.of(resource.getAnalysisPath());
         if (Files.isRegularFile(path)) {
-            analyzeThreadDumps(res, path, resultConsumer);
+            analyzeThreadDumps(path, resultConsumer);
         }
         if (Files.isDirectory(path)) {
             try (Stream<Path> stream = Files.walk(path, Integer.MAX_VALUE)) {
-                stream.filter(Files::isRegularFile).limit(1).forEach(subPath -> analyzeThreadDumps(res, subPath, resultConsumer));
+                stream.filter(Files::isRegularFile).limit(1).forEach(subPath -> analyzeThreadDumps(subPath, resultConsumer));
             }
         }
     }
 
-    private void analyzeThreadDumps(SupportCaseResource res, Path redoLogFile, Consumer<DiagnosticResult> resultConsumer) {
+    private void analyzeThreadDumps(Path redoLogFile, Consumer<DiagnosticResult> resultConsumer) {
         // Reset
         dumps.clear();
         current = null;
@@ -53,13 +58,21 @@ public class ThreadDumpParser {
         dumps.forEach(ThreadDump::aggregate);
         // run diagnostics
         MAIN.CAT.getDiagnosticsByType(DbConstants.ResourceType.ThreadDump).forEach(diag -> {
-            DiagnosticParseContext<ThreadDump> context = (DiagnosticParseContext<ThreadDump>) diag.createContext(res);
+            DiagnosticParseContext<ThreadDump> context = createDiagnosticContext(diag);
             dumps.forEach(context);
             DiagnosticResult result = context.getResult();
             if (result != null) {
                 resultConsumer.accept(result);
             }
         });
+    }
+
+    private DiagnosticParseContext<ThreadDump> createDiagnosticContext(DiagnosticSpecification diag) {
+        if (diag.isCustom()) {
+            return new ThreadDumpContext(diag, resource);
+        } else {
+            return (DiagnosticParseContext<ThreadDump>) diag.createContext(resource);
+        }
     }
 
     private void readThreadDumps(Path redoLogFile) {
