@@ -2,10 +2,9 @@ package com.axway.adi.tools.util.db;
 
 import java.nio.file.Path;
 import java.sql.Date;
-
 import com.axway.adi.tools.util.db.DbConstants.ResourceType;
 
-import static com.axway.adi.tools.DisturbMain.MAIN;
+import static com.axway.adi.tools.util.DiagnosticCatalog.CAT;
 
 @DbBind("SUPPORT_CASE_RESOURCE")
 public class SupportCaseResource implements DbObject {
@@ -34,7 +33,7 @@ public class SupportCaseResource implements DbObject {
     }
 
     public SupportCase getParent() {
-        return MAIN.CAT.getSupportCase(parent_case);
+        return CAT.getSupportCase(parent_case);
     }
 
     public String getFullName() {

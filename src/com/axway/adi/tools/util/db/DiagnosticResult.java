@@ -2,7 +2,7 @@ package com.axway.adi.tools.util.db;
 
 import java.util.*;
 
-import static com.axway.adi.tools.DisturbMain.MAIN;
+import static com.axway.adi.tools.util.DiagnosticCatalog.CAT;
 
 @DbBind("DIAG_RESULT")
 public class DiagnosticResult implements DbObject {
@@ -21,11 +21,11 @@ public class DiagnosticResult implements DbObject {
     }
 
     public SupportCase getParent() {
-        return MAIN.CAT.getSupportCase(parent_case);
+        return CAT.getSupportCase(parent_case);
     }
 
     public DiagnosticSpecification getSpec() {
-        return MAIN.CAT.getDiagnostic(spec);
+        return CAT.getDiagnostic(spec);
     }
 
     public Integer getLevel() {
@@ -34,8 +34,8 @@ public class DiagnosticResult implements DbObject {
     }
 
     public String getSpecName() {
-        DiagnosticSpecification spec = getSpec();
-        return spec != null ? spec.name : "";
+        DiagnosticSpecification specification = getSpec();
+        return specification != null ? specification.name : spec;
     }
 
     public String toString() {

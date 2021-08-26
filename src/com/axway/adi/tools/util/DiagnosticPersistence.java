@@ -12,6 +12,9 @@ import com.axway.adi.tools.util.db.DbBind;
 import com.axway.adi.tools.util.db.DbObject;
 
 public class DiagnosticPersistence {
+    public static DiagnosticPersistence DB = null;
+    public static final int VERSION = 1;
+
     private Connection connection;
 
     public void connect() {

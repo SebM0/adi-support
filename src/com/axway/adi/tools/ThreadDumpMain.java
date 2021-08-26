@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import static com.axway.adi.tools.util.DiagnosticCatalog.CAT;
+
 public class ThreadDumpMain extends Application {
 
     @Override
@@ -14,6 +16,7 @@ public class ThreadDumpMain extends Application {
 
         //ThreadDumpController controller = new ThreadDumpController(primaryStage);
         //loader.setController(controller);
+        CAT.load();
 
         loader.setLocation(getClass().getResource("threaddump.fxml"));
 

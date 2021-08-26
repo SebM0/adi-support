@@ -6,9 +6,7 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.util.*;
 import com.axway.adi.tools.util.DiagnosticBuilder;
-import com.axway.adi.tools.util.DiagnosticCatalog;
 import com.axway.adi.tools.util.DiagnosticPersistence;
-import com.axway.adi.tools.util.db.DbConstants;
 import com.axway.adi.tools.util.db.DiagnosticSpecification;
 import com.axway.adi.tools.util.db.SupportCase;
 import javafx.application.Application;
@@ -16,15 +14,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import static com.axway.adi.tools.util.DiagnosticCatalog.CAT;
+import static com.axway.adi.tools.util.DiagnosticPersistence.DB;
 import static com.axway.adi.tools.util.db.DbConstants.Level.Error;
 import static com.axway.adi.tools.util.db.DbConstants.ResourceType.ThreadDump;
 
 public class DisturbMain extends Application {
 
     public static DisturbMain MAIN;
-
-    public final DiagnosticPersistence DB = new DiagnosticPersistence();
-    public final DiagnosticCatalog CAT = new DiagnosticCatalog();
 
     private static final String PROPERTIES_PATH = "disturb.properties";
     private static final String ROOT = "LocalRoot";
@@ -49,6 +46,7 @@ public class DisturbMain extends Application {
         loadCaseScene();
         primaryStage.setScene(welcomeScene);
 
+        DB = new DiagnosticPersistence();
         DB.connect();
         debugData();
         CAT.load();

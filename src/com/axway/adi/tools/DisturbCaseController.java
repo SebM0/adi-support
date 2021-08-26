@@ -25,7 +25,6 @@ import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
-import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -39,6 +38,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import static com.axway.adi.tools.DisturbMain.MAIN;
+import static com.axway.adi.tools.util.DiagnosticPersistence.DB;
 import static javafx.scene.control.Alert.AlertType.ERROR;
 
 public class DisturbCaseController extends AbstractController {
@@ -282,8 +282,8 @@ public class DisturbCaseController extends AbstractController {
         // flush editor fields
         supportCase.id = supportCaseId.getText();
 
-        MAIN.DB.insert(supportCase);
-        MAIN.DB.insert(supportCase.getResources());
+        DB.insert(supportCase);
+        DB.insert(supportCase.getResources());
         //MAIN.welcome();
         actionEvent.consume();
     }

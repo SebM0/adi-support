@@ -1,42 +1,59 @@
 package com.axway.adi.tools.util;
 
 import java.util.*;
-import java.util.stream.*;
+import com.axway.adi.tools.diagnostics.FileListHuge;
+import com.axway.adi.tools.diagnostics.FileListOrphaned;
+import com.axway.adi.tools.diagnostics.LogManyReplicas;
+import com.axway.adi.tools.diagnostics.LogStatistics;
+import com.axway.adi.tools.diagnostics.ThreadDumpFlowedAbsorption;
+import com.axway.adi.tools.diagnostics.ThreadDumpLowPerformancePlanOperators;
 import com.axway.adi.tools.diagnostics.ThreadDumpStatistics;
-import com.axway.adi.tools.util.db.DbConstants;
 import com.axway.adi.tools.util.db.DbConstants.ResourceType;
 import com.axway.adi.tools.util.db.DbConstants.Status;
 import com.axway.adi.tools.util.db.DiagnosticSpecification;
 import com.axway.adi.tools.util.db.SupportCase;
 import com.axway.adi.tools.util.db.SupportCaseResource;
 
-import static com.axway.adi.tools.DisturbMain.MAIN;
+import static com.axway.adi.tools.util.DiagnosticPersistence.DB;
 import static java.util.stream.Collectors.*;
 
 public class DiagnosticCatalog {
-    public static final int VERSION = 1;
-    private Map<String, SupportCase> supportCases;
+    public static final DiagnosticCatalog CAT = new DiagnosticCatalog();
+    private Map<String, SupportCase> supportCases = null;
     private Map<String, DiagnosticSpecification> specifications = new HashMap<>();
 
     public void load() {
-        // Support case
-        supportCases = MAIN.DB.select(SupportCase.class).stream().collect(toMap(c -> c.id, c -> c));
-        // Support case resources
-        List<SupportCaseResource> supportCaseResources = MAIN.DB.select(SupportCaseResource.class);
-        supportCaseResources.forEach(item -> {
-            SupportCase supportCase = supportCases.get(item.parent_case);
-            if (supportCase != null) {
-                supportCase.addItem(item);
-            } else {
-                //todo delete orphan item
-            }
-        });
-        // custom diagnostics
-        Map<String, DiagnosticSpecification> customSpecifications = MAIN.DB.select(DiagnosticSpecification.class).stream().collect(toMap(c -> c.id, c -> c));
-        customSpecifications.values().forEach(DiagnosticSpecification::setCustom);
-        specifications.putAll(customSpecifications);
+        // clear
+        if (supportCases != null)
+            supportCases.clear();
+        specifications.clear();
+        // load from DB
+        if (DB != null) {
+            // Support case
+            supportCases = DB.select(SupportCase.class).stream().collect(toMap(c -> c.id, c -> c));
+            // Support case resources
+            List<SupportCaseResource> supportCaseResources = DB.select(SupportCaseResource.class);
+            supportCaseResources.forEach(item -> {
+                SupportCase supportCase = supportCases.get(item.parent_case);
+                if (supportCase != null) {
+                    supportCase.addItem(item);
+                } else {
+                    //todo delete orphan item
+                }
+            });
+            // custom diagnostics
+            Map<String, DiagnosticSpecification> customSpecifications = DB.select(DiagnosticSpecification.class).stream().collect(toMap(c -> c.id, c -> c));
+            customSpecifications.values().forEach(DiagnosticSpecification::setCustom);
+            specifications.putAll(customSpecifications);
+        }
         // built-in
         addDiagnostic(new ThreadDumpStatistics());
+        addDiagnostic(new ThreadDumpLowPerformancePlanOperators());
+        addDiagnostic(new ThreadDumpFlowedAbsorption());
+        addDiagnostic(new LogStatistics());
+        addDiagnostic(new LogManyReplicas());
+        addDiagnostic(new FileListOrphaned());
+        addDiagnostic(new FileListHuge());
     }
 
     public List<SupportCase> getSupportCasesByStatus(Status status) {

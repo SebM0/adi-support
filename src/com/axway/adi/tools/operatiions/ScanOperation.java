@@ -1,5 +1,6 @@
 package com.axway.adi.tools.operatiions;
 
+import com.axway.adi.tools.parsers.LogParser;
 import com.axway.adi.tools.parsers.ThreadDumpParser;
 import com.axway.adi.tools.util.AlertHelper;
 import com.axway.adi.tools.util.db.SupportCaseResource;
@@ -16,10 +17,16 @@ public class ScanOperation extends Operation {
     public void run() {
         try {
             switch (resource.getResourceType()) {
-                case ThreadDump:
+                case ThreadDump: {
                     ThreadDumpParser parser = new ThreadDumpParser(resource);
                     parser.parse(driver::addResult);
                     break;
+                }
+                case Log: {
+                    LogParser parser = new LogParser(resource);
+                    parser.parse(driver::addResult);
+                    break;
+                }
                 default:
                     AlertHelper.show(INFORMATION, resource.getResourceType().name() + " not handled yet");
             }

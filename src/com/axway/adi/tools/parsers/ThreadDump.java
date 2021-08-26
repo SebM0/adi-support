@@ -10,14 +10,14 @@ public class ThreadDump {
     private static final String LOCK_HEADER = "- ";
     private static final String SYSTAR = "com.systar.";
     private static final Set<String> UTILITIES = Set.of("tau", "gluon", "boson", "photon");
-    String header;
-    String name;
-    String id;
-    String status = "";
-    boolean idle = false;
-    final List<String> stack = new ArrayList<>();
-    final List<String> locks = new ArrayList<>();
-    final LinkedList<String> traversedComponents = new LinkedList<>();
+    public String header;
+    public String name;
+    public String id;
+    public String status = "";
+    public boolean idle = false;
+    public final List<String> stack = new ArrayList<>();
+    public final List<String> locks = new ArrayList<>();
+    public final LinkedList<String> traversedComponents = new LinkedList<>();
 
     public ThreadDump(String header) {
         this.header = header;
@@ -86,5 +86,9 @@ public class ThreadDump {
             }
         }
         return component;
+    }
+
+    public String getStackTrace() {
+        return String.join("\n", stack);
     }
 }

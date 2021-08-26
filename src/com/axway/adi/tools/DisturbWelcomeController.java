@@ -1,7 +1,6 @@
 package com.axway.adi.tools;
 
 import java.util.*;
-import com.axway.adi.tools.util.db.DbConstants;
 import com.axway.adi.tools.util.db.DbConstants.ResourceType;
 import com.axway.adi.tools.util.db.DiagnosticSpecification;
 import com.axway.adi.tools.util.db.SupportCase;
@@ -12,6 +11,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
 import static com.axway.adi.tools.DisturbMain.MAIN;
+import static com.axway.adi.tools.util.DiagnosticCatalog.CAT;
 import static com.axway.adi.tools.util.db.DbConstants.Status.InProgress;
 
 public class DisturbWelcomeController extends AbstractController {
@@ -19,9 +19,9 @@ public class DisturbWelcomeController extends AbstractController {
     public TableView<Map<String, Object>> diagTable;
 
     void loadData() {
-        MAIN.CAT.getSupportCasesByStatus(InProgress).forEach(sc -> supportInProgressList.getItems().add(sc));
+        CAT.getSupportCasesByStatus(InProgress).forEach(sc -> supportInProgressList.getItems().add(sc));
         ResourceType.concrete().forEach(rt -> {
-            List<DiagnosticSpecification> diagnostics = MAIN.CAT.getDiagnosticsByType(rt);
+            List<DiagnosticSpecification> diagnostics = CAT.getDiagnosticsByType(rt);
             int customs = (int)diagnostics.stream().filter(DiagnosticSpecification::isCustom).count();
             diagTable.getItems().add(Map.of("name", rt.name(), "builtin", diagnostics.size() - customs, "custom", customs));
         });

@@ -75,24 +75,14 @@
    <center>
       <TableView fx:id="errorTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
-            <TableColumn editable="false" prefWidth="411.0" text="Thread">
+            <TableColumn editable="false" prefWidth="411.0" text="Name">
                 <cellValueFactory>
-                    <MapValueFactory key="thread" />
+                    <MapValueFactory key="spec" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn editable="false" prefWidth="193.0" text="Status">
+            <TableColumn editable="false" prefWidth="411.0" text="Diagnostic">
                 <cellValueFactory>
-                    <MapValueFactory key="status" />
-                </cellValueFactory>
-            </TableColumn>
-            <TableColumn editable="false" prefWidth="25.0" text="Idle">
-                <cellValueFactory>
-                    <MapValueFactory key="idle"/>
-                </cellValueFactory>
-            </TableColumn>
-            <TableColumn editable="false" prefWidth="193.0" text="Error">
-                <cellValueFactory>
-                    <MapValueFactory key="error"/>
+                    <MapValueFactory key="diag"/>
                 </cellValueFactory>
             </TableColumn>
         </columns>
