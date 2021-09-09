@@ -39,6 +39,7 @@ import javafx.stage.Stage;
 
 import static com.axway.adi.tools.DisturbMain.MAIN;
 import static com.axway.adi.tools.util.DiagnosticPersistence.DB;
+import static com.axway.adi.tools.util.FileUtils.getDeploymentFolder;
 import static javafx.scene.control.Alert.AlertType.ERROR;
 
 public class DisturbCaseController extends AbstractController {
@@ -113,6 +114,7 @@ public class DisturbCaseController extends AbstractController {
 
     public void onLoadJira(ActionEvent actionEvent) {
         String caseId = supportCaseId.getText();
+        supportCase.id = caseId;
         // Browse cases
         if (caseId.trim().isEmpty()) {
             //TODO browse open tornado cases
@@ -145,9 +147,10 @@ public class DisturbCaseController extends AbstractController {
         } catch (IOException e) {
             AlertHelper.show(ERROR, e.getMessage());
         }
+        actionEvent.consume();
     }
 
-    private void addResource(String name, String remotePath) {
+    private SupportCaseResource addResource(String name, String remotePath) {
         SupportCaseResource res = new SupportCaseResource();
         res.name = name;
         res.remote_path = remotePath;
@@ -165,6 +168,7 @@ public class DisturbCaseController extends AbstractController {
         res.type = type.ordinal();
         resourceTable.getItems().add(res);
         supportCase.addItem(res);
+        return res;
     }
 
     public void buildDefaultLocalDirectory() {
@@ -189,13 +193,41 @@ public class DisturbCaseController extends AbstractController {
     }
 
     public void onLoadDisk(ActionEvent actionEvent) {
-        String caseId = supportCaseId.getText();
-        // Browse cases
-        if (caseId.trim().isEmpty()) {
-            //TODO browse root directory sub folders
-        }
-        // search local path
+        // Connect to local path
         buildDefaultLocalDirectory();
+
+        // Browse
+        Path caseRoot = Path.of(supportCase.getLocalPath());
+        Set<Path> excludedDirectories = new HashSet<>();
+        try {
+            // Browse files first
+            Files.list(caseRoot) //
+                    .filter(Files::isRegularFile) //
+                    .forEach(sub -> {
+                        SupportCaseResource res = addResource(sub.getFileName().toString(), null);
+                        res.local_path = sub.toString();
+                        try {
+                            String deploymentFolder = getDeploymentFolder(res.local_path);
+                            Path deploymentPath = Path.of(deploymentFolder);
+                            if (deploymentFolder != null && !deploymentFolder.isEmpty() && Files.isDirectory(deploymentPath)) {
+                                res.local_ex_path = deploymentFolder;
+                                excludedDirectories.add(deploymentPath);
+                            }
+                        } catch (FileNotFoundException e) {
+                            //skip
+                        }
+                    });
+            // Browse directories
+            Files.list(caseRoot) //
+                    .filter(sub -> Files.isDirectory(sub) && !excludedDirectories.contains(sub)) //
+                    .forEach(sub -> {
+                        SupportCaseResource res = addResource(sub.getFileName().toString(), null);
+                        res.local_path = sub.toString();
+                    });
+        } catch (IOException e) {
+            // skip
+        }
+        actionEvent.consume();
     }
 
     public void onResourceKeyPressed(KeyEvent keyEvent) {
@@ -206,6 +238,7 @@ public class DisturbCaseController extends AbstractController {
             SupportCaseResource[] supportCaseResources = resourceTable.getSelectionModel().getSelectedItems().toArray(new SupportCaseResource[0]);
             Arrays.stream(supportCaseResources).forEach(item -> item.ignored = true);
             resourceTable.getItems().removeAll(supportCaseResources);
+            keyEvent.consume();
         }
     }
 
@@ -236,6 +269,7 @@ public class DisturbCaseController extends AbstractController {
 
         // Start the Task.
         executor.start();
+        actionEvent.consume();
     }
 
     private void onRunStarted() {
@@ -282,9 +316,11 @@ public class DisturbCaseController extends AbstractController {
         // flush editor fields
         supportCase.id = supportCaseId.getText();
 
-        DB.insert(supportCase);
-        DB.insert(supportCase.getResources());
-        //MAIN.welcome();
+        if (MAIN.isOnline()) {
+            DB.insert(supportCase);
+            DB.insert(supportCase.getResources());
+        }
+        MAIN.welcome();
         actionEvent.consume();
     }
 }

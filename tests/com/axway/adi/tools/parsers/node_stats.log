@@ -1,0 +1,164 @@
+2021-07-01 14:58:11,776 [FelixStartLevel] INFO platform - ###############################################################################
+2021-07-01 14:58:11,778 [FelixStartLevel] INFO platform - #                                                                             #
+2021-07-01 14:58:11,779 [FelixStartLevel] INFO platform - #   JVM INFORMATION                                                           #
+2021-07-01 14:58:11,779 [FelixStartLevel] INFO platform - #                                                                             #
+2021-07-01 14:58:11,779 [FelixStartLevel] INFO platform - ###############################################################################
+2021-07-01 14:58:11,792 [FelixStartLevel] INFO platform - Server {"args": {"processors": 4, "requiredMemory": 56045338624, "memory": {"totalMemory": "62G", "freeMemory": "41G", "totalSwap": "2047M", "freeSwap": "2047M"}}}
+2021-07-01 14:58:11,794 [FelixStartLevel] INFO platform - Java Virtual Machine {"args": {"home": "/applis/l1jp/DecisionInsight/product/DecisionInsight_20200803-05/lib/jre", "info": "mixed mode", "name": "OpenJDK 64-Bit Server VM", "specification.name": "Java Virtual Machine Specification", "specification.vendor": "Oracle Corporation", "specification.version": "14", "vendor": "AdoptOpenJDK", "version": "14.0.2+12", "jit": "HotSpot 64-Bit Tiered Compilers"}}
+2021-07-01 14:58:11,795 [FelixStartLevel] INFO platform - Operating system {"args": {"arch": "amd64", "name": "Linux", "version": "3.10.0-1160.24.1.el7.x86_64"}}
+2021-07-01 14:58:11,795 [FelixStartLevel] INFO platform - OSGi normalized operating system {"args": {"name": "linux", "version": "3.10.0.1160_24_1_el7_x86_64", "processor": "x86-64"}}
+2021-07-01 14:58:11,796 [FelixStartLevel] INFO platform - Process {"args": {"user": "l1jpadm", "arguments": ["-Djava.awt.headless=true", "-Duser.timezone=", "-Xms512M", "-Xmx52G", "-XX:+HeapDumpOnOutOfMemoryError", "--add-opens=java.base/java.net=ALL-UNNAMED", "--add-opens=java.base/java.lang=ALL-UNNAMED", "--add-opens=java.base/sun.net.www.protocol.file=ALL-UNNAMED", "--add-opens=java.base/sun.net.www.protocol.ftp=ALL-UNNAMED", "--add-opens=java.base/sun.net.www.protocol.http=ALL-UNNAMED", "--add-opens=java.base/sun.net.www.protocol.https=ALL-UNNAMED", "--add-opens=java.base/sun.net.www.protocol.jar=ALL-UNNAMED", "-XX:+UseParallelGC", "-XX:+CrashOnOutOfMemoryError", "--add-exports=java.base/jdk.internal.ref=ALL-UNNAMED", "--add-opens=java.base/java.util=ALL-UNNAMED", "--add-opens=java.base/java.lang.reflect=ALL-UNNAMED", "--add-opens=java.base/java.text=ALL-UNNAMED", "--add-opens=java.desktop/java.awt.font=ALL-UNNAMED", "--add-opens=java.base/java.nio=ALL-UNNAMED", "--add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED", "--add-opens=java.base/java.lang.invoke=ALL-UNNAMED", "--add-opens=java.base/java.util.concurrent=ALL-UNNAMED", "--add-opens=java.base/java.io=ALL-UNNAMED", "--add-opens=java.base/java.math=ALL-UNNAMED", "--add-opens=java.base/java.util.stream=ALL-UNNAMED", "--add-opens=java.management/javax.management=ALL-UNNAMED", "-Dcom.systar.platform.dir=/applis/l1jp/DecisionInsight", "-Dcom.systar.product.dir=/applis/l1jp/DecisionInsight/product/DecisionInsight_20200803-05"]}}
+2021-07-01 14:58:11,797 [FelixStartLevel] INFO platform - Directories {"args": {"work": {"path": "/applis/l1jp/DecisionInsight/var", "total": "439G", "free": "382G"}, "temp": {"path": "/applis/l1jp/DecisionInsight/var/tmp", "total": "439G", "free": "382G"}, "user": {"path": "/applis/l1jp/DecisionInsight/var", "total": "439G", "free": "382G"}}}
+2021-07-01 14:58:11,800 [FelixStartLevel] INFO platform - JVM Heap Memory {"args": {"initial": "512M", "maximum": "46G", "pools": [{"name": "PS Old Gen", "initial": "341M", "max": "34G", "managers": ["PS MarkSweep"]}, {"name": "PS Survivor Space", "initial": "21M", "max": "38M", "managers": ["PS MarkSweep", "PS Scavenge"]}, {"name": "PS Eden Space", "initial": "128M", "max": "17G", "managers": ["PS MarkSweep", "PS Scavenge"]}]}}
+2021-07-01 14:58:11,801 [FelixStartLevel] INFO platform - JVM Non-heap Memory {"args": {"initial": "7488k", "maximum": "-1b", "pools": [{"name": "CodeHeap 'non-nmethods'", "initial": "2496k", "max": "5700k", "managers": ["CodeCacheManager"]}, {"name": "Metaspace", "initial": "0b", "max": "-1b", "managers": ["Metaspace Manager"]}, {"name": "CodeHeap 'profiled nmethods'", "initial": "2496k", "max": "117M", "managers": ["CodeCacheManager"]}, {"name": "CodeHeap 'non-profiled nmethods'", "initial": "2496k", "max": "117M", "managers": ["CodeCacheManager"]}]}}
+2021-07-01 14:58:11,802 [FelixStartLevel] INFO platform - JVM defaults {"args": {"charset": "UTF-8", "timezone": "Europe/Paris", "locale": "en_US"}}
+2021-07-01 14:58:11,807 [FelixStartLevel] INFO platform - User limits {"args": {"limits": [{"name": "Max cpu time", "soft": "unlimited", "hard": "unlimited"}, {"name": "Max file size", "soft": "unlimited", "hard": "unlimited"}, {"name": "Max data size", "soft": "unlimited", "hard": "unlimited"}, {"name": "Max stack size", "soft": "8388608", "hard": "unlimited"}, {"name": "Max core file size", "soft": "0", "hard": "0"}, {"name": "Max resident set", "soft": "unlimited", "hard": "unlimited"}, {"name": "Max processes", "soft": "65536", "hard": "65536"}, {"name": "Max open files", "soft": "65536", "hard": "65536"}, {"name": "Max locked memory", "soft": "65536", "hard": "65536"}, {"name": "Max address space", "soft": "unlimited", "hard": "unlimited"}, {"name": "Max file locks", "soft": "unlimited", "hard": "unlimited"}, {"name": "Max pending signals", "soft": "254520", "hard": "254520"}, {"name": "Max msgqueue size", "soft": "819200", "hard": "819200"}, {"name": "Max nice priority", "soft": "0", "hard": "0"}, {"name": "Max realtime priority", "soft": "0", "hard": "0"}, {"name": "Max realtime timeout", "soft": "unlimited", "hard": "unlimited"}]}}
+2021-07-01 14:58:12,002 [FelixStartLevel] INFO com.transactis.authentication.Activator - WS URL: https://localhost:8443/l1j1/ws/
+2021-07-01 14:58:12,004 [FelixStartLevel] INFO com.transactis.authentication.AuthenticationFilter - Init authentication filter
+2021-07-01 14:58:12,004 [FelixStartLevel] INFO com.transactis.authentication.Activator - Authentication filter has been registered
+2021-07-01 14:58:12,009 [FelixStartLevel] INFO org.apache.camel.impl.osgi.Activator - Camel activator starting
+2021-07-01 14:58:12,011 [FelixStartLevel] INFO org.apache.camel.impl.osgi.Activator - Camel activator started
+2021-07-01 14:58:12,156 [FelixStartLevel] INFO org.apache.aries.jmx.1.1.5 - Starting JMX OSGi agent
+2021-07-01 14:58:12,166 [FelixStartLevel] INFO org.apache.aries.jmx.1.1.5 - Registering org.osgi.jmx.framework.wiring.BundleWiringStateMBean to MBeanServer com.sun.jmx.mbeanserver.JmxMBeanServer@4e6fb0c5 with name osgi.core:type=wiringState,version=1.1,framework=org.apache.felix.framework,uuid=4eb62365-283a-4cc0-9dd1-a407731df41c
+2021-07-01 14:58:12,167 [FelixStartLevel] INFO org.apache.aries.jmx.1.1.5 - Registering org.osgi.jmx.framework.ServiceStateMBean to MBeanServer com.sun.jmx.mbeanserver.JmxMBeanServer@4e6fb0c5 with name osgi.core:type=serviceState,version=1.7,framework=org.apache.felix.framework,uuid=4eb62365-283a-4cc0-9dd1-a407731df41c
+2021-07-01 14:58:12,168 [FelixStartLevel] INFO org.apache.aries.jmx.1.1.5 - Registering org.osgi.jmx.framework.BundleStateMBean to MBeanServer com.sun.jmx.mbeanserver.JmxMBeanServer@4e6fb0c5 with name osgi.core:type=bundleState,version=1.7,framework=org.apache.felix.framework,uuid=4eb62365-283a-4cc0-9dd1-a407731df41c
+2021-07-01 14:58:12,168 [FelixStartLevel] INFO org.apache.aries.jmx.1.1.5 - Registering org.osgi.jmx.framework.PackageStateMBean to MBeanServer com.sun.jmx.mbeanserver.JmxMBeanServer@4e6fb0c5 with name osgi.core:type=packageState,version=1.5,framework=org.apache.felix.framework,uuid=4eb62365-283a-4cc0-9dd1-a407731df41c
+2021-07-01 14:58:12,169 [FelixStartLevel] INFO org.apache.aries.jmx.1.1.5 - Registering org.osgi.jmx.framework.FrameworkMBean to MBeanServer com.sun.jmx.mbeanserver.JmxMBeanServer@4e6fb0c5 with name osgi.core:type=framework,version=1.7,framework=org.apache.felix.framework,uuid=4eb62365-283a-4cc0-9dd1-a407731df41c
+2021-07-01 14:58:12,187 [FelixStartLevel] INFO org.apache.aries.spifly.BaseActivator - Examining bundle for SPI provider: groovy
+2021-07-01 14:58:12,188 [FelixStartLevel] INFO org.apache.aries.spifly.BaseActivator - Found SPI resource: bundle://4eb62365-283a-4cc0-9dd1-a407731df41c_206.0:0/META-INF/services/org.codehaus.groovy.transform.ASTTransformation
+2021-07-01 14:58:12,188 [FelixStartLevel] INFO org.apache.aries.spifly.BaseActivator - Found SPI resource: bundle://4eb62365-283a-4cc0-9dd1-a407731df41c_209.0:0/META-INF/services/org.apache.groovy.json.FastStringServiceFactory
+2021-07-01 14:58:12,189 [FelixStartLevel] INFO org.apache.aries.spifly.BaseActivator - Loaded SPI provider: class org.apache.groovy.json.DefaultFastStringServiceFactory
+2021-07-01 14:58:12,189 [FelixStartLevel] INFO org.apache.aries.spifly.BaseActivator - Registered provider: org.apache.groovy.json.FastStringServiceFactory in bundle groovy
+2021-07-01 14:58:12,190 [FelixStartLevel] INFO org.apache.aries.spifly.BaseActivator - Examining bundle for SPI provider: org.eclipse.jetty.http
+2021-07-01 14:58:12,190 [FelixStartLevel] INFO org.apache.aries.spifly.BaseActivator - Found SPI resource: bundle://4eb62365-283a-4cc0-9dd1-a407731df41c_255.0:0/META-INF/services/org.eclipse.jetty.http.HttpFieldPreEncoder
+2021-07-01 14:58:12,190 [FelixStartLevel] INFO org.apache.aries.spifly.BaseActivator - Loaded SPI provider: class org.eclipse.jetty.http.Http1FieldPreEncoder
+2021-07-01 14:58:12,191 [FelixStartLevel] INFO org.apache.aries.spifly.BaseActivator - Registered service: org.apache.felix.framework.ServiceRegistrationImpl@4830abe4
+2021-07-01 14:58:12,191 [FelixStartLevel] INFO org.apache.aries.spifly.BaseActivator - Registered provider: org.eclipse.jetty.http.HttpFieldPreEncoder in bundle org.eclipse.jetty.http
+2021-07-01 14:58:12,843 [FelixStartLevel] INFO org.apache.felix.http.jetty.light.4.0.16 - Started Jetty 9.4.30.v20200611 at port(s) HTTPS:8443 on context path / [minThreads=8,maxThreads=200,acceptors=1,selectors=2]
+2021-07-01 14:58:12,868 [FelixStartLevel] INFO org.apache.felix.http.jetty.light.4.0.16 - org.jolokia.http.AgentServlet: Using custom access restriction provided by com.systar.boson.activator.jmx.JolokiaActivator$JolokiaRestrictor@64d2cf16
+2021-07-01 14:58:12,990 [FelixStartLevel] INFO platform - ###############################################################################
+2021-07-01 14:58:12,990 [FelixStartLevel] INFO platform - #                                                                             #
+2021-07-01 14:58:12,990 [FelixStartLevel] INFO platform - #   STARTING PLATFORM                                                         #
+2021-07-01 14:58:12,990 [FelixStartLevel] INFO platform - #                                                                             #
+2021-07-01 14:58:12,991 [FelixStartLevel] INFO platform - ###############################################################################
+2021-07-01 14:58:12,991 [FelixStartLevel] INFO platform - Starting platform {"args": {"name": "DecisionInsight", "label": "Axway Decision Insight 2.0.0", "release": "20200803-05", "path": "/applis/l1jp/DecisionInsight"}}
+2021-07-01 14:58:13,365 [Domain-platform-7] INFO platform.licenceObserver - Installing licence bundle {"args": {"name": "com.axway.adi.licence.bundle.societe-generale-resg-gts"}}
+2021-07-01 14:58:13,410 [Domain-platform-2] INFO platform.extender - Starting domain {"args": {"domain": "actinium-activitypagelet", "bundle": "com.systar.actinium.activitypagelet.impl [28]"}}
+2021-07-01 14:58:13,470 [Domain-platform-2] INFO platform.extender - Starting domain {"args": {"domain": "actinium", "bundle": "com.systar.actinium.impl [29]"}}
+2021-07-01 14:58:13,508 [Domain-platform-2] INFO platform.extender - Starting domain {"args": {"domain": "aluminium-camel-sandbox", "bundle": "com.systar.aluminium.camel.sandbox.impl [32]"}}
+2021-07-01 14:58:13,524 [Domain-platform-2] INFO platform.extender - Starting domain {"args": {"domain": "data-integration", "bundle": "com.systar.aluminium.common.impl [34]"}}
+2021-07-01 14:58:13,545 [Domain-platform-2] INFO platform.extender - Starting domain {"args": {"domain": "aluminium-connector", "bundle": "com.systar.aluminium.connector.impl [36]"}}
+2021-07-01 14:58:13,588 [Domain-platform-2] INFO platform.extender - Starting domain {"args": {"domain": "aluminium", "bundle": "com.systar.aluminium.editor.impl [38]"}}
+2021-07-01 14:58:13,746 [Domain-platform-2] INFO platform.extender - Starting domain {"args": {"domain": "aluminium-engine", "bundle": "com.systar.aluminium.engine.impl [40]"}}
+2021-07-01 14:58:13,927 [Domain-platform-2] INFO platform.extender - Starting domain {"args": {"domain": "aluminium-webservice", "bundle": "com.systar.aluminium.webservice [43]"}}
+2021-07-01 14:58:13,976 [Domain-platform-2] INFO platform.extender - Starting domain {"args": {"domain": "argon", "bundle": "com.systar.argon [44]"}}
+2021-07-01 14:58:13,998 [Domain-platform-2] INFO platform.extender - Starting domain {"args": {"domain": "argon-migration", "bundle": "com.systar.argon.migration.appx [45]"}}
+2021-07-01 14:58:14,094 [Domain-platform-2] INFO platform.extender - Starting domain {"args": {"domain": "calcium", "bundle": "com.systar.calcium.impl [51]"}}
+2021-07-01 14:58:41,187 [Domain-platform-14-nodeAvailabilityMonitor] INFO platform.nodeAvailabilityMonitor - ###############################################################################
+2021-07-01 14:58:41,188 [Domain-platform-14-nodeAvailabilityMonitor] INFO platform.nodeAvailabilityMonitor - #                                                                             #
+2021-07-01 14:58:41,188 [Domain-platform-14-nodeAvailabilityMonitor] INFO platform.nodeAvailabilityMonitor - #   PLATFORM STARTED                                                          #
+2021-07-01 14:58:41,188 [Domain-platform-14-nodeAvailabilityMonitor] INFO platform.nodeAvailabilityMonitor - #                                                                             #
+2021-07-01 14:58:41,188 [Domain-platform-14-nodeAvailabilityMonitor] INFO platform.nodeAvailabilityMonitor - ###############################################################################
+2021-07-01 14:58:41,189 [Domain-platform-14-nodeAvailabilityMonitor] INFO platform.nodeAvailabilityMonitor - Platform started {"args": {"duration": "33.181 sec"}}
+2021-07-01 14:58:41,190 [Domain-platform-18-nodeAvailabilityMonitor] INFO calcium.asynchronousEventInterceptorHandlerStartupManager - Interceptors deployment started
+2021-07-01 14:58:41,194 [Domain-platform-24-nodeAvailabilityMonitor] INFO carbon-provisioning.automaticPlatformProvisioning - Automatic provisioning done
+2021-07-01 14:58:41,329 [Domain-calcium-53-threadPool] INFO calcium.automaticCheckpointCreationTask - Automatic checkpoint creation scheduled {"args": {"interval": "30 min"}}
+2021-07-01 14:58:41,890 [Domain-calcium-307-asynchronousEventInterceptorHandlers.1636030627892428801] INFO tungsten-cube.cubeEventInterceptorFactory - Cube interceptor created {"args": {"cubeUUID": "15f05e46-16e0-da44-16b4-593021300001", "name": "Cube_e9f9600f-3ee3-4994-80b1-d14d83a89b0d", "storedDataAggregationLimit": "2021-07-01T12:15:00.001Z", "lastAvailabilities": "[2019-06-10T22:00:00.000Z, 2021-07-01T12:20:00.000Z)"}}
+2021-07-01 14:58:43,951 [Domain-platform-15-nodeAvailabilityMonitor] WARN aluminium-engine.camelVersionChecker - Camel version mismatch between the platform and the library. {"args": {"platformVersion": "2.25.1", "libraryName": "ADIfonctionnel.quartz", "libraryVersion": "2.16.2"}}
+2021-07-01 14:58:43,953 [Domain-platform-15-nodeAvailabilityMonitor] WARN aluminium-engine.camelVersionChecker - Camel version mismatch between the platform and the library. {"args": {"platformVersion": "2.25.1", "libraryName": "Integration.quartz", "libraryVersion": "2.16.2"}}
+2021-07-01 14:51:24,713 [qtp211085997-39133] ERROR org.apache.felix.http.jetty.light.4.0.16 - Exception while processing request to /l1j1/ws/absorb/Habilitation/D_user_banque
+javax.servlet.ServletException: A MultiException has 1 exceptions.  They are:
+1. java.lang.IllegalStateException: ServiceLocatorImpl(__HK2_Generated_2,2,1923847896) has been shut down
+
+	at org.glassfish.jersey.servlet.WebComponent.serviceImpl(WebComponent.java:410) ~[?:?]
+	at org.glassfish.jersey.servlet.WebComponent.service(WebComponent.java:346) ~[?:?]
+	at org.glassfish.jersey.servlet.ServletContainer.service(ServletContainer.java:366) ~[?:?]
+	at org.glassfish.jersey.servlet.ServletContainer.service(ServletContainer.java:319) ~[?:?]
+	at org.glassfish.jersey.servlet.ServletContainer.service(ServletContainer.java:205) ~[?:?]
+	at org.apache.felix.http.base.internal.handler.ServletHandler.handle(ServletHandler.java:123) ~[?:?]
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:86) ~[?:?]
+	at com.systar.boson.activator.http.CSRFTokenFilter.doFilter(CSRFTokenFilter.java:32) ~[?:?]
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142) ~[?:?]
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81) ~[?:?]
+	at com.systar.boson.activator.http.SecurityCheckFilter.doFilter(SecurityCheckFilter.java:24) ~[?:?]
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142) ~[?:?]
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81) ~[?:?]
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:61) ~[?:?]
+	at org.apache.shiro.web.servlet.AdviceFilter.executeChain(AdviceFilter.java:108) ~[?:?]
+	at org.apache.shiro.web.servlet.AdviceFilter.doFilterInternal(AdviceFilter.java:137) ~[?:?]
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125) ~[?:?]
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:66) ~[?:?]
+	at org.apache.shiro.web.servlet.AdviceFilter.executeChain(AdviceFilter.java:108) ~[?:?]
+	at org.apache.shiro.web.servlet.AdviceFilter.doFilterInternal(AdviceFilter.java:137) ~[?:?]
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125) ~[?:?]
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:66) ~[?:?]
+	at com.systar.photon.application.impl.authentication.StatelessFilter.doFilterInternal(StatelessFilter.java:19) ~[?:?]
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125) ~[?:?]
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:66) ~[?:?]
+	at com.systar.photon.application.impl.authentication.CSRFDeactivationFilter.doFilter(CSRFDeactivationFilter.java:17) ~[?:?]
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:66) ~[?:?]
+	at com.systar.photon.application.impl.authentication.SecuritySetFilter.doFilterInternal(SecuritySetFilter.java:18) ~[?:?]
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125) ~[?:?]
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:66) ~[?:?]
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449) ~[?:?]
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365) ~[?:?]
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90) ~[?:?]
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83) ~[?:?]
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:387) ~[?:?]
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362) ~[?:?]
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125) ~[?:?]
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142) ~[?:?]
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81) ~[?:?]
+	at com.systar.boson.activator.http.SameOriginPolicyFilter.doFilter(SameOriginPolicyFilter.java:91) ~[?:?]
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142) ~[?:?]
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81) ~[?:?]
+	at com.systar.boson.activator.http.CSPProtectionFilter.doFilter(CSPProtectionFilter.java:40) ~[?:?]
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142) ~[?:?]
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81) ~[?:?]
+	at com.transactis.authentication.AuthenticationFilter.doFilter(AuthenticationFilter.java:108) ~[?:?]
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142) ~[?:?]
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81) ~[?:?]
+	at com.systar.boson.activator.http.RedirectToHttpsFilter.doFilter(RedirectToHttpsFilter.java:26) ~[?:?]
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142) ~[?:?]
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81) ~[?:?]
+	at com.systar.boson.activator.http.HttpMethodCheckFilter.doFilter(HttpMethodCheckFilter.java:30) ~[?:?]
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142) ~[?:?]
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81) ~[?:?]
+	at com.systar.photon.application.impl.XPermittedCrossDomainPoliciesFilter.doFilter(XPermittedCrossDomainPoliciesFilter.java:41) ~[?:?]
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142) ~[?:?]
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81) ~[?:?]
+	at com.systar.boson.activator.http.NoCacheFilter.doFilter(NoCacheFilter.java:33) ~[?:?]
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142) ~[?:?]
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81) ~[?:?]
+	at com.systar.boson.activator.http.HttpMimeTypeSniffingFilter.doFilter(HttpMimeTypeSniffingFilter.java:21) ~[?:?]
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142) ~[?:?]
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81) ~[?:?]
+	at com.systar.boson.activator.http.HttpClickJackingFilter.doFilter(HttpClickJackingFilter.java:21) ~[?:?]
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142) ~[?:?]
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81) ~[?:?]
+	at com.systar.boson.activator.http.XssProtectionFilter.doFilter(XssProtectionFilter.java:20) ~[?:?]
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142) ~[?:?]
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81) ~[?:?]
+	at com.systar.boson.activator.http.SameOriginPolicyDeactivationFilter.doFilter(SameOriginPolicyDeactivationFilter.java:19) ~[?:?]
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142) ~[?:?]
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81) ~[?:?]
+	at com.systar.boson.activator.http.HstsFilter.doFilter(HstsFilter.java:24) ~[?:?]
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142) ~[?:?]
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81) ~[?:?]
+	at com.systar.boson.activator.rest.RestServiceFilter.doFilter(RestServiceFilter.java:55) ~[?:?]
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142) ~[?:?]
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81) ~[?:?]
+	at com.systar.boson.activator.http.GZIPFilter.doFilter(GZIPFilter.java:26) ~[?:?]
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142) ~[?:?]
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81) ~[?:?]
+	at com.systar.boson.activator.http.HttpProtocolCheckFilter.doFilter(HttpProtocolCheckFilter.java:27) ~[?:?]
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142) ~[?:?]
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81) ~[?:?]
+	at org.apache.felix.http.base.internal.dispatch.Dispatcher$1.doFilter(Dispatcher.java:146) ~[?:?]
+	at org.apache.felix.http.base.internal.whiteboard.WhiteboardManager.invokePreprocessors(WhiteboardManager.java:988) ~[?:?]
+	at org.apache.felix.http.base.internal.dispatch.Dispatcher.dispatch(Dispatcher.java:91) ~[?:?]
+	at org.apache.felix.http.base.internal.dispatch.DispatcherServlet.service(DispatcherServlet.java:49) ~[?:?]
+2021-07-01 15:45:15,687 [QueueProcessorHandler.calciumAbsorb] INFO calcium.modelStorageProcessor - Valid time begin is updated for update operation {"args": {"TT": 1704090261977573377, "validTimeBegin": "2021-07-01T13:45:15.685Z", "operation": "{\"UpdateAttributeValueOperation\":{\"type\":\"UPDATE\",\"memberId\":1615309273137479681,\"validTimeBegin\":\"2021-07-01T13:45:15.686Z\",\"validTimeEnd\":\"UNTIL_END\",\"value\":\"2021-07-01T13:41:04.000Z\"}}"}}
+2021-07-01 15:45:15,753 [QueueProcessorHandler.calciumAbsorb] INFO calcium.modelStorageProcessor - Valid time begin is updated for update operation {"args": {"TT": 1704090262046777345, "validTimeBegin": "2021-07-01T13:45:15.747Z", "operation": "{\"UpdateAttributeValueOperation\":{\"type\":\"UPDATE\",\"memberId\":1615309273137479681,\"validTimeBegin\":\"2021-07-01T13:45:15.752Z\",\"validTimeEnd\":\"UNTIL_END\",\"value\":\"2021-07-01T13:41:15.000Z\"}}"}}
+2021-07-08 08:43:35,071 [QueueProcessorHandler.calciumAbsorb] INFO calcium.checkpointProcessor - Checkpoint was created {"args": {"TT": 1704697905526341633, "comment": "Automatic checkpoint at 2021-07-08T06:43:29.497Z", "duration": "5.337 sec"}}
+2021-07-08 08:43:35,113 [Domain-calcium-589-checkpointProcessor] INFO calcium.checkpointFileManager - Purging checkpoint {"args": {"TT": 1704692242532270081}}

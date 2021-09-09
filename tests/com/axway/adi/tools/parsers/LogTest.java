@@ -12,33 +12,34 @@ import static com.axway.adi.tools.util.DiagnosticCatalog.CAT;
 /**
  * Unit tests for the Thread dump.
  */
-public class FileListTest {
+public class LogTest {
 
-    public FileListTest() {
+    public LogTest() {
         CAT.load();
     }
 
     @Test
-    public void testFileListOrphaned() throws IOException {
+    public void testLogStatistics() throws IOException {
         List<DiagnosticResult> results = new ArrayList<>();
-        Parser parser = parseTestResource("file_list_data_orphaned.csv", results);
+        Parser parser = parseTestResource("node_stats.log", results);
 
         Assert.assertFalse(results.isEmpty(), "expected results");
-        Assert.assertEquals(parser.getSize(), 283, "expected number of files");
-        Optional<DiagnosticResult> result = results.stream().filter(r -> r.spec.equals("BUILTIN-FL-0001")).findFirst();
-        Assert.assertTrue(result.isPresent(), "expected result");
-        Assert.assertTrue(result.get().notes.contains("72 MB"), "expected orphaned volume in notes");
+        Assert.assertEquals(parser.getSize(), 73, "expected number of files");
+        Optional<DiagnosticResult> result = results.stream().filter(r -> r.spec.equals("BUILTIN-LG-0001")).findFirst();
+        Assert.assertTrue(result.isPresent(), "expected log statistics result");
+        Assert.assertTrue(result.get().notes.contains("Errors: 1"), "expected 1 error in notes");
+        Assert.assertTrue(result.get().notes.contains("Warnings: 2"), "expected 2 warnings in notes");
     }
 
     @Test
-    public void testFileListHuge() throws IOException {
+    public void testLogManyReplicas() throws IOException {
         List<DiagnosticResult> results = new ArrayList<>();
-        parseTestResource("file_list_data_huge.csv", results);
+        parseTestResource("node_many_replicas.log", results);
 
         Assert.assertFalse(results.isEmpty(), "expected results");
-        Optional<DiagnosticResult> result = results.stream().filter(r -> r.spec.equals("BUILTIN-FL-0002")).findFirst();
-        Assert.assertTrue(result.isPresent(), "expected result");
-        Assert.assertTrue(result.get().notes.contains("5,3 GB"), "expected huge volume in notes");
+        Optional<DiagnosticResult> result = results.stream().filter(r -> r.spec.equals("BUILTIN-LG-0002")).findFirst();
+        Assert.assertTrue(result.isPresent(), "expected many replicas result");
+        Assert.assertTrue(result.get().notes.contains("19 replicas detected"), "expected many replicas in notes");
     }
 
     private Parser parseTestResource(String resourceName, List<DiagnosticResult> results) throws IOException {
@@ -48,7 +49,7 @@ public class FileListTest {
         if (res.local_path.startsWith("/") && res.local_path.charAt(2) == ':') {
             res.local_path = res.local_path.substring(1);
         }
-        Parser parser = new FileListParser(res);
+        Parser parser = new LogParser(res);
         parser.parse(results::add);
         return parser;
     }

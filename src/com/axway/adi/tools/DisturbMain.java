@@ -4,6 +4,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
+import java.sql.SQLException;
 import java.util.*;
 import com.axway.adi.tools.util.DiagnosticBuilder;
 import com.axway.adi.tools.util.DiagnosticPersistence;
@@ -23,6 +24,7 @@ public class DisturbMain extends Application {
 
     public static DisturbMain MAIN;
 
+    private static final String TITLE = "DISTurb (Decision Insight Support Tool)";
     private static final String PROPERTIES_PATH = "disturb.properties";
     private static final String ROOT = "LocalRoot";
     private final Properties properties = new Properties();
@@ -39,20 +41,28 @@ public class DisturbMain extends Application {
         stage = primaryStage;
 
         loadProperties();
+        loadData();
 
-        primaryStage.setTitle("DISTURB (Decision Insight Support Tool U Require, Baby)");
+        primaryStage.setTitle(TITLE + (isOnline() ? "" : " - OFFLINE"));
 
         loadWelcomeScene();
         loadCaseScene();
         primaryStage.setScene(welcomeScene);
 
-        DB = new DiagnosticPersistence();
-        DB.connect();
-        debugData();
-        CAT.load();
-
         welcomeController.loadData();
         primaryStage.show();
+    }
+
+    private void loadData() {
+        try {
+            DB = new DiagnosticPersistence();
+            DB.connect();
+            debugData();
+        } catch (SQLException e) {
+            DB = null;
+            //AlertHelper.show(Alert.AlertType.WARNING, "Cannot connect to DB\nSwitching to offline mode");
+        }
+        CAT.load();
     }
 
     private void debugData() {
@@ -131,6 +141,10 @@ public class DisturbMain extends Application {
 
     public String getRootDirectory() {
         return getProperty(ROOT);
+    }
+
+    public boolean isOnline() {
+        return DB != null;
     }
 
     public static void main(String[] args) {

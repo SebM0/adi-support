@@ -17,7 +17,7 @@ public class DiagnosticPersistence {
 
     private Connection connection;
 
-    public void connect() {
+    public void connect() throws SQLException {
         //Load the driver class
         try {
             Class.forName("org.postgresql.Driver");
@@ -26,15 +26,7 @@ public class DiagnosticPersistence {
             System.exit(-1);
         }
         //get the connection
-        try {
-            connection = DriverManager.getConnection("jdbc:postgresql://qa08.adi.axway.int:5432/support", "support", "Tornado01");
-        } catch (SQLException ex) {
-            System.out.println("Error getting connection: " + ex.getMessage());
-            System.exit(-1);
-        } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            System.exit(-1);
-        }
+        connection = DriverManager.getConnection("jdbc:postgresql://qa08.adi.axway.int:5432/support", "support", "Tornado01");
     }
 
     public <K extends DbObject> List<K> select(Class<K> clazz) {
@@ -95,6 +87,18 @@ public class DiagnosticPersistence {
         insert(item, true);
     }
 
+    public <K extends DbObject> void delete(K item) {
+        try {
+            DbAnalysis dbAnalysis = DbAnalysis.analyze(item);
+            String deleteQuery = "DELETE FROM \"" + dbAnalysis.tableName + "\" WHERE " + dbAnalysis.primaryField + " = " + dbAnalysis.valueList.getFirst();
+            executeUpdate(deleteQuery);
+        } catch (SQLException ex) {
+            System.out.println("Exception while executing statement. Terminating program... " + ex.getMessage());
+        } catch (Exception ex) {
+            System.out.println("General exception while executing query. Terminating the program..." + ex.getMessage());
+        }
+    }
+
     public <K extends DbObject> void insert(Collection<K> items) {
         boolean first = true;
         for (K item : items) {
@@ -103,20 +107,22 @@ public class DiagnosticPersistence {
         }
     }
 
-    private <K extends DbObject> void insert(K item, boolean deleteIfNeeded) {
-        Class<? extends DbObject> clazz = item.getClass();
-        DbBind dbBind = clazz.getDeclaredAnnotation(DbBind.class);
-        if (dbBind == null) {
-            System.out.println("Error getting binding from: " + item.getClass().getSimpleName());
-            System.exit(-1);
-        }
-        String tableName = dbBind.value();
-        try {
-            StringBuilder query = new StringBuilder("INSERT INTO \"" + tableName + "\"(");
-            LinkedList<String> fieldList = new LinkedList<>();
-            LinkedList<String> valueList = new LinkedList<>();
-            String primaryField = null;
-            String foreignClause = null;
+    private static class DbAnalysis {
+        String tableName;
+        LinkedList<String> fieldList = new LinkedList<>();
+        LinkedList<String> valueList = new LinkedList<>();
+        String primaryField = null;
+        String foreignClause = null;
+
+        static <K extends DbObject> DbAnalysis analyze(K item) throws IllegalAccessException {
+            DbAnalysis dbAnalysis = new DbAnalysis();
+            Class<? extends DbObject> clazz = item.getClass();
+            DbBind dbBind = clazz.getDeclaredAnnotation(DbBind.class);
+            if (dbBind == null) {
+                System.out.println("Error getting binding from: " + item.getClass().getSimpleName());
+                System.exit(-1);
+            }
+            dbAnalysis.tableName = dbBind.value();
             for (Field field : clazz.getDeclaredFields()) {
                 if (!field.canAccess(item))
                     continue;
@@ -126,35 +132,43 @@ public class DiagnosticPersistence {
                 DbBind fieldBind = field.getDeclaredAnnotation(DbBind.class);
                 boolean isPrimary = fieldBind != null && fieldBind.primary();
                 if (isPrimary) {
-                    primaryField = field.getName();
-                    fieldList.addFirst(field.getName());
+                    dbAnalysis.primaryField = field.getName();
+                    dbAnalysis.fieldList.addFirst(field.getName());
                 } else {
-                    fieldList.addLast(field.getName());
+                    dbAnalysis.fieldList.addLast(field.getName());
                 }
                 boolean isForeign = fieldBind != null && fieldBind.foreign();
                 boolean isString = field.getType().isAssignableFrom(String.class);
                 String valueStr = isString ? "'" + value.toString() + "'" : value.toString();
                 if (isPrimary) {
-                    valueList.addFirst(valueStr);
+                    dbAnalysis.valueList.addFirst(valueStr);
                 } else {
-                    valueList.addLast(valueStr);
+                    dbAnalysis.valueList.addLast(valueStr);
                 }
                 if (isForeign) {
-                    foreignClause = field.getName() + " = " + valueStr;
+                    dbAnalysis.foreignClause = field.getName() + " = " + valueStr;
                 }
             }
-            query.append(String.join(", ", fieldList));
+            return dbAnalysis;
+        }
+    }
+
+    private <K extends DbObject> void insert(K item, boolean deleteIfNeeded) {
+        try {
+            DbAnalysis dbAnalysis = DbAnalysis.analyze(item);
+            StringBuilder query = new StringBuilder("INSERT INTO \"" + dbAnalysis.tableName + "\"(");
+            query.append(String.join(", ", dbAnalysis.fieldList));
             query.append(") VALUES (");
-            query.append(String.join(", ", valueList));
+            query.append(String.join(", ", dbAnalysis.valueList));
             query.append(")");
-            if (primaryField != null) {
+            if (dbAnalysis.primaryField != null) {
                 query.append(" ON CONFLICT (");
-                query.append(primaryField);
+                query.append(dbAnalysis.primaryField);
                 query.append(") DO UPDATE SET ");
-                String[] updates = fieldList.stream().skip(1).map(field -> field + " = EXCLUDED." + field).toArray(String[]::new);
+                String[] updates = dbAnalysis.fieldList.stream().skip(1).map(field -> field + " = EXCLUDED." + field).toArray(String[]::new);
                 query.append(String.join(", ", updates));
-            } else if (deleteIfNeeded && foreignClause != null) {
-                String deleteQuery = "DELETE FROM \"" + tableName + "\" WHERE " + foreignClause;
+            } else if (deleteIfNeeded && dbAnalysis.foreignClause != null) {
+                String deleteQuery = "DELETE FROM \"" + dbAnalysis.tableName + "\" WHERE " + dbAnalysis.foreignClause;
                 executeUpdate(deleteQuery);
             }
             executeUpdate(query.toString());

@@ -1,0 +1,153 @@
+2021-07-01 14:58:12,990 [FelixStartLevel] INFO platform - ###############################################################################
+2021-07-01 14:58:12,990 [FelixStartLevel] INFO platform - #                                                                             #
+2021-07-01 14:58:12,990 [FelixStartLevel] INFO platform - #   STARTING PLATFORM                                                         #
+2021-07-01 14:58:12,990 [FelixStartLevel] INFO platform - #                                                                             #
+2021-07-01 14:58:12,991 [FelixStartLevel] INFO platform - ###############################################################################
+2021-07-01 14:58:12,991 [FelixStartLevel] INFO platform - Starting platform {"args": {"name": "DecisionInsight", "label": "Axway Decision Insight 2.0.0", "release": "20200803-05", "path": "/applis/l1jp/DecisionInsight"}}
+2021-07-01 14:58:13,365 [Domain-platform-7] INFO platform.licenceObserver - Installing licence bundle {"args": {"name": "com.axway.adi.licence.bundle.societe-generale-resg-gts"}}
+2021-07-01 14:58:14,785 [Domain-electron-6] INFO electron.clusterNodeInformation - Platform setup {"args": {"type": "PRIMARY"}}
+2021-07-01 15:58:32,933 [Domain-copper-13-threadPool] INFO copper.licenceChecker - Platform licensed to SOCIETE GENERALE RESG/GTS
+2021-07-01 15:58:42,416 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ: [id: 0x724c5465, L:/192.118.107.136:9010 - R:/192.118.107.137:57748]
+2021-07-01 15:58:42,416 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ COMPLETE
+2021-07-01 15:58:42,426 [Domain-electron-19-communicationServerManager] INFO electron.communicationServerManager - Channel unregistered {"args": {"type": "REDOLOG"}}
+2021-07-01 15:58:42,427 [Domain-calcium-596-databaseRedoLogServer] INFO electron.communicationServerManager - Channel registered {"args": {"type": "REDOLOG"}}
+2021-07-01 15:58:42,427 [Domain-calcium-596-databaseRedoLogServer] INFO electron.communicationServerManager - Channel initialization successful sent {"args": {"type": "REDOLOG"}}
+2021-07-01 15:58:42,428 [Domain-calcium-596-databaseRedoLogServer] INFO electron.communicationServerManager - Channel pipeline initialization done {"args": {"type": "REDOLOG"}}
+2021-07-01 15:58:42,428 [Domain-calcium-596-databaseRedoLogServer] INFO calcium.databaseRedoLogServer - Consumer node is now consuming redo log {"args": {"node": "/192.118.107.137:57748", "redo log": 1704089219712942081}}
+2021-07-01 15:58:42,440 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ: [id: 0x99c59152, L:/192.118.107.136:9010 - R:/192.118.107.138:42416]
+2021-07-01 15:58:42,440 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ COMPLETE
+2021-07-01 15:58:42,447 [Domain-electron-20-communicationServerManager] INFO electron.communicationServerManager - Channel unregistered {"args": {"type": "REDOLOG"}}
+2021-07-01 15:58:42,447 [Domain-calcium-597-databaseRedoLogServer] INFO electron.communicationServerManager - Channel registered {"args": {"type": "REDOLOG"}}
+2021-07-01 15:58:42,448 [Domain-calcium-597-databaseRedoLogServer] INFO electron.communicationServerManager - Channel initialization successful sent {"args": {"type": "REDOLOG"}}
+2021-07-01 15:58:42,448 [Domain-calcium-597-databaseRedoLogServer] INFO electron.communicationServerManager - Channel pipeline initialization done {"args": {"type": "REDOLOG"}}
+2021-07-01 15:58:42,449 [Domain-calcium-597-databaseRedoLogServer] INFO calcium.databaseRedoLogServer - Consumer node is now consuming redo log {"args": {"node": "/192.118.107.138:42416", "redo log": 1704089219712942081}}
+2021-07-01 15:58:42,605 [Domain-calcium-83-threadPool] INFO calcium.storageManager - Creation of checkpoint is in progress {"args": {"mode": "WAIT", "comment": "Automatic checkpoint at 2021-07-01T13:58:42.604Z"}}
+2021-07-01 15:58:47,435 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ: [id: 0xdd281bf5, L:/192.118.107.136:9010 - R:/192.118.107.137:57750]
+2021-07-01 15:58:47,436 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ COMPLETE
+2021-07-01 15:58:47,436 [Domain-electron-13-communicationServerManager] INFO electron.communicationServerManager - Channel unregistered {"args": {"type": "REDOLOG"}}
+2021-07-01 15:58:47,437 [Domain-calcium-598-databaseRedoLogServer] INFO electron.communicationServerManager - Channel registered {"args": {"type": "REDOLOG"}}
+2021-07-01 15:58:47,437 [Domain-calcium-598-databaseRedoLogServer] INFO electron.communicationServerManager - Channel initialization successful sent {"args": {"type": "REDOLOG"}}
+2021-07-01 15:58:47,438 [Domain-calcium-598-databaseRedoLogServer] INFO electron.communicationServerManager - Channel pipeline initialization done {"args": {"type": "REDOLOG"}}
+2021-07-01 15:58:47,438 [Domain-calcium-598-databaseRedoLogServer] INFO calcium.databaseRedoLogServer - Consumer node is now consuming redo log {"args": {"node": "/192.118.107.137:57750", "redo log": 1704089219712942081}}
+2021-07-01 15:58:47,456 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ: [id: 0x8a9f55a2, L:/192.118.107.136:9010 - R:/192.118.107.138:42420]
+2021-07-01 15:58:47,456 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ COMPLETE
+2021-07-01 15:58:47,457 [Domain-electron-14-communicationServerManager] INFO electron.communicationServerManager - Channel unregistered {"args": {"type": "REDOLOG"}}
+2021-07-01 15:58:47,457 [Domain-calcium-599-databaseRedoLogServer] INFO electron.communicationServerManager - Channel registered {"args": {"type": "REDOLOG"}}
+2021-07-01 15:58:47,458 [Domain-calcium-599-databaseRedoLogServer] INFO electron.communicationServerManager - Channel initialization successful sent {"args": {"type": "REDOLOG"}}
+2021-07-01 15:58:47,458 [Domain-calcium-599-databaseRedoLogServer] INFO electron.communicationServerManager - Channel pipeline initialization done {"args": {"type": "REDOLOG"}}
+2021-07-01 15:58:47,458 [Domain-calcium-599-databaseRedoLogServer] INFO calcium.databaseRedoLogServer - Consumer node is now consuming redo log {"args": {"node": "/192.118.107.138:42420", "redo log": 1704089219712942081}}
+2021-07-01 15:58:52,445 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ: [id: 0x26c19ab3, L:/192.118.107.136:9010 - R:/192.118.107.137:57796]
+2021-07-01 15:58:52,445 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ COMPLETE
+2021-07-01 15:58:52,446 [Domain-electron-15-communicationServerManager] INFO electron.communicationServerManager - Channel unregistered {"args": {"type": "REDOLOG"}}
+2021-07-01 15:58:52,446 [Domain-calcium-600-databaseRedoLogServer] INFO electron.communicationServerManager - Channel registered {"args": {"type": "REDOLOG"}}
+2021-07-01 15:58:52,447 [Domain-calcium-600-databaseRedoLogServer] INFO electron.communicationServerManager - Channel initialization successful sent {"args": {"type": "REDOLOG"}}
+2021-07-01 15:58:52,447 [Domain-calcium-600-databaseRedoLogServer] INFO electron.communicationServerManager - Channel pipeline initialization done {"args": {"type": "REDOLOG"}}
+2021-07-01 15:58:52,447 [Domain-calcium-600-databaseRedoLogServer] INFO calcium.databaseRedoLogServer - Consumer node is now consuming redo log {"args": {"node": "/192.118.107.137:57796", "redo log": 1704089219712942081}}
+2021-07-01 15:58:52,465 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ: [id: 0x4f720f20, L:/192.118.107.136:9010 - R:/192.118.107.138:42462]
+2021-07-01 15:58:52,465 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ COMPLETE
+2021-07-01 15:58:52,466 [Domain-electron-16-communicationServerManager] INFO electron.communicationServerManager - Channel unregistered {"args": {"type": "REDOLOG"}}
+2021-07-01 15:58:52,466 [Domain-calcium-403-databaseRedoLogServer] INFO electron.communicationServerManager - Channel registered {"args": {"type": "REDOLOG"}}
+2021-07-01 15:58:52,466 [Domain-calcium-403-databaseRedoLogServer] INFO electron.communicationServerManager - Channel initialization successful sent {"args": {"type": "REDOLOG"}}
+2021-07-01 15:58:52,466 [Domain-calcium-403-databaseRedoLogServer] INFO electron.communicationServerManager - Channel pipeline initialization done {"args": {"type": "REDOLOG"}}
+2021-07-01 15:58:52,466 [Domain-calcium-403-databaseRedoLogServer] INFO calcium.databaseRedoLogServer - Consumer node is now consuming redo log {"args": {"node": "/192.118.107.138:42462", "redo log": 1704089219712942081}}
+2021-07-01 15:58:57,455 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ: [id: 0x98eaab35, L:/192.118.107.136:9010 - R:/192.118.107.137:57798]
+2021-07-01 15:58:57,455 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ COMPLETE
+2021-07-01 15:58:57,455 [Domain-electron-17-communicationServerManager] INFO electron.communicationServerManager - Channel unregistered {"args": {"type": "REDOLOG"}}
+2021-07-01 15:58:57,473 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ: [id: 0xda849d32, L:/192.118.107.136:9010 - R:/192.118.107.138:42464]
+2021-07-01 15:58:57,473 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ COMPLETE
+2021-07-01 15:58:57,473 [Domain-electron-18-communicationServerManager] INFO electron.communicationServerManager - Channel unregistered {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:25,656 [Domain-calcium-576-databaseRedoLogServer] INFO electron.communicationServerManager - Channel registered {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:25,656 [Domain-calcium-576-databaseRedoLogServer] INFO electron.communicationServerManager - Channel initialization successful sent {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:25,656 [Domain-calcium-576-databaseRedoLogServer] INFO electron.communicationServerManager - Channel pipeline initialization done {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:25,667 [Domain-calcium-578-databaseRedoLogServer] INFO electron.communicationServerManager - Channel registered {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:25,667 [Domain-calcium-578-databaseRedoLogServer] INFO electron.communicationServerManager - Channel initialization successful sent {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:25,667 [Domain-calcium-578-databaseRedoLogServer] INFO electron.communicationServerManager - Channel pipeline initialization done {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:25,668 [Domain-calcium-576-databaseRedoLogServer] INFO calcium.databaseRedoLogServer - Consumer node is now consuming redo log {"args": {"node": "/192.118.107.137:57798", "redo log": 1704089219712942081}}
+2021-07-01 15:59:25,669 [Domain-calcium-578-databaseRedoLogServer] INFO calcium.databaseRedoLogServer - Consumer node is now consuming redo log {"args": {"node": "/192.118.107.138:42464", "redo log": 1704089219712942081}}
+2021-07-01 15:59:25,704 [Domain-calcium-83-threadPool] INFO calcium.requestPreprocessor - Checkpoint absorption initialized {"args": {"TT": 1704091153286037505, "duration": "51 ms"}}
+2021-07-01 15:59:25,706 [QueueProcessorHandler.databaseRedoLogAbsorb] INFO calcium.redoLogManager - Checkpoint transaction detected, will now produce transactions into redo log {"args": {"tt": 1704091153286037505}}
+2021-07-01 15:59:25,707 [Domain-calcium-578-databaseRedoLogServer] INFO calcium.databaseRedoLogServer - Consumer node is now consuming redo log {"args": {"node": "/192.118.107.138:42464", "redo log": 1704091153286037505}}
+2021-07-01 15:59:25,707 [Domain-calcium-576-databaseRedoLogServer] INFO calcium.databaseRedoLogServer - Consumer node is now consuming redo log {"args": {"node": "/192.118.107.137:57798", "redo log": 1704091153286037505}}
+2021-07-01 15:59:47,007 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ: [id: 0x7081f166, L:/192.118.107.136:9010 - R:/192.118.107.138:42678]
+2021-07-01 15:59:47,007 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ COMPLETE
+2021-07-01 15:59:47,007 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ: [id: 0x443553bc, L:/192.118.107.136:9010 - R:/192.118.107.137:58052]
+2021-07-01 15:59:47,007 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ COMPLETE
+2021-07-01 15:59:47,008 [Domain-electron-20-communicationServerManager] INFO electron.communicationServerManager - Channel unregistered {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:47,008 [Domain-calcium-596-databaseRedoLogServer] INFO electron.communicationServerManager - Channel registered {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:47,008 [Domain-calcium-596-databaseRedoLogServer] INFO electron.communicationServerManager - Channel initialization successful sent {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:47,008 [Domain-calcium-596-databaseRedoLogServer] INFO electron.communicationServerManager - Channel pipeline initialization done {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:47,009 [Domain-electron-19-communicationServerManager] INFO electron.communicationServerManager - Channel unregistered {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:47,009 [Domain-calcium-597-databaseRedoLogServer] INFO electron.communicationServerManager - Channel registered {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:47,009 [Domain-calcium-597-databaseRedoLogServer] INFO electron.communicationServerManager - Channel initialization successful sent {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:47,009 [Domain-calcium-597-databaseRedoLogServer] INFO electron.communicationServerManager - Channel pipeline initialization done {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:47,009 [Domain-calcium-597-databaseRedoLogServer] INFO calcium.databaseRedoLogServer - Consumer node is now consuming redo log {"args": {"node": "/192.118.107.138:42678", "redo log": 1704091153286037505}}
+2021-07-01 15:59:47,009 [Domain-calcium-596-databaseRedoLogServer] INFO calcium.databaseRedoLogServer - Consumer node is now consuming redo log {"args": {"node": "/192.118.107.137:58052", "redo log": 1704091153286037505}}
+2021-07-01 15:59:52,015 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ: [id: 0x9f7ee536, L:/192.118.107.136:9010 - R:/192.118.107.138:42680]
+2021-07-01 15:59:52,015 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ COMPLETE
+2021-07-01 15:59:52,016 [Domain-electron-13-communicationServerManager] INFO electron.communicationServerManager - Channel unregistered {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:52,016 [Domain-calcium-598-databaseRedoLogServer] INFO electron.communicationServerManager - Channel registered {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:52,017 [Domain-calcium-598-databaseRedoLogServer] INFO electron.communicationServerManager - Channel initialization successful sent {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:52,017 [Domain-calcium-598-databaseRedoLogServer] INFO electron.communicationServerManager - Channel pipeline initialization done {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:52,017 [Domain-calcium-598-databaseRedoLogServer] INFO calcium.databaseRedoLogServer - Consumer node is now consuming redo log {"args": {"node": "/192.118.107.138:42680", "redo log": 1704091153286037505}}
+2021-07-01 15:59:52,018 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ: [id: 0xf9034ee2, L:/192.118.107.136:9010 - R:/192.118.107.137:58074]
+2021-07-01 15:59:52,018 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ COMPLETE
+2021-07-01 15:59:52,018 [Domain-electron-14-communicationServerManager] INFO electron.communicationServerManager - Channel unregistered {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:52,018 [Domain-calcium-599-databaseRedoLogServer] INFO electron.communicationServerManager - Channel registered {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:52,018 [Domain-calcium-599-databaseRedoLogServer] INFO electron.communicationServerManager - Channel initialization successful sent {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:52,018 [Domain-calcium-599-databaseRedoLogServer] INFO electron.communicationServerManager - Channel pipeline initialization done {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:52,018 [Domain-calcium-599-databaseRedoLogServer] INFO calcium.databaseRedoLogServer - Consumer node is now consuming redo log {"args": {"node": "/192.118.107.137:58074", "redo log": 1704091153286037505}}
+2021-07-01 15:59:57,024 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ: [id: 0xa6b1378c, L:/192.118.107.136:9010 - R:/192.118.107.138:42692]
+2021-07-01 15:59:57,025 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ COMPLETE
+2021-07-01 15:59:57,025 [Domain-electron-15-communicationServerManager] INFO electron.communicationServerManager - Channel unregistered {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:57,025 [Domain-calcium-600-databaseRedoLogServer] INFO electron.communicationServerManager - Channel registered {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:57,025 [Domain-calcium-600-databaseRedoLogServer] INFO electron.communicationServerManager - Channel initialization successful sent {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:57,026 [Domain-calcium-600-databaseRedoLogServer] INFO electron.communicationServerManager - Channel pipeline initialization done {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:57,026 [Domain-calcium-600-databaseRedoLogServer] INFO calcium.databaseRedoLogServer - Consumer node is now consuming redo log {"args": {"node": "/192.118.107.138:42692", "redo log": 1704091153286037505}}
+2021-07-01 15:59:57,026 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ: [id: 0x4abcc3fc, L:/192.118.107.136:9010 - R:/192.118.107.137:58076]
+2021-07-01 15:59:57,026 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ COMPLETE
+2021-07-01 15:59:57,026 [Domain-electron-16-communicationServerManager] INFO electron.communicationServerManager - Channel unregistered {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:57,026 [Domain-calcium-403-databaseRedoLogServer] INFO electron.communicationServerManager - Channel registered {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:57,026 [Domain-calcium-403-databaseRedoLogServer] INFO electron.communicationServerManager - Channel initialization successful sent {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:57,027 [Domain-calcium-403-databaseRedoLogServer] INFO electron.communicationServerManager - Channel pipeline initialization done {"args": {"type": "REDOLOG"}}
+2021-07-01 15:59:57,027 [Domain-calcium-403-databaseRedoLogServer] INFO calcium.databaseRedoLogServer - Consumer node is now consuming redo log {"args": {"node": "/192.118.107.137:58076", "redo log": 1704091153286037505}}
+2021-07-01 16:00:02,032 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ: [id: 0xaffcbf68, L:/192.118.107.136:9010 - R:/192.118.107.138:42728]
+2021-07-01 16:00:02,033 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ COMPLETE
+2021-07-01 16:00:02,033 [Domain-electron-17-communicationServerManager] INFO electron.communicationServerManager - Channel unregistered {"args": {"type": "REDOLOG"}}
+2021-07-01 16:00:02,034 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ: [id: 0xd0a76f71, L:/192.118.107.136:9010 - R:/192.118.107.137:58122]
+2021-07-01 16:00:02,034 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ COMPLETE
+2021-07-01 16:00:02,034 [Domain-electron-18-communicationServerManager] INFO electron.communicationServerManager - Channel unregistered {"args": {"type": "REDOLOG"}}
+2021-07-01 16:00:06,997 [Domain-calcium-576-databaseRedoLogServer] INFO electron.communicationServerManager - Channel registered {"args": {"type": "REDOLOG"}}
+2021-07-01 16:00:06,997 [Domain-calcium-576-databaseRedoLogServer] INFO electron.communicationServerManager - Channel initialization successful sent {"args": {"type": "REDOLOG"}}
+2021-07-01 16:00:06,997 [Domain-calcium-576-databaseRedoLogServer] INFO electron.communicationServerManager - Channel pipeline initialization done {"args": {"type": "REDOLOG"}}
+2021-07-01 16:00:06,997 [Domain-calcium-578-databaseRedoLogServer] INFO electron.communicationServerManager - Channel registered {"args": {"type": "REDOLOG"}}
+2021-07-01 16:00:07,010 [Domain-calcium-578-databaseRedoLogServer] INFO electron.communicationServerManager - Channel initialization successful sent {"args": {"type": "REDOLOG"}}
+2021-07-01 16:00:07,010 [Domain-calcium-578-databaseRedoLogServer] INFO electron.communicationServerManager - Channel pipeline initialization done {"args": {"type": "REDOLOG"}}
+2021-07-01 16:00:07,010 [Domain-calcium-576-databaseRedoLogServer] INFO calcium.databaseRedoLogServer - Consumer node is now consuming redo log {"args": {"node": "/192.118.107.138:42728", "redo log": 1704091153286037505}}
+2021-07-01 16:00:07,016 [Domain-calcium-578-databaseRedoLogServer] INFO calcium.databaseRedoLogServer - Consumer node is now consuming redo log {"args": {"node": "/192.118.107.137:58122", "redo log": 1704091153286037505}}
+2021-07-01 16:00:08,553 [SessionValidationThread-1] INFO org.apache.shiro.session.mgt.AbstractValidatingSessionManager - Validating all active sessions...
+2021-07-01 16:00:08,553 [SessionValidationThread-1] INFO org.apache.shiro.session.mgt.AbstractValidatingSessionManager - Finished session validation.  No sessions were stopped.
+2021-07-01 16:00:12,255 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ: [id: 0xa917ae3a, L:/192.118.107.136:9010 - R:/192.118.107.138:42774]
+2021-07-01 16:00:12,255 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ COMPLETE
+2021-07-01 16:00:12,255 [Domain-electron-19-communicationServerManager] INFO electron.communicationServerManager - Channel unregistered {"args": {"type": "REDOLOG"}}
+2021-07-01 16:00:12,267 [Domain-calcium-596-databaseRedoLogServer] INFO electron.communicationServerManager - Channel registered {"args": {"type": "REDOLOG"}}
+2021-07-01 16:00:12,267 [Domain-calcium-596-databaseRedoLogServer] INFO electron.communicationServerManager - Channel initialization successful sent {"args": {"type": "REDOLOG"}}
+2021-07-01 16:00:12,267 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ: [id: 0x081c459d, L:/192.118.107.136:9010 - R:/192.118.107.137:58174]
+2021-07-01 16:00:12,268 [Domain-calcium-596-databaseRedoLogServer] INFO electron.communicationServerManager - Channel pipeline initialization done {"args": {"type": "REDOLOG"}}
+2021-07-01 16:00:12,268 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ COMPLETE
+2021-07-01 16:00:12,268 [Domain-calcium-596-databaseRedoLogServer] INFO calcium.databaseRedoLogServer - Consumer node is now consuming redo log {"args": {"node": "/192.118.107.138:42774", "redo log": 1704091153286037505}}
+2021-07-01 16:00:12,268 [Domain-electron-20-communicationServerManager] INFO electron.communicationServerManager - Channel unregistered {"args": {"type": "REDOLOG"}}
+2021-07-01 16:00:12,268 [Domain-calcium-597-databaseRedoLogServer] INFO electron.communicationServerManager - Channel registered {"args": {"type": "REDOLOG"}}
+2021-07-01 16:00:12,268 [Domain-calcium-597-databaseRedoLogServer] INFO electron.communicationServerManager - Channel initialization successful sent {"args": {"type": "REDOLOG"}}
+2021-07-01 16:00:12,268 [Domain-calcium-597-databaseRedoLogServer] INFO electron.communicationServerManager - Channel pipeline initialization done {"args": {"type": "REDOLOG"}}
+2021-07-01 16:00:12,269 [Domain-calcium-597-databaseRedoLogServer] INFO calcium.databaseRedoLogServer - Consumer node is now consuming redo log {"args": {"node": "/192.118.107.137:58174", "redo log": 1704091153286037505}}
+2021-07-01 16:00:15,867 [Domain-calcium-156-asynchronousEventInterceptorHandlers.1614678746657196033] INFO krypton-scheduler.lateDataHandler - Flush late events because of maximum retention period exceeded
+2021-07-01 16:00:15,867 [Domain-calcium-156-asynchronousEventInterceptorHandlers.1614678746657196033] INFO krypton-scheduler.lateDataHandler - Events flushed {"args": {"active recomputing": "1 day", "lateAvailabilities": "LateAvailabilities{dateOfFirstReceivedEvent=1625147715422, numberOfEvents=2102, maxInterval=160000, lateMemberAvailabilitiesByTopic={1615309273685837825=2021-07-01T15:51:20.001+02:00/2021-07-01T15:54:00.001+02:00, 1615309273331408897=2021-07-01T15:51:20.001+02:00/2021-07-01T15:54:00.001+02:00, 1615309273553715201=2021-07-01T15:51:20.002+02:00/2021-07-01T15:54:00.001+02:00, 1615309273360775169=2021-07-01T15:51:55.001+02:00/2021-07-01T15:54:00.001+02:00, 1615309273156321281=2021-07-01T15:51:20.002+02:00/2021-07-01T15:54:00.001+02:00, 1615309273259073537=2021-07-01T15:51:20.002+02:00/2021-07-01T15:54:00.001+02:00, 1615309273156325377=2021-07-01T15:51:20.002+02:00/2021-07-01T15:54:00.001+02:00, 1615309273259075585=2021-07-01T15:51:20.002+02:00/2021-07-01T15:54:00.001+02:00}, lateInstanceAvailabilitiesByTopic={1615309273333516289=2021-07-01T15:51:20.002+02:00/2021-07-01T15:54:00.001+02:00}, entityIdByInstanceAvailabilityTopic={1615309273333516289=1615309273134329857}}"}}
+2021-07-01 16:00:17,273 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ: [id: 0x17f5215e, L:/192.118.107.136:9010 - R:/192.118.107.137:58176]
+2021-07-01 16:00:17,273 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ COMPLETE
+2021-07-01 16:00:17,274 [Domain-electron-13-communicationServerManager] INFO electron.communicationServerManager - Channel unregistered {"args": {"type": "REDOLOG"}}
+2021-07-01 16:00:17,274 [Domain-calcium-598-databaseRedoLogServer] INFO electron.communicationServerManager - Channel registered {"args": {"type": "REDOLOG"}}
+2021-07-01 16:00:17,275 [Domain-calcium-598-databaseRedoLogServer] INFO electron.communicationServerManager - Channel initialization successful sent {"args": {"type": "REDOLOG"}}
+2021-07-01 16:00:17,275 [Domain-calcium-598-databaseRedoLogServer] INFO electron.communicationServerManager - Channel pipeline initialization done {"args": {"type": "REDOLOG"}}
+2021-07-01 16:00:17,275 [Domain-calcium-598-databaseRedoLogServer] INFO calcium.databaseRedoLogServer - Consumer node is now consuming redo log {"args": {"node": "/192.118.107.137:58176", "redo log": 1704091153286037505}}
+2021-07-01 16:00:17,293 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ: [id: 0x8a42feb3, L:/192.118.107.136:9010 - R:/192.118.107.138:42782]
+2021-07-01 16:00:17,293 [Domain-electron-12-communicationServerManager] INFO io.netty.handler.logging.LoggingHandler - [id: 0x381c10cd, L:/192.118.107.136:9010] READ COMPLETE

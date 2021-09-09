@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import com.axway.adi.tools.parsers.FileListParser;
 import com.axway.adi.tools.parsers.LogParser;
 import com.axway.adi.tools.parsers.Parser;
 import com.axway.adi.tools.parsers.ThreadDumpParser;
@@ -167,6 +168,9 @@ public class ThreadDumpController implements Initializable {
         res.local_path = file.getAbsolutePath();
         if (file.getName().toLowerCase().contains(".log")) {
             return new LogParser(res);
+        }
+        if (file.getPath().toLowerCase().contains("file-list")) {
+            return new FileListParser(res);
         }
         return new ThreadDumpParser(res);
     }

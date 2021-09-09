@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-
 <?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 <SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="547.0" prefWidth="721.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.axway.adi.tools.DisturbWelcomeController">
     <items>
         <BorderPane prefHeight="200.0" prefWidth="200.0">
@@ -22,7 +28,7 @@
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
-                                        <ListView fx:id="supportInProgressList" layoutX="33.0" layoutY="56.0" onMouseClicked="#onSupportInProgressClicked" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                        <ListView fx:id="supportInProgressList" layoutX="33.0" layoutY="56.0" onKeyPressed="#onSupportInProgressKey" onMouseClicked="#onSupportInProgressClicked" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     </children>
                                 </AnchorPane>
                             </content>
@@ -47,19 +53,14 @@
          <center>
             <TableView fx:id="diagTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <columns>
-                <TableColumn editable="false" prefWidth="250.0" text="Diagnostic type">
+                <TableColumn editable="false" prefWidth="300.0" text="Diagnostic type">
                     <cellValueFactory>
-                        <MapValueFactory key="name"/>
+                        <MapValueFactory key="name" />
                     </cellValueFactory>
                 </TableColumn>
-                  <TableColumn minWidth="0.0" prefWidth="50.0" text="Built-in">
+                  <TableColumn minWidth="0.0" prefWidth="54.0" text="Count">
                       <cellValueFactory>
-                          <MapValueFactory key="builtin"/>
-                      </cellValueFactory>
-                  </TableColumn>
-                  <TableColumn minWidth="0.0" prefWidth="50.0" text="Custom">
-                      <cellValueFactory>
-                          <MapValueFactory key="custom"/>
+                          <MapValueFactory key="count" />
                       </cellValueFactory>
                   </TableColumn>
               </columns>
