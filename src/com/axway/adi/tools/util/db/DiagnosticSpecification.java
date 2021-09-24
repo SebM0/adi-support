@@ -47,6 +47,7 @@ public class DiagnosticSpecification implements DbObject {
 
     public DiagnosticResult createResult(SupportCaseResource res) {
         DiagnosticResult result = new DiagnosticResult();
+        result.parent_resource = res;
         result.parent_case = res.parent_case;
         result.spec = id;
         return result;

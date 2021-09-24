@@ -88,9 +88,11 @@ public class DisturbCaseController extends AbstractController {
             TableColumn<DiagnosticResult, Number> LevelColumn = (TableColumn<DiagnosticResult, Number>) columns.get(0);
             LevelColumn.setCellFactory(column -> new ImageTableCell<>(Arrays.stream(Level.values()).map(Object::toString).toArray(String[]::new)));
             LevelColumn.setCellValueFactory(cellData -> new ReadOnlyIntegerWrapper(cellData.getValue().getLevel()));
-            TableColumn<DiagnosticResult, String> diagColumn = (TableColumn<DiagnosticResult, String>) columns.get(1);
+            TableColumn<DiagnosticResult, String> resourceColumn = (TableColumn<DiagnosticResult, String>) columns.get(1);
+            resourceColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getParentResource()));
+            TableColumn<DiagnosticResult, String> diagColumn = (TableColumn<DiagnosticResult, String>) columns.get(2);
             diagColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getSpecName()));
-            TableColumn<DiagnosticResult, String> resultColumn = (TableColumn<DiagnosticResult, String>) columns.get(2);
+            TableColumn<DiagnosticResult, String> resultColumn = (TableColumn<DiagnosticResult, String>) columns.get(3);
             resultColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().toString()));
         }
     }
@@ -113,10 +115,10 @@ public class DisturbCaseController extends AbstractController {
     }
 
     public void onLoadJira(ActionEvent actionEvent) {
-        String caseId = supportCaseId.getText();
+        String caseId = supportCaseId.getText().trim();
         supportCase.id = caseId;
         // Browse cases
-        if (caseId.trim().isEmpty()) {
+        if (caseId.isEmpty()) {
             //TODO browse open tornado cases
         }
         String remote = "https://jira.axway.com/rest/api/2/issue/" + caseId;
@@ -128,7 +130,10 @@ public class DisturbCaseController extends AbstractController {
                 AlertHelper.show(ERROR, "Cannot read issue");
                 return;
             }
-            customerName.setText(fields.getAsJsonArray("customfield_11830").get(0).getAsString());
+            JsonElement child = fields.get("customfield_11830");
+            if (child instanceof JsonArray) {
+                customerName.setText(((JsonArray)child).get(0).getAsString());
+            }
             releaseName.setText(fields.getAsJsonArray("versions").get(0).getAsJsonObject().getAsJsonPrimitive("name").getAsString());
             summary.setText(fields.getAsJsonPrimitive("summary").getAsString());
             JsonArray atts = fields.getAsJsonArray("attachment");
@@ -174,7 +179,8 @@ public class DisturbCaseController extends AbstractController {
     public void buildDefaultLocalDirectory() {
         try {
             if (supportCase.local_path == null || supportCase.local_path.isEmpty()) {
-                String caseId = supportCaseId.getText();
+                String caseId = supportCaseId.getText().trim();
+                supportCase.id = caseId;
                 // search local path
                 Path root = Path.of(MAIN.getRootDirectory());
                 if (Files.exists(root)) {

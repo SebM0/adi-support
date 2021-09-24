@@ -24,7 +24,7 @@ public abstract class Parser {
         if (Files.isDirectory(path)) {
             AtomicReference<IOException> excepCollector = new AtomicReference<>();
             try (Stream<Path> stream = Files.walk(path, Integer.MAX_VALUE)) {
-                stream.filter(Files::isRegularFile).limit(1).forEach(subPath -> {
+                filterFiles(stream.filter(Files::isRegularFile)).forEach(subPath -> {
                     try {
                         parseFile(subPath, resultConsumer);
                     } catch (IOException e) {
@@ -36,6 +36,10 @@ public abstract class Parser {
                 throw excepCollector.get();
             }
         }
+    }
+
+    protected Stream<Path> filterFiles(Stream<Path> stream) {
+        return stream.limit(1);
     }
 
     protected abstract void parseFile(Path filePath, Consumer<DiagnosticResult> resultConsumer) throws IOException;

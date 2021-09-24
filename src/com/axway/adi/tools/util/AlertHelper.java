@@ -3,6 +3,8 @@ package com.axway.adi.tools.util;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
+import static javafx.application.Platform.*;
+
 public class AlertHelper {
     private AlertHelper() {}
 
@@ -12,6 +14,10 @@ public class AlertHelper {
         alert.setHeaderText(null);
         alert.setContentText(message);
 
-        alert.showAndWait();
+        if (isFxApplicationThread()) {
+            alert.showAndWait();
+        } else {
+            runLater(alert::showAndWait);
+        }
     }
 }

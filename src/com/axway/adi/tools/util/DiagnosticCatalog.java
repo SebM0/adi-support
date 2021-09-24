@@ -5,8 +5,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 import com.axway.adi.tools.diagnostics.FileListHuge;
+import com.axway.adi.tools.diagnostics.FileListLVStorageNotActivated;
 import com.axway.adi.tools.diagnostics.FileListOrphaned;
+import com.axway.adi.tools.diagnostics.LogLVStorageNotActivated;
 import com.axway.adi.tools.diagnostics.LogManyReplicas;
+import com.axway.adi.tools.diagnostics.LogManyZooKeeperClients;
 import com.axway.adi.tools.diagnostics.LogStatistics;
 import com.axway.adi.tools.diagnostics.ThreadDumpFlowedAbsorption;
 import com.axway.adi.tools.diagnostics.ThreadDumpLowPerformancePlanOperators;
@@ -76,8 +79,11 @@ public class DiagnosticCatalog {
         addDiagnostic(new ThreadDumpFlowedAbsorption());
         addDiagnostic(new LogStatistics());
         addDiagnostic(new LogManyReplicas());
+        addDiagnostic(new LogManyZooKeeperClients());
+        addDiagnostic(new LogLVStorageNotActivated());
         addDiagnostic(new FileListOrphaned());
         addDiagnostic(new FileListHuge());
+        addDiagnostic(new FileListLVStorageNotActivated());
     }
 
     public List<SupportCase> getSupportCasesByStatus(Status status) {

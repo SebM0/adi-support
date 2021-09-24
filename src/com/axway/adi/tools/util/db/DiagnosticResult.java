@@ -9,6 +9,7 @@ public class DiagnosticResult implements DbObject {
     public String spec;
     public String parent_case;
     public String notes;
+    public SupportCaseResource parent_resource;
 
     private List<DiagnosticResultItem> items = new ArrayList<>();
 
@@ -36,6 +37,14 @@ public class DiagnosticResult implements DbObject {
     public String getSpecName() {
         DiagnosticSpecification specification = getSpec();
         return specification != null ? specification.name : spec;
+    }
+
+    public String getParentResource() {
+        SupportCaseResource res = parent_resource;
+        while (res != null && res.getParentResource() != null) {
+            res = res.getParentResource();
+        }
+        return res != null ? res.name : "";
     }
 
     public String toString() {

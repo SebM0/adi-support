@@ -4,17 +4,15 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
-import com.axway.adi.tools.util.AlertHelper;
-import com.axway.adi.tools.util.db.DbConstants;
 import com.axway.adi.tools.util.db.SupportCaseResource;
 
 import static com.axway.adi.tools.util.db.DbConstants.ResourceType.*;
-import static javafx.scene.control.Alert.AlertType.ERROR;
 
 public class DiscoverOperation extends Operation {
     private static final String APPX_FOLDER = "Applications";
     private static final String THREADS_FOLDER = "thread-dumps";
     private static final String FILE_LIST_FOLDER = "file-list";
+    private static final String LOG_FOLDER = "var/log";
 
     private final Path extendedPath;
 
@@ -48,8 +46,13 @@ public class DiscoverOperation extends Operation {
                 SupportCaseResource sub = new SupportCaseResource(resource, extendedPath.resolve(FILE_LIST_FOLDER), FileList);
                 driver.addOperation(new ScanOperation(sub));
             }
+            if (subFolderExists(LOG_FOLDER)) {
+                SupportCaseResource sub = new SupportCaseResource(resource, extendedPath.resolve(LOG_FOLDER), Log);
+                driver.addOperation(new ScanOperation(sub));
+            }
         } catch (Exception e) {
-            AlertHelper.show(ERROR, e.getMessage());
+            System.err.println(e.getMessage());
+            //AlertHelper.show(ERROR, e.getMessage());
         }
     }
 

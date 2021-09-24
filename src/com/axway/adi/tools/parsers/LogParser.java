@@ -4,6 +4,7 @@ import java.io.*;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.function.*;
+import java.util.stream.*;
 import com.axway.adi.tools.util.AlertHelper;
 import com.axway.adi.tools.util.db.DbConstants;
 import com.axway.adi.tools.util.db.DiagnosticResult;
@@ -21,6 +22,15 @@ public class LogParser extends Parser {
 
     public LogParser(SupportCaseResource resource) {
         super(resource);
+    }
+
+    @Override
+    protected Stream<Path> filterFiles(Stream<Path> stream) {
+        List<Path> files = stream.collect(toList());
+        if (files.size() <= 3) {
+            return files.stream();
+        }
+        return files.stream().filter(f -> f.getFileName().toString().toLowerCase().startsWith("node.log"));
     }
 
     @Override

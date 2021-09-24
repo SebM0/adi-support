@@ -60,6 +60,10 @@ public class SupportCaseResource implements DbObject {
         return Path.of(getParent().getLocalPath(), name).toString();
     }
 
+    public SupportCaseResource getParentResource() {
+        return parent_resource;
+    }
+
     @Override
     public String toString() {
         return name;

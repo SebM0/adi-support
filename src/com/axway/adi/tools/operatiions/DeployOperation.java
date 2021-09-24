@@ -5,11 +5,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.concurrent.atomic.*;
 import java.util.stream.*;
-import com.axway.adi.tools.util.AlertHelper;
 import com.axway.adi.tools.util.db.SupportCaseResource;
 
 import static com.axway.adi.tools.util.FileUtils.getDeploymentFolder;
-import static javafx.scene.control.Alert.AlertType.ERROR;
 
 public class DeployOperation extends Operation {
     public DeployOperation(SupportCaseResource resource) {
@@ -40,7 +38,7 @@ public class DeployOperation extends Operation {
                 throw excepCollector.get();
             }
         } catch (Exception e) {
-            AlertHelper.show(ERROR, e.getMessage());
+            System.err.println(e.getMessage());
         }
     }
 
