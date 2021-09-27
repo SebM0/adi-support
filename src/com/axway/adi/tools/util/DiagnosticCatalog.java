@@ -4,6 +4,9 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import com.axway.adi.tools.diagnostics.AppxObsoleteTypes;
+import com.axway.adi.tools.diagnostics.AppxPurge;
+import com.axway.adi.tools.diagnostics.AppxStatistics;
 import com.axway.adi.tools.diagnostics.FileListHuge;
 import com.axway.adi.tools.diagnostics.FileListLVStorageNotActivated;
 import com.axway.adi.tools.diagnostics.FileListOrphaned;
@@ -53,7 +56,7 @@ public class DiagnosticCatalog {
             Map<String, DiagnosticSpecification> customSpecifications = DB.select(DiagnosticSpecification.class).stream().collect(toMap(c -> c.id, c -> c));
             customSpecifications.values().forEach(DiagnosticSpecification::setCustom);
             specifications.putAll(customSpecifications);
-        } else {
+        } else if (MAIN != null) {
             // Offline mode
             String rootDirectory = MAIN.getRootDirectory();
             if (rootDirectory != null && !rootDirectory.isEmpty()) {
@@ -84,6 +87,9 @@ public class DiagnosticCatalog {
         addDiagnostic(new FileListOrphaned());
         addDiagnostic(new FileListHuge());
         addDiagnostic(new FileListLVStorageNotActivated());
+        addDiagnostic(new AppxStatistics());
+        addDiagnostic(new AppxObsoleteTypes());
+        addDiagnostic(new AppxPurge());
     }
 
     public List<SupportCase> getSupportCasesByStatus(Status status) {

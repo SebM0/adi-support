@@ -1,5 +1,6 @@
 package com.axway.adi.tools.operatiions;
 
+import com.axway.adi.tools.parsers.ApplicationParser;
 import com.axway.adi.tools.parsers.FileListParser;
 import com.axway.adi.tools.parsers.LogParser;
 import com.axway.adi.tools.parsers.ThreadDumpParser;
@@ -30,6 +31,11 @@ public class ScanOperation extends Operation {
                 }
                 case FileList: {
                     FileListParser parser = new FileListParser(resource);
+                    parser.parse(driver::addResult);
+                    break;
+                }
+                case Appx: {
+                    ApplicationParser parser = new ApplicationParser(resource);
                     parser.parse(driver::addResult);
                     break;
                 }

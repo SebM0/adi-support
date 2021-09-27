@@ -8,6 +8,8 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import com.axway.adi.tools.operatiions.DeployOperation;
+import com.axway.adi.tools.parsers.ApplicationParser;
 import com.axway.adi.tools.parsers.FileListParser;
 import com.axway.adi.tools.parsers.LogParser;
 import com.axway.adi.tools.parsers.Parser;
@@ -146,7 +148,10 @@ public class ThreadDumpController implements Initializable {
     private void addErrorTableItem(DiagnosticResult key) {
         //boolean hideIdle = hideIdleThreads.isSelected();
         statistics.results.add(key);
-        Platform.runLater(() -> errorTable.getItems().add(Map.of("spec", key, "diag", key.notes)));
+        Platform.runLater(() -> {
+            errorTable.getItems().add(Map.of("spec", key, "diag", key.notes));
+            errorTable.refresh();
+        });
     }
 
     private void analyzeFile(File file) {
@@ -171,6 +176,14 @@ public class ThreadDumpController implements Initializable {
         }
         if (file.getPath().toLowerCase().contains("file-list")) {
             return new FileListParser(res);
+        }
+        if (file.getPath().toLowerCase().contains("application.xml")) {
+            return new ApplicationParser(res);
+        }
+        if (file.getPath().toLowerCase().contains(".appx")) {
+            DeployOperation deploy = new DeployOperation(res);
+            deploy.run();
+            return new ApplicationParser(res);
         }
         return new ThreadDumpParser(res);
     }

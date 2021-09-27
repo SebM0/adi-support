@@ -4,10 +4,14 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.DecimalFormat;
+import javax.xml.parsers.*;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 public class FileUtils {
-    public static final int MBYTES = 1024 * 1024;
     public static final int KBYTES = 1024;
+    public static final int MBYTES = 1024 * 1024;
     public static final int GBYTES = 1024 * 1024 * 1024;
 
     private FileUtils() {
@@ -45,5 +49,33 @@ public class FileUtils {
         double value = Math.round((fileSize * 10) / (unit * 1.0d)) / 10.0d;
         DecimalFormat format = (value < 10) ? new DecimalFormat("#0.0") : new DecimalFormat("#0");
         return format.format(value) + " " + unitString;
+    }
+
+    private static final String EXTERNAL_GENERAL_ENTITIES_FEATURE = "http://xml.org/sax/features/external-general-entities";
+    private static final String EXTERNAL_PARAMETER_ENTITIES_FEATURE = "http://xml.org/sax/features/external-parameter-entities";
+
+    private static DocumentBuilderFactory createDocumentFactory() throws ParserConfigurationException {
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        documentBuilderFactory.setFeature(EXTERNAL_GENERAL_ENTITIES_FEATURE, false);
+        documentBuilderFactory.setFeature(EXTERNAL_PARAMETER_ENTITIES_FEATURE, false);
+        documentBuilderFactory.setExpandEntityReferences(false);
+        return documentBuilderFactory;
+    }
+
+    private static DocumentBuilder createDocumentBuilder() {
+        try {
+            DocumentBuilderFactory documentBuilderFactory = createDocumentFactory();
+            return documentBuilderFactory.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static Document parseDocument(InputStream input) {
+        try {
+            return createDocumentBuilder().parse(new InputSource(input));
+        } catch (IOException | SAXException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

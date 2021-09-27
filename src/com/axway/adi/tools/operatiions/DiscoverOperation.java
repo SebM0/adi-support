@@ -14,15 +14,15 @@ public class DiscoverOperation extends Operation {
     private static final String FILE_LIST_FOLDER = "file-list";
     private static final String LOG_FOLDER = "var/log";
 
-    private final Path extendedPath;
+    private Path extendedPath;
 
     public DiscoverOperation(SupportCaseResource resource) {
         super(resource);
-        extendedPath = Path.of(resource.local_ex_path);
     }
 
     @Override
     public void run() {
+        extendedPath = Path.of(resource.local_ex_path);
         try {
             if (!Files.exists(extendedPath)) {
                 // File does not exist, fail

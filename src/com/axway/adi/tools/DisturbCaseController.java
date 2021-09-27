@@ -298,6 +298,7 @@ public class DisturbCaseController extends AbstractController {
         Platform.runLater(() -> {
             if (result != null) {
                 resultTable.getItems().add(result);
+                resultTable.refresh();
             } else { // end with empty result
                 onRunTerminated();
             }
