@@ -14,8 +14,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TableView;
-import javafx.scene.input.MouseEvent;
 
+import static com.axway.adi.tools.util.MemorySizeFormatter.toHumanAndRealSize;
 import static java.util.stream.Collectors.*;
 import static javafx.scene.control.Alert.AlertType.INFORMATION;
 
@@ -46,9 +46,12 @@ public class ActivityController {
     public Button playButton;
     public Button clearButton;
     public Button detailsButton;
+    public Label liveLabel;
+    public Label corrLabel;
 
     void bindControls(ActivityMain activityMain) {
         this.parent = activityMain;
+        pressure.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> onEventSelected(newValue));
         timeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             int index = Math.min(newValue.intValue(), history.size()) - 1;
             if (index >= 0) {
@@ -92,7 +95,7 @@ public class ActivityController {
         clearButton.setDisable(true);
     }
 
-    void insertLine(String line) {
+    synchronized void insertLine(String line) {
         try {
             JsonObject object = JsonParser.parseString(line).getAsJsonObject();
             if (object != null) {
@@ -129,11 +132,9 @@ public class ActivityController {
                     });
                     index = previousObject.get("index").getAsInt();
                 } else {
-                    synchronized (history) {
-                        history.add(object);
-                        index = history.size();
-                        object.addProperty("index", index);
-                    }
+                    history.add(object);
+                    index = history.size();
+                    object.addProperty("index", index);
                     //if (history.size() > 100) {
                     //    history.remove(history.firstKey());
                     //}
@@ -222,6 +223,8 @@ public class ActivityController {
             sliceCUBE.setPieValue(0);
             sliceUNK.setPieValue(0);
             sliceFREE.setPieValue(0);
+            liveLabel.setText("0");
+            corrLabel.setText("0");
             channelData.values().forEach(data -> data.setYValue(0));
             return;
         }
@@ -230,7 +233,12 @@ public class ActivityController {
         if (args.has("jvmUsed")) {
             long DB = args.get("memtables").getAsLong() + args.get("alive").getAsLong() + args.get("hvOpen").getAsLong() + args.get("ssTableCache").getAsLong()
                     + args.get("absorptionQueues").getAsLong();
-            long WF = args.get("plans").getAsLong();
+            long WF = 0;
+            try {
+                WF = args.get("plans").getAsLong();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
             long CB = args.get("cubeCache").getAsLong();
             long TOT = args.get("jvmUsed").getAsLong();
             long FREE = args.get("jvmMax").getAsLong() - TOT;
@@ -243,6 +251,12 @@ public class ActivityController {
             sliceFREE.setPieValue( (double) FREE / 1_000_000);
         }
         if (args.has("abs:default")) {
+            String live = args.get("live").getAsString();
+            String[] comp = live.split("/");
+            liveLabel.setText(comp[2]);
+            String correction = args.get("correction").getAsString();
+            comp = correction.split("/");
+            corrLabel.setText(comp[2]);
             channelData.forEach((channel, data) -> {
                 String value = args.get(channel).getAsString();
                 String[] split = value.split("/");
@@ -297,15 +311,16 @@ public class ActivityController {
         if (object != null) {
             StringBuilder sb = new StringBuilder();
             String time = object.get("time").getAsString();
-            sb.append("time: ").append(time).append("\n");
             JsonObject memArgs = object.get("args").getAsJsonObject();
             if (!memArgs.has("jvmUsed")) {
                 memArgs = null;
                 // lookup in previous
                 int lookup = index;
                 while (--lookup > 0) {
-                    if (history.get(index).get("args").getAsJsonObject().has("jvmUsed")) {
-                        memArgs = history.get(index).get("args").getAsJsonObject();
+                    JsonObject prevObject = history.get(index);
+                    if (prevObject.get("args").getAsJsonObject().has("jvmUsed")) {
+                        memArgs = prevObject.get("args").getAsJsonObject();
+                        time = prevObject.get("time").getAsString();
                     }
                 }
             }
@@ -320,31 +335,35 @@ public class ActivityController {
                 long cubeCache = memArgs.get("cubeCache").getAsLong();
                 long jvmUsed = memArgs.get("jvmUsed").getAsLong();
                 long jvmMax = memArgs.get("jvmMax").getAsLong();
-                sb.append("\nMemory:\n");
-                sb.append("Max: ").append(jvmMax).append("\n");
-                sb.append("Used: ").append(jvmUsed).append("\n");
-                sb.append("- DB: ").append(DB).append("\n");
-                sb.append("  - memtables: ").append(memtables).append("\n");
-                sb.append("  - alive: ").append(alive).append("\n");
-                sb.append("  - hvOpen: ").append(hvOpen).append("\n");
-                sb.append("  - ssTableCache: ").append(ssTableCache).append("\n");
-                sb.append("  - absorptionQueues: ").append(absorptionQueues).append("\n");
-                sb.append("- QR plans: ").append(plans).append("\n");
-                sb.append("- Cubes: ").append(cubeCache).append("\n");
+                sb.append("Memory: ").append(time).append("\n");
+                sb.append("Max: ").append(toHumanAndRealSize(jvmMax)).append("\n");
+                sb.append("Used: ").append(toHumanAndRealSize(jvmUsed)).append("\n");
+                sb.append("- DB: ").append(toHumanAndRealSize(DB)).append("\n");
+                sb.append("    - memtables: ").append(toHumanAndRealSize(memtables)).append("\n");
+                sb.append("    - alive: ").append(toHumanAndRealSize(alive)).append("\n");
+                sb.append("    - hvOpen: ").append(toHumanAndRealSize(hvOpen)).append("\n");
+                sb.append("    - ssTableCache: ").append(toHumanAndRealSize(ssTableCache)).append("\n");
+                sb.append("    - absorptionQueues: ").append(toHumanAndRealSize(absorptionQueues)).append("\n");
+                sb.append("- QR plans: ").append(toHumanAndRealSize(plans)).append("\n");
+                sb.append("- Cubes: ").append(toHumanAndRealSize(cubeCache)).append("\n");
             }
+            time = object.get("time").getAsString();
             JsonObject rtArgs = object.get("args").getAsJsonObject();
             if (!rtArgs.has("abs:default")) {
                 rtArgs = null;
                 // lookup in previous
                 int lookup = index;
                 while (--lookup > 0) {
-                    if (history.get(index).get("args").getAsJsonObject().has("abs:default")) {
-                        rtArgs = history.get(index).get("args").getAsJsonObject();
+                    JsonObject prevObject = history.get(index);
+                    if (prevObject.get("args").getAsJsonObject().has("abs:default")) {
+                        rtArgs = prevObject.get("args").getAsJsonObject();
+                        time = prevObject.get("time").getAsString();
                     }
                 }
             }
             if (rtArgs != null) {
-                sb.append("\nRuntime:\nAbsorption channels\n");
+                sb.append("\nRuntime: ").append(time);
+                sb.append("\nAbsorption channels\n");
                 for (Map.Entry<String, String> entry : CHANNELS.entrySet()) {
                     String channel = entry.getKey();
                     String label = entry.getValue();
@@ -355,16 +374,16 @@ public class ActivityController {
                 {
                     String live = rtArgs.get("live").getAsString();
                     String[] split = live.split("/");
-                    sb.append("Computings:\n- live: run=").append(split[0]).append(", max=").append(split[1]).append(", wait=").append(split[2]).append("\n");
+                    sb.append("Computings:\n- live:      run=").append(split[0]).append(", max=").append(split[1]).append(", wait=").append(split[2]).append("\n");
                     String correction = rtArgs.get("correction").getAsString();
-                    split = live.split("/");
+                    split = correction.split("/");
                     sb.append("- correction: run=").append(split[0]).append(", max=").append(split[1]).append(", wait=").append(split[2]).append("\n");
                 }
                 List<String> handlers = rtArgs.keySet().stream().filter(k -> k.startsWith("h:")).collect(toList());
                 if (!handlers.isEmpty()) {
-                    sb.append("Pending message by handlers\n");
+                    sb.append("Pending messages by interceptor factory");
                     for (String h : handlers) {
-                        sb.append("- ").append(h.substring(2)).append(": ").append(rtArgs.get(h).getAsString());
+                        sb.append("\n- ").append(h.substring(2)).append(": ").append(rtArgs.get(h).getAsString());
                     }
                 }
             }
@@ -373,13 +392,10 @@ public class ActivityController {
         actionEvent.consume();
     }
 
-    public void onEventClicked(MouseEvent mouseEvent) {
-        Map<String, Object> selectedItem = pressure.getSelectionModel().getSelectedItem();
+    public void onEventSelected(Map<String, Object> selectedItem) {
         if (selectedItem != null) {
             int index = (Integer) selectedItem.get("index");
             timeSlider.adjustValue(index);
-            //updateData(history.get(index));
         }
-        mouseEvent.consume();
     }
 }
