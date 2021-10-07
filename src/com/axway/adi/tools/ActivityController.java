@@ -19,12 +19,17 @@ import static com.axway.adi.tools.util.MemorySizeFormatter.toHumanAndRealSize;
 import static java.util.stream.Collectors.*;
 import static javafx.scene.control.Alert.AlertType.INFORMATION;
 
-public class ActivityController {
-    private static final Map<String, String> CHANNELS = Map.of("abs:default", "default", //
-                                                               "abs:indicator_computing", "computing", //
-                                                               "abs:cube_computing", "cube", //
-                                                               "abs:data_integration", "integ", //
-                                                               "abs:ws_data_integration", "ws");
+public class ActivityController implements ActivityHandler {
+    private static final Map<String, String> CHANNELS = new LinkedHashMap<>();
+
+    static {
+        CHANNELS.put("abs:default", "default");
+        CHANNELS.put("abs:indicator_computing", "computing");
+        CHANNELS.put("abs:cube_computing", "cube");
+        CHANNELS.put("abs:data_integration", "integ");
+        CHANNELS.put("abs:ws_data_integration", "ws");
+    }
+
     private ActivityMain parent;
     private final LinkedList<JsonObject> history = new LinkedList<>();
     private final Set<String> currentHandlers = new HashSet<>();
@@ -95,7 +100,8 @@ public class ActivityController {
         clearButton.setDisable(true);
     }
 
-    synchronized void insertLine(String line) {
+    @Override
+    public synchronized void insertLine(String line) {
         try {
             JsonObject object = JsonParser.parseString(line).getAsJsonObject();
             if (object != null) {

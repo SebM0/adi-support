@@ -54,7 +54,7 @@ public class ActivityNodeSelector {
             AlertHelper.show(ERROR, value + " is not a folder");
             return;
         }
-        if (!ActivityParser.hasLogFiles(runnerPath)) {
+        if (!ActivityParser.hasActivityFiles(runnerPath)) {
             AlertHelper.show(ERROR, value + " has no activity log");
             return;
         }

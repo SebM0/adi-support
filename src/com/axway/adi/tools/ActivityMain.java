@@ -50,7 +50,7 @@ public class ActivityMain extends Application {
         stage.setScene(scene);
         stage.centerOnScreen();
 
-        parser.start(controller, runnerPath);
+        parser.readActivity(controller, runnerPath);
     }
 
     @Override
