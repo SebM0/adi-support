@@ -10,6 +10,7 @@ import com.axway.adi.tools.diagnostics.AppxStatistics;
 import com.axway.adi.tools.diagnostics.FileListHuge;
 import com.axway.adi.tools.diagnostics.FileListLVStorageNotActivated;
 import com.axway.adi.tools.diagnostics.FileListOrphaned;
+import com.axway.adi.tools.diagnostics.LogGarbageCollectorAlert;
 import com.axway.adi.tools.diagnostics.LogLVStorageNotActivated;
 import com.axway.adi.tools.diagnostics.LogManyReplicas;
 import com.axway.adi.tools.diagnostics.LogManyZooKeeperClients;
@@ -31,7 +32,7 @@ import static java.util.stream.Collectors.*;
 public class DiagnosticCatalog {
     public static final DiagnosticCatalog CAT = new DiagnosticCatalog();
     private Map<String, SupportCase> supportCases = null;
-    private Map<String, DiagnosticSpecification> specifications = new HashMap<>();
+    private final Map<String, DiagnosticSpecification> specifications = new HashMap<>();
 
     public void load() {
         // clear
@@ -84,6 +85,7 @@ public class DiagnosticCatalog {
         addDiagnostic(new LogManyReplicas());
         addDiagnostic(new LogManyZooKeeperClients());
         addDiagnostic(new LogLVStorageNotActivated());
+        addDiagnostic(new LogGarbageCollectorAlert());
         addDiagnostic(new FileListOrphaned());
         addDiagnostic(new FileListHuge());
         addDiagnostic(new FileListLVStorageNotActivated());

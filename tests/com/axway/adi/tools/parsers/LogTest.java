@@ -21,7 +21,7 @@ public class LogTest {
     @Test
     public void testLogStatistics() throws IOException {
         List<DiagnosticResult> results = new ArrayList<>();
-        Parser parser = parseTestResource("node_stats.log", results);
+        Parser parser = parseTestResource("node.log_stats", results);
 
         Assert.assertFalse(results.isEmpty(), "expected results");
         Assert.assertEquals(parser.getSize(), 73, "expected number of files");
@@ -34,7 +34,7 @@ public class LogTest {
     @Test
     public void testLogManyReplicas() throws IOException {
         List<DiagnosticResult> results = new ArrayList<>();
-        parseTestResource("node_many_replicas.log", results);
+        parseTestResource("node.log_many_replicas", results);
 
         Assert.assertFalse(results.isEmpty(), "expected results");
         Optional<DiagnosticResult> result = results.stream().filter(r -> r.spec.equals("BUILTIN-LG-0002")).findFirst();
@@ -42,10 +42,21 @@ public class LogTest {
         Assert.assertTrue(result.get().notes.contains("19 replicas detected"), "expected many replicas in notes");
     }
 
+    @Test
+    public void testFullGC() throws IOException {
+        List<DiagnosticResult> results = new ArrayList<>();
+        parseTestResource("gc.log_fullpause", results);
+
+        Assert.assertFalse(results.isEmpty(), "expected results");
+        Optional<DiagnosticResult> result = results.stream().filter(r -> r.spec.equals("BUILTIN-LG-0005")).findFirst();
+        Assert.assertTrue(result.isPresent(), "expected GC alert result");
+        Assert.assertEquals(result.get().notes, "GC paused more than 50%, 6 times", "expected GC alert message in notes");
+    }
+
     private Parser parseTestResource(String resourceName, List<DiagnosticResult> results) throws IOException {
         SupportCaseResource res = new SupportCaseResource();
         res.name = "Test resource";
-        res.local_path = this.getClass().getResource(resourceName).getPath();
+        res.local_path = Objects.requireNonNull(this.getClass().getResource(resourceName)).getPath();
         if (res.local_path.startsWith("/") && res.local_path.charAt(2) == ':') {
             res.local_path = res.local_path.substring(1);
         }

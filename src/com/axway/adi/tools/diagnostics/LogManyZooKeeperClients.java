@@ -1,5 +1,6 @@
 package com.axway.adi.tools.diagnostics;
 
+import java.nio.file.Path;
 import java.util.*;
 import com.axway.adi.tools.parsers.DiagnosticParseContext;
 import com.axway.adi.tools.parsers.LogMessage;
@@ -7,6 +8,7 @@ import com.axway.adi.tools.util.db.DiagnosticResult;
 import com.axway.adi.tools.util.db.DiagnosticSpecification;
 import com.axway.adi.tools.util.db.SupportCaseResource;
 
+import static com.axway.adi.tools.parsers.LogParser.NODE_LOG;
 import static com.axway.adi.tools.util.db.DbConstants.Level.Warning;
 import static com.axway.adi.tools.util.db.DbConstants.ResourceType.Log;
 
@@ -33,6 +35,11 @@ public class LogManyZooKeeperClients extends DiagnosticSpecification {
 
         protected LogStatisticsContext(DiagnosticSpecification specification, SupportCaseResource resource) {
             super(specification, resource);
+        }
+
+        @Override
+        public boolean filter(Path filePath) {
+            return NODE_LOG.test(filePath);
         }
 
         @Override

@@ -47,7 +47,7 @@ public class LogMessage {
         return true;
     }
 
-    public static LogMessage parse(String line) {
+    public static LogMessage parseNodeLog(String line) {
         //2021-07-09 14:56:24,035 [Domain-calcium-403-databaseRedoLogServer] INFO electron.communicationServerManager - Channel registered {"args": {"type": "REDOLOG"}}
         LogMessage msg = new LogMessage();
         // Date: 2021-07-09 14:56:24,035
@@ -84,6 +84,40 @@ public class LogMessage {
         } else {
             msg.message = line.substring(scanPos).trim();
         }
+        return msg;
+    }
+
+    public static LogMessage parseGCLog(String line) {
+        // [2021-10-06T09:47:47.259+0200][12ms] Using Parallel
+        // [2021-10-06T10:58:46.194+0200][4258947ms] GC(530) Marking Phase 4071.485ms
+        LogMessage msg = new LogMessage();
+        int scanPos = 1;
+        // Date: [2021-10-06T10:58:46.194+0200]
+        {
+            int endPos = line.indexOf(']', scanPos);
+            if (endPos != -1) {
+                msg.date = line.substring(scanPos, endPos).trim();
+                scanPos = endPos + 1;
+            }
+        }
+        // Duration(stored in Domain): [4258947ms]
+        int startPos = line.indexOf('[', scanPos);
+        if (startPos != -1) {
+            int endPos = line.indexOf(']', startPos + 1);
+            if (endPos != -1) {
+                msg.domain = line.substring(startPos + 1, endPos).trim();
+                scanPos = endPos + 2;
+            }
+        }
+        // Level: GC(530)
+        if (line.substring(scanPos).startsWith("GC(")) {
+            startPos = line.indexOf(')', scanPos);
+            if (startPos != -1) {
+                msg.level = line.substring(scanPos + "GC(".length(), startPos).trim();
+                scanPos = startPos + 2;
+            }
+        }
+        msg.message = line.substring(scanPos).trim();
         return msg;
     }
 }

@@ -16,6 +16,9 @@ import static java.util.stream.Collectors.*;
 import static javafx.scene.control.Alert.AlertType.WARNING;
 
 public class LogParser extends Parser {
+    public static final Predicate<Path> NODE_LOG = f -> f.getFileName().toString().toLowerCase().startsWith("node.log");
+    public static final Predicate<Path> GC_LOG = f -> f.getFileName().toString().toLowerCase().startsWith("gc.log");
+
     LogMessage current = null;
     int count = 0;
     List<DiagnosticParseContext<LogMessage>> diagnosticContexts;
@@ -26,15 +29,11 @@ public class LogParser extends Parser {
 
     @Override
     protected Stream<Path> filterFiles(Stream<Path> stream) {
-        List<Path> files = stream.collect(toList());
-        if (files.size() <= 3) {
-            return files.stream();
-        }
-        return files.stream().filter(f -> f.getFileName().toString().toLowerCase().startsWith("node.log"));
+        return stream.filter(f -> f.getFileName().toString().toLowerCase().contains(".log"));
     }
 
     @Override
-    protected void parseFile(Path filePath, Consumer<DiagnosticResult> resultConsumer) throws IOException {
+    protected void parseFile(Path filePath, Consumer<DiagnosticResult> resultConsumer) {
         // Reset
         current = null;
         count = 0;
@@ -42,6 +41,7 @@ public class LogParser extends Parser {
         // Create diagnostic contexts
         diagnosticContexts = CAT.getDiagnosticsByType(DbConstants.ResourceType.Log).stream() //
                 .map(this::createDiagnosticContext) //
+                .filter(c -> c.filter(filePath)) //
                 .collect(toList());
 
         // read log file
@@ -66,16 +66,27 @@ public class LogParser extends Parser {
         return (DiagnosticParseContext<LogMessage>) diag.createContext(resource);
     }
 
-    private void readLogs(Path redoLogFile) {
+    private void readLogs(Path filePath) {
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(redoLogFile.toFile()))) {
+        if (NODE_LOG.test(filePath)) {
+            readNodeLogs(filePath);
+        } else if (GC_LOG.test(filePath)) {
+            readGCLogs(filePath);
+        } else {
+            System.err.println("Unsupported log file " + filePath);
+        }
+    }
+
+    private void readNodeLogs(Path filePath) {
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath.toFile()))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 line = line.trim();
                 // Read header
                 if (LogMessage.startsWithDate(line)) {
                     processLogMessage();
-                    current = LogMessage.parse(line);
+                    current = LogMessage.parseNodeLog(line);
                 } else if (current != null) {
                     current.addDump(line);
                 }
@@ -83,7 +94,25 @@ public class LogParser extends Parser {
             processLogMessage();
         } catch (IOException ioException) {
             ioException.printStackTrace();
-            AlertHelper.show(WARNING, "Failed to Log file: " + redoLogFile + "\n" + ioException.getMessage());
+            AlertHelper.show(WARNING, "Failed to Log file: " + filePath + "\n" + ioException.getMessage());
+        }
+    }
+
+    private void readGCLogs(Path filePath) {
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath.toFile()))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                line = line.trim();
+                // Read header
+                if (line.startsWith("[")) {
+                    current = LogMessage.parseGCLog(line);
+                    processLogMessage();
+                }
+            }
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+            AlertHelper.show(WARNING, "Failed to Log file: " + filePath + "\n" + ioException.getMessage());
         }
     }
 
