@@ -13,7 +13,7 @@ public abstract class AbstractController implements Initializable {
         // override if needed
     }
 
-    void bindControls(Stage parentStage) {
+    protected void bindControls(Stage parentStage) {
         this.parentStage = parentStage;
     }
 }

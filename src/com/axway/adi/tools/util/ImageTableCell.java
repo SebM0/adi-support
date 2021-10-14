@@ -1,7 +1,5 @@
 package com.axway.adi.tools.util;
 
-import java.net.URL;
-import com.axway.adi.tools.DisturbMain;
 import javafx.scene.control.TableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
