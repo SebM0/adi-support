@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<BorderPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.axway.adi.tools.activity.ActivityController">
+    <top>
+        <HBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0">
+                <LineChart fx:id="timeChart" axisSortingPolicy="NONE" horizontalZeroLineVisible="false" maxWidth="1000.0" minWidth="800.0" prefHeight="100.0" prefWidth="800.0" verticalGridLinesVisible="false">
+                    <xAxis>
+                        <CategoryAxis side="BOTTOM" visible="false" />
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis side="LEFT" />
+                    </yAxis>
+                </LineChart>
+                <HBox alignment="CENTER_LEFT">
+                    <Slider fx:id="timeSlider" blockIncrement="1.0" cache="true" majorTickUnit="1.0" max="100.0" min="1.0" minorTickCount="0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="14.0" prefWidth="750.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0">
+                        <HBox.margin>
+                            <Insets left="40.0" />
+                        </HBox.margin>
+                    </Slider>
+                </HBox>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="200.0">
+                <Label text="Time:                  ">
+                    <VBox.margin>
+                        <Insets left="20.0" top="40.0" />
+                    </VBox.margin>
+                </Label>
+                <Label fx:id="timeLabel" text="Label" textFill="#0a6beb">
+                    <VBox.margin>
+                        <Insets left="20.0" top="10.0" />
+                    </VBox.margin>
+                    <font>
+                        <Font name="System Bold" size="13.0" />
+                    </font>
+                </Label>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                    <VBox.margin>
+                        <Insets left="20.0" top="25.0" />
+                    </VBox.margin>
+                    <children>
+                        <Button fx:id="playButton" mnemonicParsing="false" onAction="#onPlay" prefWidth="50.0">
+                            <graphic>
+                                <FontIcon iconColor="#1c25d0" iconLiteral="ci-play-filled-alt" iconSize="24" />
+                            </graphic>
+                        </Button>
+                        <Button fx:id="clearButton" mnemonicParsing="false" onAction="#onClear" prefWidth="50.0">
+                            <graphic>
+                                <FontIcon iconColor="#ff0000" iconLiteral="ci-delete" iconSize="24"/>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="detailsButton" mnemonicParsing="false" onAction="#onDetails" prefWidth="50.0">
+                            <graphic>
+                                <FontIcon iconLiteral="ci-report" iconSize="24"/>
+                            </graphic>
+                        </Button>
+                    </children>
+                </HBox>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                    <VBox.margin>
+                        <Insets left="20.0" top="10.0" />
+                    </VBox.margin>
+                    <children>
+                        <Button fx:id="prevButton" mnemonicParsing="false" onAction="#onPrevious" prefWidth="50.0" text="&lt;" />
+                        <Button fx:id="nextButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onNext" prefWidth="50.0" text="&gt;" />
+                        <Button fx:id="lastButton" layoutX="60.0" layoutY="10.0" mnemonicParsing="false" onAction="#onLast" prefWidth="50.0" text="&gt;&gt;&gt;" />
+                    </children>
+                </HBox>
+            </VBox>
+        </HBox>
+    </top>
+    <center>
+        <TableView fx:id="pressure" prefHeight="500.0" prefWidth="583.0" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn editable="false" prefWidth="161.00002133846283" text="Time">
+                    <cellValueFactory>
+                        <MapValueFactory key="time" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn editable="false" prefWidth="507.8000030517578" text="Message">
+                    <cellValueFactory>
+                        <MapValueFactory key="msg" />
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+    </center>
+    <right>
+        <VBox prefHeight="500.0" prefWidth="326.0" BorderPane.alignment="CENTER">
+            <children>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                    <VBox.margin>
+                        <Insets left="20.0" top="5.0" />
+                    </VBox.margin>
+                    <Label text="Pending live: ">
+                    </Label>
+                    <Label fx:id="liveLabel" text="Label" textFill="#0a6beb">
+                        <HBox.margin>
+                            <Insets left="100.0" />
+                        </HBox.margin>
+                        <font>
+                            <Font name="System Bold" size="13.0" />
+                        </font>
+                    </Label>
+                </HBox>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                    <VBox.margin>
+                        <Insets left="20.0" top="5.0" />
+                    </VBox.margin>
+                    <Label text="Pending Correction:  ">
+                    </Label>
+                    <Label fx:id="corrLabel" prefHeight="19.0" prefWidth="47.0" text="Label" textFill="#0a6beb">
+                        <HBox.margin>
+                            <Insets left="60.0" />
+                        </HBox.margin>
+                        <font>
+                            <Font name="System Bold" size="13.0" />
+                        </font>
+                    </Label>
+                </HBox>
+                <PieChart fx:id="memPie" prefHeight="400.0" prefWidth="342.0" />
+                <BarChart fx:id="channelStack">
+                    <xAxis>
+                        <CategoryAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis side="LEFT" upperBound="32.0" />
+                    </yAxis>
+                </BarChart>
+            </children>
+        </VBox>
+    </right>
+</BorderPane>
