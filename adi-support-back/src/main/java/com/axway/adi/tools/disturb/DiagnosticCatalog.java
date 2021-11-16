@@ -19,6 +19,7 @@ import com.axway.adi.tools.disturb.diagnostics.LogLVStorageNotActivated;
 import com.axway.adi.tools.disturb.diagnostics.LogManyReplicas;
 import com.axway.adi.tools.disturb.diagnostics.LogManyZooKeeperClients;
 import com.axway.adi.tools.disturb.diagnostics.LogStatistics;
+import com.axway.adi.tools.disturb.diagnostics.ThreadDumpBlocked;
 import com.axway.adi.tools.disturb.diagnostics.ThreadDumpFlowedAbsorption;
 import com.axway.adi.tools.disturb.diagnostics.ThreadDumpLowPerformancePlanOperators;
 import com.axway.adi.tools.disturb.diagnostics.ThreadDumpStatistics;
@@ -77,6 +78,7 @@ public class DiagnosticCatalog {
         addDiagnostic(new ThreadDumpStatistics());
         addDiagnostic(new ThreadDumpLowPerformancePlanOperators());
         addDiagnostic(new ThreadDumpFlowedAbsorption());
+        addDiagnostic(new ThreadDumpBlocked());
         addDiagnostic(new LogStatistics());
         addDiagnostic(new LogManyReplicas());
         addDiagnostic(new LogManyZooKeeperClients());
