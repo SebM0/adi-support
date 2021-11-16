@@ -1,12 +1,11 @@
 package com.axway.adi.tools.disturb.parsers;
 
 import java.nio.file.Path;
-import java.util.function.*;
 import com.axway.adi.tools.disturb.db.DiagnosticResult;
 import com.axway.adi.tools.disturb.db.DiagnosticSpecification;
 import com.axway.adi.tools.disturb.db.SupportCaseResource;
 
-public abstract class DiagnosticParseContext<T> implements Consumer<T> {
+public abstract class DiagnosticParseContext<T> {
     private final DiagnosticSpecification specification;
     private final SupportCaseResource resource;
 
@@ -14,6 +13,8 @@ public abstract class DiagnosticParseContext<T> implements Consumer<T> {
         this.specification = specification;
         this.resource = resource;
     }
+
+    public abstract void analyse(String resFile, T t);
 
     public abstract DiagnosticResult getResult();
 

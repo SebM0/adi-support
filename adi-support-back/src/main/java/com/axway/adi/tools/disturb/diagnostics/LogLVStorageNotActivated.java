@@ -27,7 +27,8 @@ public class LogLVStorageNotActivated extends DiagnosticSpecification {
     }
 
     private static class LogStatisticsContext extends DiagnosticParseContext<LogMessage> {
-        String detected = null;
+        String date = null;
+        String file = null;
 
         protected LogStatisticsContext(DiagnosticSpecification specification, SupportCaseResource resource) {
             super(specification, resource);
@@ -39,17 +40,18 @@ public class LogLVStorageNotActivated extends DiagnosticSpecification {
         }
 
         @Override
-        public void accept(LogMessage msg) {
+        public void analyse(String resFile, LogMessage msg) {
             if ("Low Volume persistence system is not activated".equalsIgnoreCase(msg.message)) {
-                detected = msg.date;
+                date = msg.date;
+                file = resFile;
             }
         }
 
         @Override
         public DiagnosticResult getResult() {
-            if (detected != null) {
+            if (date != null) {
                 DiagnosticResult result = buildResult();
-                result.notes = "Last detected at " + detected;
+                result.notes = "Detected at " + date + " in " + file;
                 return result;
             }
             return null;

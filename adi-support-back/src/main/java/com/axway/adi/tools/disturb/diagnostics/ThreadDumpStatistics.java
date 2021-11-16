@@ -29,7 +29,7 @@ public class ThreadDumpStatistics extends DiagnosticSpecification {
         }
 
         @Override
-        public void accept(ThreadDump threadDump) {
+        public void analyse(String resFile, ThreadDump threadDump) {
             totalCount++;
         }
 

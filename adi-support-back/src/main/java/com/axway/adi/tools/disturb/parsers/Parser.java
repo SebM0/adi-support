@@ -11,6 +11,7 @@ import com.axway.adi.tools.disturb.db.SupportCaseResource;
 
 public abstract class Parser {
     protected final SupportCaseResource resource;
+    private String currentRelativeFile = null;
 
     protected Parser(SupportCaseResource resource) {
         this.resource = resource;
@@ -19,6 +20,7 @@ public abstract class Parser {
     public void parse(Consumer<DiagnosticResult> resultConsumer) throws IOException {
         Path path = Path.of(resource.getAnalysisPath());
         if (Files.isRegularFile(path)) {
+            currentRelativeFile = path.getFileName().toString();
             parseFile(path, resultConsumer);
         }
         if (Files.isDirectory(path)) {
@@ -26,6 +28,7 @@ public abstract class Parser {
             try (Stream<Path> stream = Files.walk(path, Integer.MAX_VALUE)) {
                 filterFiles(stream.filter(Files::isRegularFile)).forEach(subPath -> {
                     try {
+                        currentRelativeFile = path.relativize(subPath).toString();
                         parseFile(subPath, resultConsumer);
                     } catch (IOException e) {
                         excepCollector.set(e);
@@ -36,6 +39,10 @@ public abstract class Parser {
                 throw excepCollector.get();
             }
         }
+    }
+
+    protected String getRelativePath() {
+        return currentRelativeFile;
     }
 
     protected Stream<Path> filterFiles(Stream<Path> stream) {

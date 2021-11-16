@@ -31,7 +31,7 @@ public class AppxPurge extends DiagnosticSpecification {
         }
 
         @Override
-        public void accept(AppIdentifiable item) {
+        public void analyse(String resFile, AppIdentifiable item) {
             if (item instanceof AppEntity) {
                 AppEntity entity = (AppEntity) item;
                 entityTTL.add(entity.ttl.isEmpty() ? "Unlimited" : entity.ttl);

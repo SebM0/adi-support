@@ -25,6 +25,7 @@ public class LogStatistics extends DiagnosticSpecification {
 
     private static class LogStatisticsContext extends DiagnosticParseContext<LogMessage> {
         private int totalCount = 0;
+        private int fatalCount = 0;
         private int errorCount = 0;
         private int warnCount = 0;
 
@@ -38,10 +39,14 @@ public class LogStatistics extends DiagnosticSpecification {
         }
 
         @Override
-        public void accept(LogMessage msg) {
+        public void analyse(String resFile, LogMessage msg) {
             totalCount++;
             if ("ERROR".equalsIgnoreCase(msg.level)) {
-                errorCount++;
+                if (msg.message.contains("Unrecoverable error found")) {
+                    fatalCount++;
+                } else {
+                    errorCount++;
+                }
             } else if ("WARN".equalsIgnoreCase(msg.level)) {
                 warnCount++;
             }
@@ -51,6 +56,11 @@ public class LogStatistics extends DiagnosticSpecification {
         public DiagnosticResult getResult() {
             DiagnosticResult result = buildResult();
             StringBuilder sb = new StringBuilder();
+            if (fatalCount > 0) {
+                sb.append("Fatals: ");
+                sb.append(fatalCount);
+                sb.append(" , ");
+            }
             sb.append("Errors: ");
             sb.append(errorCount);
             sb.append(" , Warnings: ");

@@ -32,7 +32,7 @@ public class AppxStatistics extends DiagnosticSpecification {
         }
 
         @Override
-        public void accept(AppIdentifiable item) {
+        public void analyse(String resFile, AppIdentifiable item) {
             if (item instanceof AppEntity) {
                 entityCount++;
             } else if (item instanceof AppIndicator) {

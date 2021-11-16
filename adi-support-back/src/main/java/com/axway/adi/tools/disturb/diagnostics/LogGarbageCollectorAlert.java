@@ -74,7 +74,7 @@ public class LogGarbageCollectorAlert extends DiagnosticSpecification {
         }
 
         @Override
-        public void accept(LogMessage msg) {
+        public void analyse(String resFile, LogMessage msg) {
             String level = msg.level;
             if (level == null || level.isEmpty()) {
                 return;

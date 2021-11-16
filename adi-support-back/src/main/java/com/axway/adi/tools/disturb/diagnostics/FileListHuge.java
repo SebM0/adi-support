@@ -37,7 +37,7 @@ public class FileListHuge extends DiagnosticSpecification {
         }
 
         @Override
-        public void accept(FileDescription fd) {
+        public void analyse(String resFile, FileDescription fd) {
             if (fd.isFile() && fd.path.startsWith("titanium-temporal/")) {
                 totalSize += fd.size;
                 maxSize = Math.max(maxSize, fd.size);

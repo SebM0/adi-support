@@ -31,7 +31,7 @@ public class FileListLVStorageNotActivated extends DiagnosticSpecification {
         }
 
         @Override
-        public void accept(FileDescription fd) {
+        public void analyse(String resFile, FileDescription fd) {
             if (fd.isFile() && fd.path.endsWith("lvmemtable.bin")) {
                 lvCount++;
             }

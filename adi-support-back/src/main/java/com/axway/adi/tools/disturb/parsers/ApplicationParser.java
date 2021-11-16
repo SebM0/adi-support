@@ -68,8 +68,8 @@ public class ApplicationParser extends Parser {
         // run diagnostics
         CAT.getDiagnosticsByType(DbConstants.ResourceType.Appx).forEach(diag -> {
             DiagnosticParseContext<AppIdentifiable> context = createDiagnosticContext(diag);
-            entities.values().forEach(context);
-            indicators.values().forEach(context);
+            entities.values().forEach(e -> context.analyse(getRelativePath(), e));
+            indicators.values().forEach(e -> context.analyse(getRelativePath(), e));
             DiagnosticResult result = context.getResult();
             if (result != null) {
                 resultConsumer.accept(result);

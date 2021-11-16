@@ -41,7 +41,7 @@ public class LogManyReplicas extends DiagnosticSpecification {
         }
 
         @Override
-        public void accept(LogMessage msg) {
+        public void analyse(String resFile, LogMessage msg) {
             if ("Consumer node is now consuming redo log".equalsIgnoreCase(msg.message)) {
                 String node = msg.args.getAsJsonPrimitive("node").getAsString();
                 consumers.add(node);

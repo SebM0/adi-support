@@ -48,7 +48,7 @@ public class ThreadDumpParser extends Parser {
         // run diagnostics
         CAT.getDiagnosticsByType(DbConstants.ResourceType.ThreadDump).forEach(diag -> {
             DiagnosticParseContext<ThreadDump> context = createDiagnosticContext(diag);
-            dumps.forEach(context);
+            dumps.forEach(d -> context.analyse(getRelativePath(), d));
             DiagnosticResult result = context.getResult();
             if (result != null) {
                 resultConsumer.accept(result);

@@ -19,7 +19,7 @@ public class LogParser extends Parser {
     public static final Predicate<Path> NODE_LOG = f -> f.getFileName().toString().toLowerCase().startsWith("node.log");
     public static final Predicate<Path> GC_LOG = f -> f.getFileName().toString().toLowerCase().startsWith("gc.log");
 
-    LogMessage current = null;
+    LogMessage currentMessage = null;
     int count = 0;
     List<DiagnosticParseContext<LogMessage>> diagnosticContexts;
 
@@ -35,7 +35,7 @@ public class LogParser extends Parser {
     @Override
     protected void parseFile(Path filePath, Consumer<DiagnosticResult> resultConsumer) {
         // Reset
-        current = null;
+        currentMessage = null;
         count = 0;
 
         // Create diagnostic contexts
@@ -86,9 +86,9 @@ public class LogParser extends Parser {
                 // Read header
                 if (LogMessage.startsWithDate(line)) {
                     processLogMessage();
-                    current = LogMessage.parseNodeLog(line);
-                } else if (current != null) {
-                    current.addDump(line);
+                    currentMessage = LogMessage.parseNodeLog(line);
+                } else if (currentMessage != null) {
+                    currentMessage.addDump(line);
                 }
             }
             processLogMessage();
@@ -106,7 +106,7 @@ public class LogParser extends Parser {
                 line = line.trim();
                 // Read header
                 if (line.startsWith("[")) {
-                    current = LogMessage.parseGCLog(line);
+                    currentMessage = LogMessage.parseGCLog(line);
                     processLogMessage();
                 }
             }
@@ -117,10 +117,10 @@ public class LogParser extends Parser {
     }
 
     private void processLogMessage() {
-        if (current != null) {
+        if (currentMessage != null) {
             count++;
             //feed log message to diags
-            diagnosticContexts.forEach(action -> action.accept(current));
+            diagnosticContexts.forEach(action -> action.analyse(getRelativePath(), currentMessage));
         }
     }
 }

@@ -32,7 +32,7 @@ public class ThreadDumpLowPerformancePlanOperators extends DiagnosticSpecificati
         }
 
         @Override
-        public void accept(ThreadDump threadDump) {
+        public void analyse(String resFile, ThreadDump threadDump) {
             if (threadDump.getStackTrace().contains(SLOW_OPERATOR)) {
                 totalCount++;
             }

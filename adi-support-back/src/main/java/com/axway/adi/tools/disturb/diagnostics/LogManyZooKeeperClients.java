@@ -42,7 +42,7 @@ public class LogManyZooKeeperClients extends DiagnosticSpecification {
         }
 
         @Override
-        public void accept(LogMessage msg) {
+        public void analyse(String resFile, LogMessage msg) {
             if (msg.domain.contains("zookeeper") && "Unexpected exception".equalsIgnoreCase(msg.message) && msg.dump != null && !msg.dump.isEmpty()) {
                 String details = msg.dump.get(0);
                 if (details.contains("EndOfStreamException")) {

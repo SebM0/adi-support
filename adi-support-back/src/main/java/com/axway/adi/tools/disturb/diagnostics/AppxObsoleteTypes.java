@@ -34,7 +34,7 @@ public class AppxObsoleteTypes extends DiagnosticSpecification {
         }
 
         @Override
-        public void accept(AppIdentifiable item) {
+        public void analyse(String resFile, AppIdentifiable item) {
             if (item instanceof AppIndicator) {
                 AppIndicator attr = (AppIndicator) item;
                 if (OBSOLETE_TYPES.contains(attr.type)) {

@@ -33,7 +33,7 @@ public class FileListOrphaned extends DiagnosticSpecification {
         }
 
         @Override
-        public void accept(FileDescription fd) {
+        public void analyse(String resFile, FileDescription fd) {
             if (fd.isDirectory() && fd.path.endsWith("/orphaned")) {
                 totalSize += fd.size;
             }

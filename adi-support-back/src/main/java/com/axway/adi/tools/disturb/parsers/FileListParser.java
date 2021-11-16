@@ -79,7 +79,7 @@ public class FileListParser extends Parser {
         if (current != null) {
             count++;
             //feed log message to diags
-            diagnosticContexts.forEach(action -> action.accept(current));
+            diagnosticContexts.forEach(action -> action.analyse(getRelativePath(), current));
         }
     }
 }

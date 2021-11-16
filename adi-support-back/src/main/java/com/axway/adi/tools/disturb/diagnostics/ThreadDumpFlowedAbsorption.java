@@ -35,7 +35,7 @@ public class ThreadDumpFlowedAbsorption extends DiagnosticSpecification {
         }
 
         @Override
-        public void accept(ThreadDump threadDump) {
+        public void analyse(String resFile, ThreadDump threadDump) {
             String stackTrace = threadDump.getStackTrace();
             if (WAITING_TRACES.stream().anyMatch(stackTrace::contains)) {
                 totalCount++;
