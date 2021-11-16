@@ -13,8 +13,8 @@ public class DiagnosticResult implements DbObject {
 
     private final List<DiagnosticResultItem> items = new ArrayList<>();
 
-    public void addItem(DiagnosticResultItem item) {
-        items.add(item);
+    public void addItem(String item, String notes) {
+        items.add(new DiagnosticResultItem(item, notes));
     }
 
     public Collection<DiagnosticResultItem> getItems() {

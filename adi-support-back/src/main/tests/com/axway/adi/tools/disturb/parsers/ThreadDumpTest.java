@@ -48,10 +48,20 @@ public class ThreadDumpTest {
         Assert.assertTrue(result.isPresent(), "expected result");
     }
 
+    @Test
+    public void testThreadDumpBlocked() throws IOException {
+        List<DiagnosticResult> results = new ArrayList<>();
+        parseTestResource("dump_threads_blocked.txt", results);
+
+        Optional<DiagnosticResult> result = results.stream().filter(r -> r.spec.equals("BUILTIN-TD-0004")).findFirst();
+        Assert.assertTrue(result.isPresent(), "expected result");
+        Assert.assertTrue(result.get().notes.contains("Domain-calcium-88-asynchronousEventInterceptorHandlers.1567669294025678849"), "expected blocking thread name in notes");
+    }
+
     private Parser parseTestResource(String resourceName, List<DiagnosticResult> results) throws IOException {
         SupportCaseResource res = new SupportCaseResource();
         res.name = "Test resource";
-        res.local_path = this.getClass().getResource(resourceName).getPath();
+        res.local_path = Objects.requireNonNull(this.getClass().getResource(resourceName)).getPath();
         if (res.local_path.startsWith("/") && res.local_path.charAt(2) == ':') {
             res.local_path = res.local_path.substring(1);
         }

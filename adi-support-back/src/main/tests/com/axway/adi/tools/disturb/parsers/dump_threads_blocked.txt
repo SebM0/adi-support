@@ -1,0 +1,701 @@
+8597:
+2021-11-15 16:46:46
+Full thread dump OpenJDK 64-Bit Server VM (17+35 mixed mode):
+
+Threads class SMR info:
+_java_thread_list=0x00007fc66c270d30, length=450, elements={
+0x00007fc6cc0259e0, 0x00007fc6cc0cdbf0, 0x00007fc6cc0cf3a0, 0x00007fc6cc0f45a0,
+0x00007fc6cc0f5a50, 0x00007fc6cc0f6f30, 0x00007fc6cc0f89f0, 0x00007fc6cc0fa010,
+0x00007fc6cc0fb570, 0x00007fc6cc1a4b40, 0x00007fc6cc1a86e0, 0x00007fc6cc360660,
+0x00007fc6cc38a670, 0x00007fc6cd1f8170, 0x00007fc6004dc450, 0x00007fc6004e1040,
+0x00007fc6004e1c90, 0x00007fc6004af8f0, 0x00007fc63c003530, 0x00007fc6005624b0,
+0x00007fc600625c00, 0x00007fc5e004dcc0, 0x00007fc60072c8c0, 0x00007fc60072d710,
+0x00007fc60072e9b0, 0x00007fc600731000, 0x00007fc600733a60, 0x00007fc600749c90,
+0x00007fc594013d10, 0x00007fc5a4e333d0, 0x00007fc5a8006ec0, 0x00007fc5a4e83370,
+0x00007fc59403d910, 0x00007fc5b0149110, 0x00007fc678037ae0, 0x00007fc6b0004020,
+0x00007fc5e0145290, 0x00007fc638019880, 0x00007fc5f0123640, 0x00007fc594099610,
+0x00007fc6b001fcb0, 0x00007fc5a4ee5af0, 0x00007fc60401ba50, 0x0000562eaa0893a0,
+0x00007fc6680d9670, 0x00007fc6cc270bf0, 0x0000562eaa08a860, 0x00007fc67c02fca0,
+0x0000562eaa08be60, 0x00007fc5b0166030, 0x00007fc5b01665a0, 0x00007fc5b0172640,
+0x00007fc5b0171ec0, 0x00007fc59000e130, 0x00007fc5900285a0, 0x00007fc5900037d0,
+0x00007fc60801b350, 0x00007fc590027760, 0x00007fc60807f7d0, 0x00007fc608081e60,
+0x00007fc60807da10, 0x00007fc5f40350f0, 0x00007fc5fc069cf0, 0x00007fc5e8062c80,
+0x00007fc650031f40, 0x00007fc650023530, 0x00007fc650003ad0, 0x00007fc650013aa0,
+0x00007fc5a8027440, 0x00007fc5a801f2a0, 0x00007fc5e40183a0, 0x00007fc5a800a140,
+0x00007fc5a8018cd0, 0x00007fc5f4038450, 0x00007fc6680c68f0, 0x00007fc6680b6d70,
+0x00007fc668087180, 0x00007fc668135330, 0x00007fc5f4044d80, 0x00007fc598002cf0,
+0x00007fc59801ebe0, 0x00007fc598021970, 0x00007fc598006890, 0x00007fc588008d40,
+0x00007fc608009e10, 0x0000562eaa08c6a0, 0x00007fc64c061480, 0x00007fc64c04adc0,
+0x00007fc64c00efa0, 0x00007fc64c012b80, 0x00007fc5f401f8c0, 0x00007fc63800fc50,
+0x00007fc5e8058cc0, 0x00007fc5e8059ba0, 0x00007fc5e806e1a0, 0x00007fc5e806eb90,
+0x00007fc5e806f590, 0x00007fc604015590, 0x00007fc60400ef00, 0x00007fc604017d50,
+0x00007fc6040168e0, 0x00007fc5a801aba0, 0x00007fc5a8019950, 0x00007fc5a801a380,
+0x00007fc5a80434d0, 0x00007fc6180e4c10, 0x00007fc6181019f0, 0x00007fc6180fe360,
+0x00007fc618103d30, 0x00007fc5ec018850, 0x00007fc5ec0240a0, 0x00007fc5ec024750,
+0x00007fc5ec01d400, 0x00007fc5b40b40b0, 0x00007fc5fc024200, 0x00007fc5fc069430,
+0x00007fc5fc0309a0, 0x00007fc5fc072f10, 0x00007fc668086240, 0x00007fc6680d64f0,
+0x00007fc66808f680, 0x00007fc6680d5a00, 0x00007fc650049400, 0x00007fc6500098a0,
+0x00007fc65000a9e0, 0x00007fc650008750, 0x00007fc678041b10, 0x0000562eaa08cf50,
+0x00007fc634023e00, 0x00007fc6b0021600, 0x00007fc63800cfa0, 0x00007fc5b4091690,
+0x00007fc58c068090, 0x00007fc634029770, 0x00007fc5b4087f60, 0x00007fc5c8000bd0,
+0x00007fc62c00ae30, 0x00007fc59aab0220, 0x00007fc59aab0df0, 0x00007fc59aab1c50,
+0x00007fc59aab2690, 0x00007fc64c014ee0, 0x00007fc67802a740, 0x00007fc64c016070,
+0x00007fc678034a50, 0x00007fc6cc3771e0, 0x00007fc6cc77c8d0, 0x00007fc66414d030,
+0x00007fc6cd2779c0, 0x00007fc66c08a750, 0x00007fc678049030, 0x00007fc678047770,
+0x0000562eaa0752b0, 0x00007fc5880dd100, 0x00007fc5ec018040, 0x00007fc5b40a8100,
+0x0000562eaa075c00, 0x00007fc63c012df0, 0x00007fc588117960, 0x00007fc5ec01aa60,
+0x00007fc5b40a8690, 0x00007fc638011ca0, 0x00007fc5c800e980, 0x00007fc6cc248120,
+0x00007fc6cc2353a0, 0x00007fc6b001d540, 0x00007fc6b001e370, 0x00007fc6cc244550,
+0x00007fc6cc24e180, 0x00007fc6b001dd80, 0x00007fc6b0050340, 0x00007fc6cc24dbc0,
+0x00007fc6cc26cf10, 0x00007fc6b004fd60, 0x00007fc6b0051de0, 0x00007fc6cc26c930,
+0x00007fc6cc238410, 0x00007fc6b00517f0, 0x00007fc6b00534c0, 0x00007fc6cc237e10,
+0x00007fc6cc23ec90, 0x00007fc6b0052eb0, 0x00007fc6b00552b0, 0x00007fc6cc23e670,
+0x00007fc6cce8c350, 0x00007fc6b0054c30, 0x00007fc6b0056e80, 0x00007fc6cc2527d0,
+0x00007fc6cc2458a0, 0x00007fc6b0056830, 0x00007fc6b0058c30, 0x00007fc6cc2535c0,
+0x00007fc6cc0497c0, 0x00007fc6b005a1b0, 0x00007fc6b005ba10, 0x00007fc6cc049180,
+0x00007fc6cc2722c0, 0x00007fc6b005b330, 0x00007fc6b005d940, 0x00007fc6cc271bf0,
+0x00007fc6cce880a0, 0x00007fc6b005d260, 0x00007fc6b005fce0, 0x00007fc6cce879b0,
+0x00007fc6ccef8490, 0x00007fc6b005f5e0, 0x00007fc6b00620a0, 0x00007fc6ccef7d80,
+0x00007fc6ccefa060, 0x00007fc6b0061980, 0x00007fc6b0063e70, 0x00007fc6ccef9960,
+0x00007fc6ccefc430, 0x00007fc6b0063730, 0x00007fc6b0065910, 0x00007fc6ccefbce0,
+0x00007fc6ccefe330, 0x00007fc6b00651b0, 0x00007fc6b0067950, 0x00007fc6ccefdbc0,
+0x00007fc6cc25d1a0, 0x00007fc6b00671d0, 0x00007fc6b00697c0, 0x00007fc6cc25ca80,
+0x00007fc6cc25ecb0, 0x00007fc6b0068fe0, 0x00007fc6b006bba0, 0x00007fc6cc25e6f0,
+0x00007fc6cc260c80, 0x00007fc6b006b410, 0x00007fc6b006d8d0, 0x00007fc6cc260580,
+0x00007fc6cc264040, 0x00007fc6b006d120, 0x00007fc6b006f490, 0x00007fc6cc263850,
+0x00007fc6cc2518b0, 0x00007fc6b006ecc0, 0x00007fc6b0024e70, 0x00007fc6cce894f0,
+0x00007fc6cd28dff0, 0x00007fc6b0024640, 0x00007fc6b0027030, 0x00007fc6cce8b080,
+0x00007fc6cd28ff40, 0x00007fc6b0026820, 0x00007fc6b00294f0, 0x00007fc65ca02180,
+0x00007fc5c008c350, 0x00007fc5fc04b1e0, 0x00007fc5c4070bf0, 0x00007fc61c030510,
+0x00007fc6444449e0, 0x00007fc61001f550, 0x00007fc634029ce0, 0x00007fc5b40afc50,
+0x00007fc5b40985e0, 0x00007fc5c406e370, 0x00007fc5b40b10a0, 0x00007fc65002b240,
+0x00007fc5d0024590, 0x00007fc5c4065680, 0x00007fc5cc01c9a0, 0x00007fc5b40ac220,
+0x00007fc5bc00e790, 0x00007fc5d808c740, 0x00007fc598043f10, 0x00007fc6180f0820,
+0x00007fc628012c00, 0x00007fc64c0821d0, 0x00007fc6180f0d90, 0x00007fc6280132c0,
+0x00007fc67c039df0, 0x00007fc6b0036350, 0x00007fc60c038d70, 0x00007fc60c009860,
+0x00007fc58c0384c0, 0x00007fc60c028d30, 0x0000562eaa07bd40, 0x00007fc5980b49a0,
+0x00007fc58c04c2a0, 0x00007fc5c0006f20, 0x00007fc60c020b30, 0x00007fc600282870,
+0x00007fc5e821c230, 0x00007fc680059070, 0x00007fc6b002e4e0, 0x0000562eaa076eb0,
+0x00007fc5880158e0, 0x00007fc58402d1f0, 0x00007fc59004d280, 0x00007fc58c04ef90,
+0x00007fc5b01ade70, 0x00007fc67c03cd20, 0x00007fc67c03c460, 0x00007fc67c025190,
+0x00007fc67c034700, 0x00007fc67c024650, 0x00007fc67c034070, 0x00007fc67c040710,
+0x00007fc67c036470, 0x00007fc67c037e00, 0x00007fc67c046d20, 0x00007fc5c0000bd0,
+0x00007fc6cd2b72c0, 0x00007fc5c406d410, 0x00007fc59400f0d0, 0x00007fc6180e63c0,
+0x00007fc61405d860, 0x00007fc62006e4f0, 0x00007fc594030480, 0x00007fc628015660,
+0x00007fc62408b390, 0x00007fc630002b60, 0x00007fc64c082aa0, 0x00007fc5a97965d0,
+0x00007fc5a9796e50, 0x00007fc5a9797c40, 0x00007fc5a956ced0, 0x00007fc5a9798ec0,
+0x00007fc5a979a6a0, 0x00007fc5a979b2e0, 0x00007fc5a979c1b0, 0x00007fc5a979d270,
+0x00007fc5a979e410, 0x00007fc5a979f340, 0x00007fc60c06b170, 0x00007fc6680b7e20,
+0x00007fc66414e3b0, 0x00007fc66c0880c0, 0x00007fc60c06c450, 0x00007fc67824f400,
+0x00007fc68005ec10, 0x00007fc6b001c6a0, 0x00007fc60c0fb170, 0x0000562eaa07a470,
+0x00007fc588051180, 0x00007fc584035a70, 0x00007fc59007d150, 0x00007fc58c055850,
+0x00007fc5988d7740, 0x00007fc5941268e0, 0x00007fc59402f1f0, 0x00007fc594129af0,
+0x00007fc594168d50, 0x00007fc5a4f79060, 0x00007fc5b01c3650, 0x00007fc5ac009e40,
+0x00007fc5b01a3d50, 0x00007fc5b40ad160, 0x00007fc5c0057030, 0x00007fc5bc006100,
+0x00007fc5a97e6b40, 0x00007fc5a97f4470, 0x00007fc5bc008600, 0x00007fc5c406ec80,
+0x00007fc5d002e9d0, 0x00007fc5cc093ee0, 0x00007fc5cc092bd0, 0x00007fc5cc091160,
+0x00007fc5d8095f20, 0x00007fc60c197030, 0x00007fc60c1978a0, 0x00007fc60c1aeb60,
+0x00007fc5ec01f5a0, 0x00007fc5f00718b0, 0x00007fc5f401d340, 0x00007fc5fc03a9a0,
+0x00007fc5e408cbb0, 0x00007fc5e401fa90, 0x00007fc604019d10, 0x00007fc60401a280,
+0x00007fc60c1b0150, 0x00007fc60c1b17e0, 0x00007fc61405ddd0, 0x00007fc61405fc30,
+0x00007fc61405ee60, 0x00007fc59805a760, 0x00007fc63000db60, 0x00007fc598902970,
+0x00007fc598903ab0, 0x00007fc63000e460, 0x00007fc6400c3bb0, 0x00007fc63000f630,
+0x00007fc628023870, 0x00007fc628024c00, 0x00007fc628023de0, 0x00007fc634009590,
+0x00007fc638023620, 0x00007fc638028d40, 0x00007fc638027f00, 0x00007fc62c0055c0,
+0x00007fc6641410e0, 0x00007fc66c385470, 0x00007fc67c047790, 0x00007fc67c0496d0,
+0x00007fc67c048860, 0x00007fc67c04a7f0, 0x00007fc67c04b5d0, 0x00007fc6b004a760,
+0x00007fc6b003c310, 0x00007fc6b0040d00, 0x00007fc680063cd0, 0x00007fc68017be90,
+0x0000562eaa092aa0, 0x0000562eaa094ad0, 0x0000562eaa093be0, 0x00007fc58c064860,
+0x00007fc6180ea710, 0x00007fc628026e00, 0x00007fc58c0cea60, 0x00007fc6cd2b6920,
+0x0000562eaa0963c0, 0x00007fc58804a610, 0x0000562eaa09e330, 0x00007fc6b0034840,
+0x00007fc64c064820, 0x00007fc5840414f0, 0x00007fc590037a30, 0x00007fc638029eb0,
+0x00007fc6180ee950, 0x00007fc62802a9e0, 0x00007fc5a4f7fd80, 0x00007fc5b0202fb0,
+0x00007fc6cd377ed0, 0x00007fc5b80cc870, 0x00007fc64c065240, 0x00007fc5c40668e0,
+0x00007fc59419a1c0, 0x00007fc59419cee0, 0x00007fc598942cf0, 0x00007fc5941efcd0,
+0x00007fc598945370, 0x00007fc5941f2360, 0x00007fc598947210, 0x00007fc5941f3a90,
+0x00007fc5941f5920, 0x00007fc598948740, 0x00007fc5a4f48ed0, 0x00007fc6cd2d72d0,
+0x00007fc65404b180, 0x00007fc5b0288150, 0x00007fc5b0281740, 0x00007fc59892bb60,
+0x00007fc5c4044f30, 0x00007fc5c406c7f0, 0x00007fc66c07ae10, 0x00007fc66c08acc0,
+0x00007fc600279e60, 0x00007fc664143d80
+}
+
+"main" #1 prio=5 os_prio=0 cpu=3211.16ms elapsed=1613.94s tid=0x00007fc6cc0259e0 nid=0x21a4 in Object.wait()  [0x00007fc6d4e92000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(java.base@17/Native Method)
+	- waiting on <no object reference available>
+	at org.apache.felix.framework.util.ThreadGate.await(ThreadGate.java:81)
+	- locked <0x000000030036bdb8> (a org.apache.felix.framework.util.ThreadGate)
+	at org.apache.felix.framework.Felix.waitForStop(Felix.java:1222)
+	at com.systar.boson.launcher.Launcher.runFramework(Launcher.java:276)
+	at com.systar.boson.launcher.Launcher.launch(Launcher.java:69)
+	at com.systar.boson.launcher.Launcher.main(Launcher.java:51)
+
+   Locked ownable synchronizers:
+	- None
+
+
+"qtp1028639403-46" #46 prio=5 os_prio=0 cpu=1616.89ms elapsed=1607.09s tid=0x00007fc60072c8c0 nid=0x2281 waiting for monitor entry  [0x00007fc5f9ef1000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at com.systar.krypton.scheduler.impl.trigger.ComputingTriggerInterceptor.getComputedIntervals(ComputingTriggerInterceptor.java:413)
+	- waiting to lock <0x00000005a9af7a58> (a java.lang.Object)
+	at com.systar.krypton.scheduler.impl.trigger.ComputingTriggerInterceptorRegistry.getComputedIntervalsByIndicatorUUID(ComputingTriggerInterceptorRegistry.java:255)
+	at com.systar.krypton.scheduler.impl.executor.ComputingExecutorImpl.getComputingExecutionInfo(ComputingExecutorImpl.java:287)
+	at jdk.internal.reflect.GeneratedMethodAccessor785.invoke(Unknown Source)
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(java.base@17/DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(java.base@17/Method.java:568)
+	at com.systar.gluon.osgi.service.ImportedServiceHandler.invokeImpl(ImportedServiceHandler.java:92)
+	at com.systar.gluon.container.impl.factory.AbstractInvocationHandler.invoke(AbstractInvocationHandler.java:35)
+	at jdk.proxy45.$Proxy157.getComputingExecutionInfo(jdk.proxy45/Unknown Source)
+	at com.systar.radon.monitoring.impl.computing.ComputingTasksAnalyzerImpl.listComputingIndicators(ComputingTasksAnalyzerImpl.java:109)
+	at jdk.internal.reflect.GeneratedMethodAccessor784.invoke(Unknown Source)
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(java.base@17/DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(java.base@17/Method.java:568)
+	at com.systar.gluon.osgi.service.ImportedServiceHandler.invokeImpl(ImportedServiceHandler.java:92)
+	at com.systar.gluon.container.impl.factory.AbstractInvocationHandler.invoke(AbstractInvocationHandler.java:35)
+	at jdk.proxy76.$Proxy311.listComputingIndicators(jdk.proxy76/Unknown Source)
+	at com.systar.helium.html.radon.MonitoringRestService.loadComputings(MonitoringRestService.java:297)
+	at jdk.internal.reflect.GeneratedMethodAccessor783.invoke(Unknown Source)
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(java.base@17/DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(java.base@17/Method.java:568)
+	at org.glassfish.jersey.server.model.internal.ResourceMethodInvocationHandlerFactory.lambda$static$0(ResourceMethodInvocationHandlerFactory.java:52)
+	at org.glassfish.jersey.server.model.internal.ResourceMethodInvocationHandlerFactory$$Lambda$936/0x0000000800986e80.invoke(Unknown Source)
+	at org.glassfish.jersey.server.model.internal.AbstractJavaResourceMethodDispatcher$1.run(AbstractJavaResourceMethodDispatcher.java:124)
+	at org.glassfish.jersey.server.model.internal.AbstractJavaResourceMethodDispatcher.invoke(AbstractJavaResourceMethodDispatcher.java:167)
+	at org.glassfish.jersey.server.model.internal.JavaResourceMethodDispatcherProvider$TypeOutInvoker.doDispatch(JavaResourceMethodDispatcherProvider.java:219)
+	at org.glassfish.jersey.server.model.internal.AbstractJavaResourceMethodDispatcher.dispatch(AbstractJavaResourceMethodDispatcher.java:79)
+	at org.glassfish.jersey.server.model.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:475)
+	at org.glassfish.jersey.server.model.ResourceMethodInvoker.apply(ResourceMethodInvoker.java:397)
+	at org.glassfish.jersey.server.model.ResourceMethodInvoker.apply(ResourceMethodInvoker.java:81)
+	at org.glassfish.jersey.server.ServerRuntime$1.run(ServerRuntime.java:255)
+	at org.glassfish.jersey.internal.Errors$1.call(Errors.java:248)
+	at org.glassfish.jersey.internal.Errors$1.call(Errors.java:244)
+	at org.glassfish.jersey.internal.Errors.process(Errors.java:292)
+	at org.glassfish.jersey.internal.Errors.process(Errors.java:274)
+	at org.glassfish.jersey.internal.Errors.process(Errors.java:244)
+	at org.glassfish.jersey.process.internal.RequestScope.runInScope(RequestScope.java:265)
+	at org.glassfish.jersey.server.ServerRuntime.process(ServerRuntime.java:234)
+	at org.glassfish.jersey.server.ApplicationHandler.handle(ApplicationHandler.java:680)
+	at org.glassfish.jersey.servlet.WebComponent.serviceImpl(WebComponent.java:394)
+	at org.glassfish.jersey.servlet.WebComponent.service(WebComponent.java:346)
+	at org.glassfish.jersey.servlet.ServletContainer.service(ServletContainer.java:366)
+	at org.glassfish.jersey.servlet.ServletContainer.service(ServletContainer.java:319)
+	at org.glassfish.jersey.servlet.ServletContainer.service(ServletContainer.java:205)
+	at org.apache.felix.http.base.internal.handler.ServletHandler.handle(ServletHandler.java:123)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:86)
+	at com.systar.boson.activator.http.CSRFTokenFilter.doFilter(CSRFTokenFilter.java:65)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.SecurityCheckFilter.doFilter(SecurityCheckFilter.java:24)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:61)
+	at org.apache.shiro.web.servlet.AdviceFilter.executeChain(AdviceFilter.java:108)
+	at org.apache.shiro.web.servlet.AdviceFilter.doFilterInternal(AdviceFilter.java:137)
+	at com.systar.photon.application.impl.authentication.AuthenticationFilter.doFilterInternal(AuthenticationFilter.java:190)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:66)
+	at com.systar.photon.application.impl.authentication.SecuritySetFilter.doFilterInternal(SecuritySetFilter.java:18)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:66)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:450)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:387)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.SameOriginPolicyFilter.doFilter(SameOriginPolicyFilter.java:91)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.CSPProtectionFilter.doFilter(CSPProtectionFilter.java:40)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.helium.html.UserTimeZoneFilter.doFilter(UserTimeZoneFilter.java:33)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.RedirectToHttpsFilter.doFilter(RedirectToHttpsFilter.java:26)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.HttpMethodCheckFilter.doFilter(HttpMethodCheckFilter.java:30)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.photon.application.impl.XPermittedCrossDomainPoliciesFilter.doFilter(XPermittedCrossDomainPoliciesFilter.java:41)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.NoCacheFilter.doFilter(NoCacheFilter.java:33)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.HttpMimeTypeSniffingFilter.doFilter(HttpMimeTypeSniffingFilter.java:21)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.HttpClickJackingFilter.doFilter(HttpClickJackingFilter.java:21)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.XssProtectionFilter.doFilter(XssProtectionFilter.java:20)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.HstsFilter.doFilter(HstsFilter.java:24)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.rest.RestServiceFilter.doFilter(RestServiceFilter.java:55)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.rest.RestServiceFilter.doFilter(RestServiceFilter.java:55)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.GZIPFilter.doFilter(GZIPFilter.java:23)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.HttpProtocolCheckFilter.doFilter(HttpProtocolCheckFilter.java:27)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at org.apache.felix.http.base.internal.dispatch.Dispatcher$1.doFilter(Dispatcher.java:146)
+	at org.apache.felix.http.base.internal.whiteboard.WhiteboardManager.invokePreprocessors(WhiteboardManager.java:988)
+	at org.apache.felix.http.base.internal.dispatch.Dispatcher.dispatch(Dispatcher.java:91)
+	at org.apache.felix.http.base.internal.dispatch.DispatcherServlet.service(DispatcherServlet.java:49)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:799)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:550)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(ScopedHandler.java:233)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:1624)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(ScopedHandler.java:233)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1434)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:188)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:501)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:1594)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:186)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1349)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:141)
+	at org.eclipse.jetty.server.handler.ContextHandlerCollection.handle(ContextHandlerCollection.java:191)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:127)
+	at org.eclipse.jetty.server.Server.handle(Server.java:516)
+	at org.eclipse.jetty.server.HttpChannel.lambda$handle$1(HttpChannel.java:388)
+	at org.eclipse.jetty.server.HttpChannel$$Lambda$680/0x00000008004d2a30.dispatch(Unknown Source)
+	at org.eclipse.jetty.server.HttpChannel.dispatch(HttpChannel.java:633)
+	at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:380)
+	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:277)
+	at org.eclipse.jetty.io.AbstractConnection$ReadCallback.succeeded(AbstractConnection.java:311)
+	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:105)
+	at org.eclipse.jetty.io.ssl.SslConnection$DecryptedEndPoint.onFillable(SslConnection.java:555)
+	at org.eclipse.jetty.io.ssl.SslConnection.onFillable(SslConnection.java:410)
+	at org.eclipse.jetty.io.ssl.SslConnection$2.succeeded(SslConnection.java:164)
+	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:105)
+	at org.eclipse.jetty.io.ChannelEndPoint$1.run(ChannelEndPoint.java:104)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.runTask(EatWhatYouKill.java:338)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.doProduce(EatWhatYouKill.java:315)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.tryProduce(EatWhatYouKill.java:173)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.run(EatWhatYouKill.java:131)
+	at org.eclipse.jetty.util.thread.ReservedThreadExecutor$ReservedThread.run(ReservedThreadExecutor.java:386)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:883)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$Runner.run(QueuedThreadPool.java:1034)
+	at java.lang.Thread.run(java.base@17/Thread.java:833)
+
+   Locked ownable synchronizers:
+	- None
+
+"qtp1028639403-47" #47 prio=5 os_prio=0 cpu=1246.20ms elapsed=1607.09s tid=0x00007fc60072d710 nid=0x2282 waiting for monitor entry  [0x00007fc5f9def000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at com.systar.krypton.scheduler.impl.trigger.ComputingTriggerInterceptor.getComputedIntervals(ComputingTriggerInterceptor.java:413)
+	- waiting to lock <0x00000005a9af7a58> (a java.lang.Object)
+	at com.systar.krypton.scheduler.impl.trigger.ComputingTriggerInterceptorRegistry.getComputedIntervalsByIndicatorUUID(ComputingTriggerInterceptorRegistry.java:255)
+	at com.systar.krypton.scheduler.impl.executor.ComputingExecutorImpl.getComputingExecutionInfo(ComputingExecutorImpl.java:287)
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(java.base@17/Native Method)
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(java.base@17/NativeMethodAccessorImpl.java:77)
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(java.base@17/DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(java.base@17/Method.java:568)
+	at com.systar.gluon.osgi.service.ImportedServiceHandler.invokeImpl(ImportedServiceHandler.java:92)
+	at com.systar.gluon.container.impl.factory.AbstractInvocationHandler.invoke(AbstractInvocationHandler.java:35)
+	at jdk.proxy45.$Proxy157.getComputingExecutionInfo(jdk.proxy45/Unknown Source)
+	at com.systar.radon.monitoring.impl.computing.ComputingTasksAnalyzerImpl.listComputingIndicators(ComputingTasksAnalyzerImpl.java:109)
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(java.base@17/Native Method)
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(java.base@17/NativeMethodAccessorImpl.java:77)
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(java.base@17/DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(java.base@17/Method.java:568)
+	at com.systar.gluon.osgi.service.ImportedServiceHandler.invokeImpl(ImportedServiceHandler.java:92)
+	at com.systar.gluon.container.impl.factory.AbstractInvocationHandler.invoke(AbstractInvocationHandler.java:35)
+	at jdk.proxy76.$Proxy311.listComputingIndicators(jdk.proxy76/Unknown Source)
+	at com.systar.helium.html.radon.MonitoringRestService.loadComputings(MonitoringRestService.java:297)
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(java.base@17/Native Method)
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(java.base@17/NativeMethodAccessorImpl.java:77)
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(java.base@17/DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(java.base@17/Method.java:568)
+	at org.glassfish.jersey.server.model.internal.ResourceMethodInvocationHandlerFactory.lambda$static$0(ResourceMethodInvocationHandlerFactory.java:52)
+	at org.glassfish.jersey.server.model.internal.ResourceMethodInvocationHandlerFactory$$Lambda$936/0x0000000800986e80.invoke(Unknown Source)
+	at org.glassfish.jersey.server.model.internal.AbstractJavaResourceMethodDispatcher$1.run(AbstractJavaResourceMethodDispatcher.java:124)
+	at org.glassfish.jersey.server.model.internal.AbstractJavaResourceMethodDispatcher.invoke(AbstractJavaResourceMethodDispatcher.java:167)
+	at org.glassfish.jersey.server.model.internal.JavaResourceMethodDispatcherProvider$TypeOutInvoker.doDispatch(JavaResourceMethodDispatcherProvider.java:219)
+	at org.glassfish.jersey.server.model.internal.AbstractJavaResourceMethodDispatcher.dispatch(AbstractJavaResourceMethodDispatcher.java:79)
+	at org.glassfish.jersey.server.model.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:475)
+	at org.glassfish.jersey.server.model.ResourceMethodInvoker.apply(ResourceMethodInvoker.java:397)
+	at org.glassfish.jersey.server.model.ResourceMethodInvoker.apply(ResourceMethodInvoker.java:81)
+	at org.glassfish.jersey.server.ServerRuntime$1.run(ServerRuntime.java:255)
+	at org.glassfish.jersey.internal.Errors$1.call(Errors.java:248)
+	at org.glassfish.jersey.internal.Errors$1.call(Errors.java:244)
+	at org.glassfish.jersey.internal.Errors.process(Errors.java:292)
+	at org.glassfish.jersey.internal.Errors.process(Errors.java:274)
+	at org.glassfish.jersey.internal.Errors.process(Errors.java:244)
+	at org.glassfish.jersey.process.internal.RequestScope.runInScope(RequestScope.java:265)
+	at org.glassfish.jersey.server.ServerRuntime.process(ServerRuntime.java:234)
+	at org.glassfish.jersey.server.ApplicationHandler.handle(ApplicationHandler.java:680)
+	at org.glassfish.jersey.servlet.WebComponent.serviceImpl(WebComponent.java:394)
+	at org.glassfish.jersey.servlet.WebComponent.service(WebComponent.java:346)
+	at org.glassfish.jersey.servlet.ServletContainer.service(ServletContainer.java:366)
+	at org.glassfish.jersey.servlet.ServletContainer.service(ServletContainer.java:319)
+	at org.glassfish.jersey.servlet.ServletContainer.service(ServletContainer.java:205)
+	at org.apache.felix.http.base.internal.handler.ServletHandler.handle(ServletHandler.java:123)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:86)
+	at com.systar.boson.activator.http.CSRFTokenFilter.doFilter(CSRFTokenFilter.java:65)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.SecurityCheckFilter.doFilter(SecurityCheckFilter.java:24)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:61)
+	at org.apache.shiro.web.servlet.AdviceFilter.executeChain(AdviceFilter.java:108)
+	at org.apache.shiro.web.servlet.AdviceFilter.doFilterInternal(AdviceFilter.java:137)
+	at com.systar.photon.application.impl.authentication.AuthenticationFilter.doFilterInternal(AuthenticationFilter.java:190)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:66)
+	at com.systar.photon.application.impl.authentication.SecuritySetFilter.doFilterInternal(SecuritySetFilter.java:18)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:66)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:450)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:387)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.SameOriginPolicyFilter.doFilter(SameOriginPolicyFilter.java:91)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.CSPProtectionFilter.doFilter(CSPProtectionFilter.java:40)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.helium.html.UserTimeZoneFilter.doFilter(UserTimeZoneFilter.java:33)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.RedirectToHttpsFilter.doFilter(RedirectToHttpsFilter.java:26)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.HttpMethodCheckFilter.doFilter(HttpMethodCheckFilter.java:30)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.photon.application.impl.XPermittedCrossDomainPoliciesFilter.doFilter(XPermittedCrossDomainPoliciesFilter.java:41)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.NoCacheFilter.doFilter(NoCacheFilter.java:33)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.HttpMimeTypeSniffingFilter.doFilter(HttpMimeTypeSniffingFilter.java:21)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.HttpClickJackingFilter.doFilter(HttpClickJackingFilter.java:21)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.XssProtectionFilter.doFilter(XssProtectionFilter.java:20)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.HstsFilter.doFilter(HstsFilter.java:24)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.rest.RestServiceFilter.doFilter(RestServiceFilter.java:55)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.rest.RestServiceFilter.doFilter(RestServiceFilter.java:55)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.GZIPFilter.doFilter(GZIPFilter.java:23)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.HttpProtocolCheckFilter.doFilter(HttpProtocolCheckFilter.java:27)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at org.apache.felix.http.base.internal.dispatch.Dispatcher$1.doFilter(Dispatcher.java:146)
+	at org.apache.felix.http.base.internal.whiteboard.WhiteboardManager.invokePreprocessors(WhiteboardManager.java:988)
+	at org.apache.felix.http.base.internal.dispatch.Dispatcher.dispatch(Dispatcher.java:91)
+	at org.apache.felix.http.base.internal.dispatch.DispatcherServlet.service(DispatcherServlet.java:49)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:799)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:550)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(ScopedHandler.java:233)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:1624)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(ScopedHandler.java:233)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1434)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:188)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:501)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:1594)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:186)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1349)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:141)
+	at org.eclipse.jetty.server.handler.ContextHandlerCollection.handle(ContextHandlerCollection.java:191)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:127)
+	at org.eclipse.jetty.server.Server.handle(Server.java:516)
+	at org.eclipse.jetty.server.HttpChannel.lambda$handle$1(HttpChannel.java:388)
+	at org.eclipse.jetty.server.HttpChannel$$Lambda$680/0x00000008004d2a30.dispatch(Unknown Source)
+	at org.eclipse.jetty.server.HttpChannel.dispatch(HttpChannel.java:633)
+	at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:380)
+	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:277)
+	at org.eclipse.jetty.io.AbstractConnection$ReadCallback.succeeded(AbstractConnection.java:311)
+	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:105)
+	at org.eclipse.jetty.io.ssl.SslConnection$DecryptedEndPoint.onFillable(SslConnection.java:555)
+	at org.eclipse.jetty.io.ssl.SslConnection.onFillable(SslConnection.java:410)
+	at org.eclipse.jetty.io.ssl.SslConnection$2.succeeded(SslConnection.java:164)
+	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:105)
+	at org.eclipse.jetty.io.ChannelEndPoint$1.run(ChannelEndPoint.java:104)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.runTask(EatWhatYouKill.java:338)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.doProduce(EatWhatYouKill.java:315)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.tryProduce(EatWhatYouKill.java:173)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.run(EatWhatYouKill.java:131)
+	at org.eclipse.jetty.util.thread.ReservedThreadExecutor$ReservedThread.run(ReservedThreadExecutor.java:386)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:883)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$Runner.run(QueuedThreadPool.java:1034)
+	at java.lang.Thread.run(java.base@17/Thread.java:833)
+
+   Locked ownable synchronizers:
+	- None
+
+"qtp1028639403-48" #48 prio=5 os_prio=0 cpu=1263.09ms elapsed=1607.09s tid=0x00007fc60072e9b0 nid=0x2283 waiting for monitor entry  [0x00007fc5f9cef000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at com.systar.krypton.scheduler.impl.trigger.ComputingTriggerInterceptor.getComputedIntervals(ComputingTriggerInterceptor.java:413)
+	- waiting to lock <0x00000005a9af7a58> (a java.lang.Object)
+	at com.systar.krypton.scheduler.impl.trigger.ComputingTriggerInterceptorRegistry.getComputedIntervalsByIndicatorUUID(ComputingTriggerInterceptorRegistry.java:255)
+	at com.systar.krypton.scheduler.impl.executor.ComputingExecutorImpl.getComputingExecutionInfo(ComputingExecutorImpl.java:287)
+	at jdk.internal.reflect.GeneratedMethodAccessor785.invoke(Unknown Source)
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(java.base@17/DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(java.base@17/Method.java:568)
+	at com.systar.gluon.osgi.service.ImportedServiceHandler.invokeImpl(ImportedServiceHandler.java:92)
+	at com.systar.gluon.container.impl.factory.AbstractInvocationHandler.invoke(AbstractInvocationHandler.java:35)
+	at jdk.proxy45.$Proxy157.getComputingExecutionInfo(jdk.proxy45/Unknown Source)
+	at com.systar.radon.monitoring.impl.computing.ComputingTasksAnalyzerImpl.listComputingIndicators(ComputingTasksAnalyzerImpl.java:109)
+	at jdk.internal.reflect.GeneratedMethodAccessor784.invoke(Unknown Source)
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(java.base@17/DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(java.base@17/Method.java:568)
+	at com.systar.gluon.osgi.service.ImportedServiceHandler.invokeImpl(ImportedServiceHandler.java:92)
+	at com.systar.gluon.container.impl.factory.AbstractInvocationHandler.invoke(AbstractInvocationHandler.java:35)
+	at jdk.proxy76.$Proxy311.listComputingIndicators(jdk.proxy76/Unknown Source)
+	at com.systar.helium.html.radon.MonitoringRestService.loadComputings(MonitoringRestService.java:297)
+	at jdk.internal.reflect.GeneratedMethodAccessor783.invoke(Unknown Source)
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(java.base@17/DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(java.base@17/Method.java:568)
+	at org.glassfish.jersey.server.model.internal.ResourceMethodInvocationHandlerFactory.lambda$static$0(ResourceMethodInvocationHandlerFactory.java:52)
+	at org.glassfish.jersey.server.model.internal.ResourceMethodInvocationHandlerFactory$$Lambda$936/0x0000000800986e80.invoke(Unknown Source)
+	at org.glassfish.jersey.server.model.internal.AbstractJavaResourceMethodDispatcher$1.run(AbstractJavaResourceMethodDispatcher.java:124)
+	at org.glassfish.jersey.server.model.internal.AbstractJavaResourceMethodDispatcher.invoke(AbstractJavaResourceMethodDispatcher.java:167)
+	at org.glassfish.jersey.server.model.internal.JavaResourceMethodDispatcherProvider$TypeOutInvoker.doDispatch(JavaResourceMethodDispatcherProvider.java:219)
+	at org.glassfish.jersey.server.model.internal.AbstractJavaResourceMethodDispatcher.dispatch(AbstractJavaResourceMethodDispatcher.java:79)
+	at org.glassfish.jersey.server.model.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:475)
+	at org.glassfish.jersey.server.model.ResourceMethodInvoker.apply(ResourceMethodInvoker.java:397)
+	at org.glassfish.jersey.server.model.ResourceMethodInvoker.apply(ResourceMethodInvoker.java:81)
+	at org.glassfish.jersey.server.ServerRuntime$1.run(ServerRuntime.java:255)
+	at org.glassfish.jersey.internal.Errors$1.call(Errors.java:248)
+	at org.glassfish.jersey.internal.Errors$1.call(Errors.java:244)
+	at org.glassfish.jersey.internal.Errors.process(Errors.java:292)
+	at org.glassfish.jersey.internal.Errors.process(Errors.java:274)
+	at org.glassfish.jersey.internal.Errors.process(Errors.java:244)
+	at org.glassfish.jersey.process.internal.RequestScope.runInScope(RequestScope.java:265)
+	at org.glassfish.jersey.server.ServerRuntime.process(ServerRuntime.java:234)
+	at org.glassfish.jersey.server.ApplicationHandler.handle(ApplicationHandler.java:680)
+	at org.glassfish.jersey.servlet.WebComponent.serviceImpl(WebComponent.java:394)
+	at org.glassfish.jersey.servlet.WebComponent.service(WebComponent.java:346)
+	at org.glassfish.jersey.servlet.ServletContainer.service(ServletContainer.java:366)
+	at org.glassfish.jersey.servlet.ServletContainer.service(ServletContainer.java:319)
+	at org.glassfish.jersey.servlet.ServletContainer.service(ServletContainer.java:205)
+	at org.apache.felix.http.base.internal.handler.ServletHandler.handle(ServletHandler.java:123)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:86)
+	at com.systar.boson.activator.http.CSRFTokenFilter.doFilter(CSRFTokenFilter.java:65)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.SecurityCheckFilter.doFilter(SecurityCheckFilter.java:24)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:61)
+	at org.apache.shiro.web.servlet.AdviceFilter.executeChain(AdviceFilter.java:108)
+	at org.apache.shiro.web.servlet.AdviceFilter.doFilterInternal(AdviceFilter.java:137)
+	at com.systar.photon.application.impl.authentication.AuthenticationFilter.doFilterInternal(AuthenticationFilter.java:190)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:66)
+	at com.systar.photon.application.impl.authentication.SecuritySetFilter.doFilterInternal(SecuritySetFilter.java:18)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:66)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:450)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:387)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.SameOriginPolicyFilter.doFilter(SameOriginPolicyFilter.java:91)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.CSPProtectionFilter.doFilter(CSPProtectionFilter.java:40)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.helium.html.UserTimeZoneFilter.doFilter(UserTimeZoneFilter.java:33)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.RedirectToHttpsFilter.doFilter(RedirectToHttpsFilter.java:26)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.HttpMethodCheckFilter.doFilter(HttpMethodCheckFilter.java:30)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.photon.application.impl.XPermittedCrossDomainPoliciesFilter.doFilter(XPermittedCrossDomainPoliciesFilter.java:41)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.NoCacheFilter.doFilter(NoCacheFilter.java:33)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.HttpMimeTypeSniffingFilter.doFilter(HttpMimeTypeSniffingFilter.java:21)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.HttpClickJackingFilter.doFilter(HttpClickJackingFilter.java:21)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.XssProtectionFilter.doFilter(XssProtectionFilter.java:20)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.HstsFilter.doFilter(HstsFilter.java:24)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.rest.RestServiceFilter.doFilter(RestServiceFilter.java:55)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.rest.RestServiceFilter.doFilter(RestServiceFilter.java:55)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.GZIPFilter.doFilter(GZIPFilter.java:23)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at com.systar.boson.activator.http.HttpProtocolCheckFilter.doFilter(HttpProtocolCheckFilter.java:27)
+	at org.apache.felix.http.base.internal.handler.FilterHandler.handle(FilterHandler.java:142)
+	at org.apache.felix.http.base.internal.dispatch.InvocationChain.doFilter(InvocationChain.java:81)
+	at org.apache.felix.http.base.internal.dispatch.Dispatcher$1.doFilter(Dispatcher.java:146)
+	at org.apache.felix.http.base.internal.whiteboard.WhiteboardManager.invokePreprocessors(WhiteboardManager.java:988)
+	at org.apache.felix.http.base.internal.dispatch.Dispatcher.dispatch(Dispatcher.java:91)
+	at org.apache.felix.http.base.internal.dispatch.DispatcherServlet.service(DispatcherServlet.java:49)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:799)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:550)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(ScopedHandler.java:233)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:1624)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(ScopedHandler.java:233)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1434)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:188)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:501)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:1594)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:186)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1349)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:141)
+	at org.eclipse.jetty.server.handler.ContextHandlerCollection.handle(ContextHandlerCollection.java:191)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:127)
+	at org.eclipse.jetty.server.Server.handle(Server.java:516)
+	at org.eclipse.jetty.server.HttpChannel.lambda$handle$1(HttpChannel.java:388)
+	at org.eclipse.jetty.server.HttpChannel$$Lambda$680/0x00000008004d2a30.dispatch(Unknown Source)
+	at org.eclipse.jetty.server.HttpChannel.dispatch(HttpChannel.java:633)
+	at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:380)
+	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:277)
+	at org.eclipse.jetty.io.AbstractConnection$ReadCallback.succeeded(AbstractConnection.java:311)
+	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:105)
+	at org.eclipse.jetty.io.ssl.SslConnection$DecryptedEndPoint.onFillable(SslConnection.java:555)
+	at org.eclipse.jetty.io.ssl.SslConnection.onFillable(SslConnection.java:410)
+	at org.eclipse.jetty.io.ssl.SslConnection$2.succeeded(SslConnection.java:164)
+	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:105)
+	at org.eclipse.jetty.io.ChannelEndPoint$1.run(ChannelEndPoint.java:104)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.runTask(EatWhatYouKill.java:338)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.doProduce(EatWhatYouKill.java:315)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.tryProduce(EatWhatYouKill.java:173)
+	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.run(EatWhatYouKill.java:131)
+	at org.eclipse.jetty.util.thread.ReservedThreadExecutor$ReservedThread.run(ReservedThreadExecutor.java:386)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:883)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$Runner.run(QueuedThreadPool.java:1034)
+	at java.lang.Thread.run(java.base@17/Thread.java:833)
+
+   Locked ownable synchronizers:
+	- None
+
+
+"Domain-calcium-88-asynchronousEventInterceptorHandlers.1567669294025678849" #1731 daemon prio=5 os_prio=0 cpu=87.04ms elapsed=1525.31s tid=0x00007fc6b0054c30 nid=0x2d13 waiting on condition  [0x00007fc57bffd000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@17/Native Method)
+	- parking to wait for  <0x00000005b23700e0> (a com.google.common.util.concurrent.SettableFuture)
+	at java.util.concurrent.locks.LockSupport.park(java.base@17/LockSupport.java:211)
+	at com.google.common.util.concurrent.AbstractFuture.get(AbstractFuture.java:523)
+	at com.google.common.util.concurrent.AbstractFuture$TrustedFuture.get(AbstractFuture.java:90)
+	at com.google.common.util.concurrent.Uninterruptibles.getUninterruptibly(Uninterruptibles.java:199)
+	at com.google.common.cache.LocalCache$LoadingValueReference.waitForValue(LocalCache.java:3581)
+	at com.google.common.cache.LocalCache$Segment.waitForLoadingValue(LocalCache.java:2174)
+	at com.google.common.cache.LocalCache$Segment.lockedGetOrLoad(LocalCache.java:2161)
+	at com.google.common.cache.LocalCache$Segment.get(LocalCache.java:2044)
+	at com.google.common.cache.LocalCache.get(LocalCache.java:3952)
+	at com.google.common.cache.LocalCache.getOrLoad(LocalCache.java:3974)
+	at com.google.common.cache.LocalCache$LocalLoadingCache.get(LocalCache.java:4958)
+	at com.google.common.cache.LocalCache$LocalLoadingCache.getUnchecked(LocalCache.java:4964)
+	at com.google.common.cache.ForwardingLoadingCache.getUnchecked(ForwardingLoadingCache.java:50)
+	at com.systar.tau.util.cache.CacheUtil$LoadingCacheImpl.getUnchecked(CacheUtil.java:26)
+	at com.systar.tau.util.collection.FetchMaps$LoadingCacheFetchMap.fetch(FetchMaps.java:203)
+	at com.systar.cobalt.mapper.impl.snapshot.ModelSnapshotImpl.getRepository(ModelSnapshotImpl.java:47)
+	at com.systar.krypton.scheduler.impl.ComputingReaderImpl.loadModelsInternal(ComputingReaderImpl.java:270)
+	at com.systar.krypton.scheduler.impl.ComputingReaderImpl$ComputingCache$1.load(ComputingReaderImpl.java:571)
+	at com.systar.krypton.scheduler.impl.ComputingReaderImpl$ComputingCache$1.load(ComputingReaderImpl.java:568)
+	at com.google.common.cache.LocalCache$LoadingValueReference.loadFuture(LocalCache.java:3528)
+	at com.google.common.cache.LocalCache$Segment.loadSync(LocalCache.java:2277)
+	at com.google.common.cache.LocalCache$Segment.lockedGetOrLoad(LocalCache.java:2154)
+	- locked <0x00000005b2350cf0> (a com.google.common.cache.LocalCache$StrongAccessEntry)
+	at com.google.common.cache.LocalCache$Segment.get(LocalCache.java:2044)
+	at com.google.common.cache.LocalCache.get(LocalCache.java:3952)
+	at com.google.common.cache.LocalCache.getOrLoad(LocalCache.java:3974)
+	at com.google.common.cache.LocalCache$LocalLoadingCache.get(LocalCache.java:4958)
+	at com.google.common.cache.LocalCache$LocalLoadingCache.getUnchecked(LocalCache.java:4964)
+	at com.google.common.cache.ForwardingLoadingCache.getUnchecked(ForwardingLoadingCache.java:50)
+	at com.systar.tau.util.cache.CacheUtil$LoadingCacheImpl.getUnchecked(CacheUtil.java:26)
+	at com.systar.tau.util.collection.FetchMaps$LoadingCacheFetchMap.fetch(FetchMaps.java:203)
+	at com.systar.krypton.scheduler.impl.ComputingReaderImpl$ComputingCache.getCacheTT(ComputingReaderImpl.java:603)
+	at com.systar.krypton.scheduler.impl.ComputingReaderImpl$ComputingCache.getModels(ComputingReaderImpl.java:588)
+	- locked <0x00000005b2350d98> (a java.lang.Object)
+	at com.systar.krypton.scheduler.impl.ComputingReaderImpl.loadModels(ComputingReaderImpl.java:252)
+	at com.systar.krypton.scheduler.impl.ComputingReaderImpl.loadModelsForInputVt(ComputingReaderImpl.java:195)
+	at com.systar.krypton.scheduler.impl.executor.ComputingExecutorImpl.enqueue(ComputingExecutorImpl.java:225)
+	at com.systar.krypton.scheduler.impl.trigger.ComputingTriggerInterceptor.enqueueLive(ComputingTriggerInterceptor.java:731)
+	at com.systar.krypton.scheduler.impl.trigger.ComputingTriggerInterceptor.processPendingWork(ComputingTriggerInterceptor.java:534)
+	- locked <0x00000005a9af7a58> (a java.lang.Object)
+	- locked <0x00000005a9af7a48> (a java.lang.Object)
+	at com.systar.krypton.scheduler.impl.trigger.ComputingTriggerInterceptor$$Lambda$2970/0x00000008012a7408.run(Unknown Source)
+	at com.systar.krypton.scheduler.impl.trigger.ComputingTriggerInterceptor.playActions(ComputingTriggerInterceptor.java:203)
+	at com.systar.krypton.scheduler.impl.trigger.ComputingTriggerInterceptor.onIdle(ComputingTriggerInterceptor.java:192)
+	at com.systar.calcium.impl.absorption.workflow.asynchronous.AsynchronousEventInterceptorHandler$DeployedInterceptorContext.onIdle(AsynchronousEventInterceptorHandler.java:788)
+	at com.systar.calcium.impl.absorption.workflow.asynchronous.AsynchronousEventInterceptorHandler$MessageProcessor.run(AsynchronousEventInterceptorHandler.java:632)
+	at java.lang.Thread.run(java.base@17/Thread.java:833)
+
+   Locked ownable synchronizers:
+	- <0x000000049c7c4c00> (a java.util.concurrent.locks.ReentrantLock$FairSync)
+
+
+"VM Thread" os_prio=0 cpu=123817.46ms elapsed=1613.91s tid=0x00007fc6cc0be8d0 nid=0x21a6 runnable
+
+"GC Thread#0" os_prio=0 cpu=53904.30ms elapsed=1613.95s tid=0x00007fc6cc03c620 nid=0x21a5 runnable
+
+"GC Thread#1" os_prio=0 cpu=54614.60ms elapsed=1612.19s tid=0x00007fc680000d10 nid=0x21c0 runnable
+
+"GC Thread#2" os_prio=0 cpu=54758.78ms elapsed=1612.19s tid=0x00007fc680001830 nid=0x21c1 runnable
+
+"GC Thread#3" os_prio=0 cpu=54713.47ms elapsed=1612.19s tid=0x00007fc680002350 nid=0x21c3 runnable
+
+"GC Thread#4" os_prio=0 cpu=54594.83ms elapsed=1612.19s tid=0x00007fc680002e70 nid=0x21c4 runnable
+
+"GC Thread#5" os_prio=0 cpu=54564.87ms elapsed=1612.19s tid=0x00007fc680003990 nid=0x21c5 runnable
+
+"GC Thread#6" os_prio=0 cpu=54373.19ms elapsed=1612.19s tid=0x00007fc6800044b0 nid=0x21c6 runnable
+
+"GC Thread#7" os_prio=0 cpu=54611.77ms elapsed=1612.19s tid=0x00007fc680004fd0 nid=0x21c7 runnable
+
+"VM Periodic Task Thread" os_prio=0 cpu=803.74ms elapsed=1613.79s tid=0x00007fc6cc1aa140 nid=0x21b1 waiting on condition
+
+JNI global refs: 98, weak refs: 1
+

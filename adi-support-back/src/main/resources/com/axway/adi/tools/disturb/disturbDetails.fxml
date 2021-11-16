@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<BorderPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.axway.adi.tools.disturb.DisturbDetailsController">
+   <top>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="495.0" minWidth="10.0" prefWidth="236.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="765.0" minWidth="10.0" prefWidth="764.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Diagnostic name" />
+            <TextField fx:id="name" editable="false" GridPane.columnIndex="1" />
+            <Label text="Diagnostic description" GridPane.rowIndex="1" />
+            <TextField fx:id="description" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Remediation" GridPane.rowIndex="2" />
+            <TextField fx:id="remediation" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </BorderPane.margin>
+      </GridPane>
+   </top>
+   <center>
+      <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+        <items>
+          <BorderPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <top>
+                  <Label text="Notes" BorderPane.alignment="CENTER" />
+               </top>
+               <center>
+                  <TextArea fx:id="notes" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+               </center></BorderPane>
+          <BorderPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <center>
+                  <TextArea fx:id="details" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+               </center>
+               <top>
+                  <Label text="Details" BorderPane.alignment="CENTER" />
+               </top></BorderPane>
+        </items>
+      </SplitPane>
+   </center>
+    <padding>
+        <Insets top="5.0"/>
+    </padding>
+    <bottom>
+        <Button mnemonicParsing="false" onAction="#onClose" text="Close" BorderPane.alignment="CENTER"/>
+    </bottom>
+</BorderPane>

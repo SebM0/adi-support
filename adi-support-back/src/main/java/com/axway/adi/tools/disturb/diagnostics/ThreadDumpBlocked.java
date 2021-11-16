@@ -65,6 +65,9 @@ public class ThreadDumpBlocked extends DiagnosticSpecification {
                 blockedByLocker.forEach((locker, count) -> {
                     ThreadDump lockerThread = blockingByLocker.get(locker);
                     result.notes += "\n - " + count + " times by " + (lockerThread != null ? lockerThread.name : locker);
+                    if (lockerThread != null) {
+                        result.addItem(locker, lockerThread.toString());
+                    }
                 });
                 return result;
             }

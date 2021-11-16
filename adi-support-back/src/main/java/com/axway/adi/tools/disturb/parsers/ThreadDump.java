@@ -1,6 +1,7 @@
 package com.axway.adi.tools.disturb.parsers;
 
 import java.util.*;
+import java.util.stream.*;
 
 public class ThreadDump {
     public static final String THREAD_NAME_HEADER = "\"";
@@ -31,7 +32,7 @@ public class ThreadDump {
             while (end < header.length() && !Character.isWhitespace(header.charAt(end))) {
                 end++;
             }
-            id = header.substring(pos, end);
+            id = header.substring(pos, end).trim();
         }
     }
 
@@ -45,9 +46,6 @@ public class ThreadDump {
                 if (traversedComponents.isEmpty() || !component.equals(traversedComponents.getLast())) {
                     traversedComponents.add(component);
                 }
-                //if ("calcium".equals(component) && trace.contains("awaitVectorClockProgress")) {
-                //    errors.add("Absorption blocked");
-                //}
             }
             stack.add(trace);
         } else if (code.startsWith(LOCK_HEADER)) {
@@ -90,5 +88,23 @@ public class ThreadDump {
 
     public String getStackTrace() {
         return String.join("\n", stack);
+    }
+
+    @Override
+    public String toString() {
+        String text = THREAD_NAME_HEADER + name + THREAD_NAME_HEADER;
+        if (id != null) {
+            text += " (" + id + ")";
+        }
+        if (!status.isEmpty()) {
+            text += " - " + status;
+        }
+        if (!locks.isEmpty()) {
+            text += "\nLocks:\n" + locks.stream().map(e -> LOCK_HEADER + e).collect(Collectors.joining("\n"));
+        }
+        if (!stack.isEmpty()) {
+            text += "\nStackTrace:\n" + stack.stream().map(e -> TRACE_HEADER + e).collect(Collectors.joining("\n"));
+        }
+        return text;
     }
 }

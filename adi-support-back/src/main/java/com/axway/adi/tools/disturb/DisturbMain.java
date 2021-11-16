@@ -6,9 +6,8 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.sql.SQLException;
 import java.util.*;
-import com.axway.adi.tools.disturb.db.DiagnosticSpecification;
+import com.axway.adi.tools.disturb.db.DiagnosticResult;
 import com.axway.adi.tools.disturb.db.SupportCase;
-import com.axway.adi.tools.util.DiagnosticBuilder;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -16,8 +15,6 @@ import javafx.stage.Stage;
 
 import static com.axway.adi.tools.disturb.DiagnosticCatalog.CAT;
 import static com.axway.adi.tools.disturb.DiagnosticPersistence.DB;
-import static com.axway.adi.tools.disturb.db.DbConstants.Level.Error;
-import static com.axway.adi.tools.disturb.db.DbConstants.ResourceType.ThreadDump;
 
 public class DisturbMain extends Application {
 
@@ -33,6 +30,8 @@ public class DisturbMain extends Application {
     private DisturbWelcomeController welcomeController;
     private Scene caseScene;
     private DisturbCaseController caseController;
+    private Scene detailScene;
+    private DisturbDetailsController detailController;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -46,6 +45,7 @@ public class DisturbMain extends Application {
 
         loadWelcomeScene();
         loadCaseScene();
+        loadDetailScene();
         primaryStage.setScene(welcomeScene);
 
         welcomeController.loadData();
@@ -78,6 +78,7 @@ public class DisturbMain extends Application {
             DB.insert(def);
             supportCases = DB.select(SupportCase.class);
         }*/
+        /*
         DiagnosticSpecification diag = new DiagnosticSpecification();
         diag.id = "TD-0001";
         diag.name = "Counter-performant plan operator";
@@ -86,12 +87,19 @@ public class DisturbMain extends Application {
         diag.diagnostic = new DiagnosticBuilder().addThreadDumpStackRule("InstantCompositeInstanceIdJoinPhysicalOperator").build();
         diag.description = "";
         diag.remediation = "Migrate to version 20210607 or higher";
-        DB.insert(diag);
+        DB.insert(diag);*/
     }
 
     void editSupportCase(SupportCase supportCase) {
-        caseController.setSupportCase(supportCase);
+        if (supportCase != null) {
+            caseController.setSupportCase(supportCase);
+        }
         stage.setScene(caseScene);
+    }
+
+    void showDiagnosticDetails(DiagnosticResult diagnosticResult) {
+        detailController.setResult(diagnosticResult);
+        stage.setScene(detailScene);
     }
 
     void welcome() {
@@ -113,6 +121,13 @@ public class DisturbMain extends Application {
         caseScene = new Scene(loader.load(), 1000, 800);
         caseController = loader.getController();
         caseController.bindControls(stage);
+    }
+
+    private void loadDetailScene() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("disturbDetails.fxml"));
+        detailScene = new Scene(loader.load(), 1000, 800);
+        detailController = loader.getController();
     }
 
     private void loadProperties() {

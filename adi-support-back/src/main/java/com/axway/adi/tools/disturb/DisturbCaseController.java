@@ -33,6 +33,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.ComboBoxTableCell;
@@ -84,6 +85,16 @@ public class DisturbCaseController extends AbstractController {
         // Bind resultTable
         {
             ObservableList<TableColumn<DiagnosticResult, ?>> columns = resultTable.getColumns();
+            resultTable.setRowFactory(tv -> {
+                TableRow<DiagnosticResult> row = new TableRow<>();
+                row.setOnMouseClicked(event -> {
+                    if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                        DiagnosticResult rowData = row.getItem();
+                        DisturbMain.MAIN.showDiagnosticDetails(rowData);
+                    }
+                });
+                return row;
+            });
             TableColumn<DiagnosticResult, Number> LevelColumn = (TableColumn<DiagnosticResult, Number>) columns.get(0);
             LevelColumn.setCellFactory(column -> new ImageTableCell<>(Arrays.stream(Level.values()).map(Level::toImage).toArray(String[]::new)));
             LevelColumn.setCellValueFactory(cellData -> new ReadOnlyIntegerWrapper(cellData.getValue().getLevel()));

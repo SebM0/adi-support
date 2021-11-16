@@ -6,8 +6,17 @@ public class DiagnosticResultItem implements DbObject {
     public String item = "";
     public String notes = "";
 
+    public DiagnosticResultItem() {}
+
+    public DiagnosticResultItem(String item, String notes) {
+        this.item = item;
+        this.notes = notes;
+    }
+
     @Override
     public String toString() {
-        return item;
+        if (notes == null || notes.isEmpty())
+            return item;
+        return item + ": " + notes;
     }
 }
