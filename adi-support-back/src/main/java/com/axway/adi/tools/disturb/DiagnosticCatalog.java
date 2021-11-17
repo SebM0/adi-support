@@ -19,6 +19,7 @@ import com.axway.adi.tools.disturb.diagnostics.LogLVStorageNotActivated;
 import com.axway.adi.tools.disturb.diagnostics.LogManyReplicas;
 import com.axway.adi.tools.disturb.diagnostics.LogManyZooKeeperClients;
 import com.axway.adi.tools.disturb.diagnostics.LogStatistics;
+import com.axway.adi.tools.disturb.diagnostics.SupportArchiveAttributeError;
 import com.axway.adi.tools.disturb.diagnostics.ThreadDumpBlocked;
 import com.axway.adi.tools.disturb.diagnostics.ThreadDumpFlowedAbsorption;
 import com.axway.adi.tools.disturb.diagnostics.ThreadDumpLowPerformancePlanOperators;
@@ -74,22 +75,28 @@ public class DiagnosticCatalog {
                 }
             }
         }
-        // built-in
+        // built-in diagnostics
+        // Thread dumps
         addDiagnostic(new ThreadDumpStatistics());
         addDiagnostic(new ThreadDumpLowPerformancePlanOperators());
         addDiagnostic(new ThreadDumpFlowedAbsorption());
         addDiagnostic(new ThreadDumpBlocked());
+        // Log
         addDiagnostic(new LogStatistics());
         addDiagnostic(new LogManyReplicas());
         addDiagnostic(new LogManyZooKeeperClients());
         addDiagnostic(new LogLVStorageNotActivated());
         addDiagnostic(new LogGarbageCollectorAlert());
+        // File list
         addDiagnostic(new FileListOrphaned());
         addDiagnostic(new FileListHuge());
         addDiagnostic(new FileListLVStorageNotActivated());
+        // Appx
         addDiagnostic(new AppxStatistics());
         addDiagnostic(new AppxObsoleteTypes());
         addDiagnostic(new AppxPurge());
+        // Support archive
+        addDiagnostic(new SupportArchiveAttributeError());
     }
 
     public List<SupportCase> getSupportCasesByStatus(DbConstants.Status status) {

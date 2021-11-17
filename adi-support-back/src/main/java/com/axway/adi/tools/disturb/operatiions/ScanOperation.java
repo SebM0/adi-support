@@ -4,6 +4,7 @@ import com.axway.adi.tools.disturb.db.SupportCaseResource;
 import com.axway.adi.tools.disturb.parsers.ApplicationParser;
 import com.axway.adi.tools.disturb.parsers.FileListParser;
 import com.axway.adi.tools.disturb.parsers.LogParser;
+import com.axway.adi.tools.disturb.parsers.SupportArchiveParser;
 import com.axway.adi.tools.disturb.parsers.ThreadDumpParser;
 import com.axway.adi.tools.util.AlertHelper;
 
@@ -36,6 +37,11 @@ public class ScanOperation extends Operation {
                 }
                 case Appx: {
                     ApplicationParser parser = new ApplicationParser(resource);
+                    parser.parse(driver::addResult);
+                    break;
+                }
+                case SupportArchive: {
+                    SupportArchiveParser parser = new SupportArchiveParser(resource);
                     parser.parse(driver::addResult);
                     break;
                 }

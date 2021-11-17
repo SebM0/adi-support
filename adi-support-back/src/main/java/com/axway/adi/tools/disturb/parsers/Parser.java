@@ -24,20 +24,7 @@ public abstract class Parser {
             parseFile(path, resultConsumer);
         }
         if (Files.isDirectory(path)) {
-            AtomicReference<IOException> excepCollector = new AtomicReference<>();
-            try (Stream<Path> stream = Files.walk(path, Integer.MAX_VALUE)) {
-                filterFiles(stream.filter(Files::isRegularFile)).forEach(subPath -> {
-                    try {
-                        currentRelativeFile = path.relativize(subPath).toString();
-                        parseFile(subPath, resultConsumer);
-                    } catch (IOException e) {
-                        excepCollector.set(e);
-                    }
-                });
-            }
-            if (excepCollector.get() != null) {
-                throw excepCollector.get();
-            }
+            parseDirectory(path, resultConsumer);
         }
     }
 
@@ -50,6 +37,23 @@ public abstract class Parser {
     }
 
     protected abstract void parseFile(Path filePath, Consumer<DiagnosticResult> resultConsumer) throws IOException;
+
+    protected void parseDirectory(Path path, Consumer<DiagnosticResult> resultConsumer) throws IOException {
+        AtomicReference<IOException> excepCollector = new AtomicReference<>();
+        try (Stream<Path> stream = Files.walk(path, Integer.MAX_VALUE)) {
+            filterFiles(stream.filter(Files::isRegularFile)).forEach(subPath -> {
+                try {
+                    currentRelativeFile = path.relativize(subPath).toString();
+                    parseFile(subPath, resultConsumer);
+                } catch (IOException e) {
+                    excepCollector.set(e);
+                }
+            });
+        }
+        if (excepCollector.get() != null) {
+            throw excepCollector.get();
+        }
+    }
 
     public abstract int getSize();
 }
