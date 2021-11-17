@@ -13,6 +13,10 @@ import com.axway.adi.tools.disturb.db.DbConstants;
 import com.axway.adi.tools.disturb.db.DiagnosticResult;
 import com.axway.adi.tools.disturb.db.DiagnosticSpecification;
 import com.axway.adi.tools.disturb.db.SupportCaseResource;
+import com.axway.adi.tools.disturb.parsers.structures.AppEntity;
+import com.axway.adi.tools.disturb.parsers.structures.AppFieldType;
+import com.axway.adi.tools.disturb.parsers.structures.AppIdentifiable;
+import com.axway.adi.tools.disturb.parsers.structures.AppIndicator;
 import com.axway.adi.tools.util.FileUtils;
 
 import static com.axway.adi.tools.disturb.DiagnosticCatalog.CAT;

@@ -1,4 +1,4 @@
-package com.axway.adi.tools.disturb.parsers;
+package com.axway.adi.tools.disturb.parsers.structures;
 
 public enum AppFieldType {
     // attributes

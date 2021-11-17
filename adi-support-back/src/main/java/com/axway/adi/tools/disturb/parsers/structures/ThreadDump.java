@@ -1,4 +1,4 @@
-package com.axway.adi.tools.disturb.parsers;
+package com.axway.adi.tools.disturb.parsers.structures;
 
 import java.util.*;
 import java.util.stream.*;
@@ -36,7 +36,7 @@ public class ThreadDump {
         }
     }
 
-    void addStack(String code) {
+    public void addStack(String code) {
         if (code.startsWith(STATUS_HEADER)) {
             status = code.substring(STATUS_HEADER.length()).trim();
         } else if (code.startsWith(TRACE_HEADER)) {

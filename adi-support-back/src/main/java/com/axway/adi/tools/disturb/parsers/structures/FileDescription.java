@@ -1,4 +1,4 @@
-package com.axway.adi.tools.disturb.parsers;
+package com.axway.adi.tools.disturb.parsers.structures;
 
 public class FileDescription {
     public String type;
@@ -14,7 +14,7 @@ public class FileDescription {
         return "D".equals(type);
     }
 
-    static FileDescription parse(String line) {
+    public static FileDescription parse(String line) {
         String[] split = line.split(",");
         if (split.length != 4)
             return null;

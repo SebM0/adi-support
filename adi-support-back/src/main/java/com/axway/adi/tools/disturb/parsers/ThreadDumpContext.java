@@ -3,6 +3,7 @@ package com.axway.adi.tools.disturb.parsers;
 import com.axway.adi.tools.disturb.db.DiagnosticResult;
 import com.axway.adi.tools.disturb.db.DiagnosticSpecification;
 import com.axway.adi.tools.disturb.db.SupportCaseResource;
+import com.axway.adi.tools.disturb.parsers.structures.ThreadDump;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

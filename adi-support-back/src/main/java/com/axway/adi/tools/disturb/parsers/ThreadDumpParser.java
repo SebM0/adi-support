@@ -8,6 +8,7 @@ import com.axway.adi.tools.disturb.db.DbConstants;
 import com.axway.adi.tools.disturb.db.DiagnosticResult;
 import com.axway.adi.tools.disturb.db.DiagnosticSpecification;
 import com.axway.adi.tools.disturb.db.SupportCaseResource;
+import com.axway.adi.tools.disturb.parsers.structures.ThreadDump;
 import com.axway.adi.tools.util.AlertHelper;
 
 import static com.axway.adi.tools.disturb.DiagnosticCatalog.CAT;

@@ -7,7 +7,7 @@ import com.axway.adi.tools.disturb.db.SupportCaseResource;
 
 public abstract class DiagnosticParseContext<T> {
     private final DiagnosticSpecification specification;
-    private final SupportCaseResource resource;
+    protected final SupportCaseResource resource;
 
     protected DiagnosticParseContext(DiagnosticSpecification specification, SupportCaseResource resource) {
         this.specification = specification;

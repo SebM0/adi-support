@@ -6,7 +6,7 @@ import com.axway.adi.tools.disturb.db.DiagnosticResult;
 import com.axway.adi.tools.disturb.db.DiagnosticSpecification;
 import com.axway.adi.tools.disturb.db.SupportCaseResource;
 import com.axway.adi.tools.disturb.parsers.DiagnosticParseContext;
-import com.axway.adi.tools.disturb.parsers.LogMessage;
+import com.axway.adi.tools.disturb.parsers.structures.LogMessage;
 
 import static com.axway.adi.tools.disturb.parsers.LogParser.NODE_LOG;
 

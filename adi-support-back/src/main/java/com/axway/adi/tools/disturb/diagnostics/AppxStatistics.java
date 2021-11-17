@@ -5,10 +5,10 @@ import com.axway.adi.tools.disturb.db.DbConstants;
 import com.axway.adi.tools.disturb.db.DiagnosticResult;
 import com.axway.adi.tools.disturb.db.DiagnosticSpecification;
 import com.axway.adi.tools.disturb.db.SupportCaseResource;
-import com.axway.adi.tools.disturb.parsers.AppEntity;
-import com.axway.adi.tools.disturb.parsers.AppIdentifiable;
-import com.axway.adi.tools.disturb.parsers.AppIndicator;
 import com.axway.adi.tools.disturb.parsers.DiagnosticParseContext;
+import com.axway.adi.tools.disturb.parsers.structures.AppEntity;
+import com.axway.adi.tools.disturb.parsers.structures.AppIdentifiable;
+import com.axway.adi.tools.disturb.parsers.structures.AppIndicator;
 
 public class AppxStatistics extends DiagnosticSpecification {
     public AppxStatistics() {
@@ -46,13 +46,10 @@ public class AppxStatistics extends DiagnosticSpecification {
         @Override
         public DiagnosticResult getResult() {
             DiagnosticResult result = buildResult();
-            StringBuilder sb = new StringBuilder();
-            sb.append("Entities: ").append(entityCount);
-            sb.append("\nAttributes: ").append(indicatorByType.values().stream().mapToInt(i -> i).sum());
+            result.notes = "Entities: " + entityCount + ", Attributes: " + indicatorByType.values().stream().mapToInt(i -> i).sum();
             indicatorByType.entrySet().stream()
                     .sorted((e1, e2) -> Integer.compare(e2.getValue(), e1.getValue()))
-                    .forEach(e -> sb.append("\n  ").append(e.getKey()).append(": ").append(e.getValue()));
-            result.notes = sb.toString();
+                    .forEach(e -> result.addItem(e.getKey(), e.getValue().toString()));
             return result;
         }
     }

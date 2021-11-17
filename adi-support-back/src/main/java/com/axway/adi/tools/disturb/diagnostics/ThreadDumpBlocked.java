@@ -6,7 +6,7 @@ import com.axway.adi.tools.disturb.db.DiagnosticResult;
 import com.axway.adi.tools.disturb.db.DiagnosticSpecification;
 import com.axway.adi.tools.disturb.db.SupportCaseResource;
 import com.axway.adi.tools.disturb.parsers.DiagnosticParseContext;
-import com.axway.adi.tools.disturb.parsers.ThreadDump;
+import com.axway.adi.tools.disturb.parsers.structures.ThreadDump;
 
 public class ThreadDumpBlocked extends DiagnosticSpecification {
     private static final int MAX_BLOCKED = 2;

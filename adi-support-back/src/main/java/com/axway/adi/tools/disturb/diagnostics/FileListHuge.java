@@ -7,7 +7,7 @@ import com.axway.adi.tools.disturb.db.DiagnosticResult;
 import com.axway.adi.tools.disturb.db.DiagnosticSpecification;
 import com.axway.adi.tools.disturb.db.SupportCaseResource;
 import com.axway.adi.tools.disturb.parsers.DiagnosticParseContext;
-import com.axway.adi.tools.disturb.parsers.FileDescription;
+import com.axway.adi.tools.disturb.parsers.structures.FileDescription;
 import com.axway.adi.tools.util.FileUtils;
 
 public class FileListHuge extends DiagnosticSpecification {

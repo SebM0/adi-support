@@ -5,7 +5,7 @@ import com.axway.adi.tools.disturb.db.DiagnosticResult;
 import com.axway.adi.tools.disturb.db.DiagnosticSpecification;
 import com.axway.adi.tools.disturb.db.SupportCaseResource;
 import com.axway.adi.tools.disturb.parsers.DiagnosticParseContext;
-import com.axway.adi.tools.disturb.parsers.ThreadDump;
+import com.axway.adi.tools.disturb.parsers.structures.ThreadDump;
 
 public class ThreadDumpLowPerformancePlanOperators extends DiagnosticSpecification {
     private static final String SLOW_OPERATOR = "InstantCompositeInstanceIdJoinPhysicalOperator";
