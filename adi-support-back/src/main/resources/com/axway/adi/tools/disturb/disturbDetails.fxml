@@ -56,9 +56,25 @@
       </SplitPane>
    </center>
     <padding>
-        <Insets top="5.0"/>
+        <Insets top="5.0" />
     </padding>
-    <bottom>
-        <Button mnemonicParsing="false" onAction="#onClose" text="Close" BorderPane.alignment="CENTER"/>
-    </bottom>
+   <bottom>
+      <BorderPane prefHeight="39.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+         <left>
+            <Button fx:id="prevButton" mnemonicParsing="false" onAction="#onPrevious" text="&lt;&lt;" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets left="10.0" />
+               </BorderPane.margin></Button>
+         </left>
+         <right>
+            <Button fx:id="nextButton" mnemonicParsing="false" onAction="#onNext" text="&gt;&gt;" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets right="10.0" />
+               </BorderPane.margin></Button>
+         </right>
+         <center>
+             <Button cancelButton="true" mnemonicParsing="false" onAction="#onClose" text="Close" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+   </bottom>
 </BorderPane>

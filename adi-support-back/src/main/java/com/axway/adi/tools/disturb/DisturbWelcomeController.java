@@ -11,6 +11,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.TableView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -83,10 +84,10 @@ public class DisturbWelcomeController extends AbstractController {
         if ("N".equals(keyEvent.getCode().getChar()) && keyEvent.isControlDown()) {
             newCase();
             keyEvent.consume();
-        } else if (keyEvent.getCode().getCode() == 127) { //DELETE
+        } else if (keyEvent.getCode() == KeyCode.DELETE) {
             deleteCase(selectedItem);
             keyEvent.consume();
-        } else if (keyEvent.getCode().getCode() == 10) { //ENTER
+        } else if (keyEvent.getCode() == KeyCode.ENTER) {
             editCase(selectedItem);
             keyEvent.consume();
         }

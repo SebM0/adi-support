@@ -11,6 +11,7 @@ import com.axway.adi.tools.disturb.db.SupportCase;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 import static com.axway.adi.tools.disturb.DiagnosticCatalog.CAT;
@@ -97,8 +98,8 @@ public class DisturbMain extends Application {
         stage.setScene(caseScene);
     }
 
-    void showDiagnosticDetails(DiagnosticResult diagnosticResult) {
-        detailController.setResult(diagnosticResult);
+    void showDiagnosticDetails(TableView.TableViewSelectionModel<DiagnosticResult> diagnosticResults) {
+        detailController.setResult(diagnosticResults);
         stage.setScene(detailScene);
     }
 

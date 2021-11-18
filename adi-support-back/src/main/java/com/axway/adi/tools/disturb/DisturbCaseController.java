@@ -37,6 +37,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.ComboBoxTableCell;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
@@ -89,8 +90,7 @@ public class DisturbCaseController extends AbstractController {
                 TableRow<DiagnosticResult> row = new TableRow<>();
                 row.setOnMouseClicked(event -> {
                     if (event.getClickCount() == 2 && (!row.isEmpty())) {
-                        DiagnosticResult rowData = row.getItem();
-                        DisturbMain.MAIN.showDiagnosticDetails(rowData);
+                        DisturbMain.MAIN.showDiagnosticDetails(resultTable.getSelectionModel());
                     }
                 });
                 return row;
@@ -250,7 +250,7 @@ public class DisturbCaseController extends AbstractController {
         if ("A".equals(keyEvent.getCode().getChar()) && keyEvent.isControlDown()) {
             resourceTable.getSelectionModel().selectAll();
             keyEvent.consume();
-        } else if (keyEvent.getCode().getCode() == 127) { //DELETE
+        } else if (keyEvent.getCode() == KeyCode.DELETE) {
             SupportCaseResource[] supportCaseResources = resourceTable.getSelectionModel().getSelectedItems().toArray(new SupportCaseResource[0]);
             Arrays.stream(supportCaseResources).forEach(item -> item.ignored = true);
             resourceTable.getItems().removeAll(supportCaseResources);
