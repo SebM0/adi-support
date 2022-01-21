@@ -3,6 +3,7 @@ package com.axway.adi.tools.disturb.db;
 import java.nio.file.Path;
 import java.sql.Date;
 import com.axway.adi.tools.disturb.db.DbConstants.ResourceType;
+import com.axway.adi.tools.disturb.parsers.GlobalContext;
 
 import static com.axway.adi.tools.disturb.DiagnosticCatalog.CAT;
 
@@ -20,6 +21,7 @@ public class SupportCaseResource implements DbObject {
     public int status; //new, downloaded, deployed, scan ok, scan failure
     public boolean ignored = false;
     private SupportCaseResource parent_resource;
+    private GlobalContext globalContext;
 
     public SupportCaseResource() {
     }
@@ -62,6 +64,14 @@ public class SupportCaseResource implements DbObject {
 
     public SupportCaseResource getParentResource() {
         return parent_resource;
+    }
+
+    public GlobalContext getGlobalContext() {
+        return globalContext == null && parent_resource != null ? parent_resource.getGlobalContext() : globalContext;
+    }
+
+    public void setGlobalContext(GlobalContext globalContext) {
+        this.globalContext = globalContext;
     }
 
     @Override

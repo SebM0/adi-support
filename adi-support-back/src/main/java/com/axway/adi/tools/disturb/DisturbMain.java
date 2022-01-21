@@ -106,6 +106,7 @@ public class DisturbMain extends Application {
     void welcome() {
         CAT.load();
         stage.setScene(welcomeScene);
+        welcomeController.loadData();
     }
 
     private void loadWelcomeScene() throws IOException {

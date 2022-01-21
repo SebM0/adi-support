@@ -1,9 +1,7 @@
 package com.axway.adi.tools.disturb;
 
-import java.util.stream.*;
 import com.axway.adi.tools.AbstractController;
 import com.axway.adi.tools.disturb.db.DiagnosticResult;
-import com.axway.adi.tools.disturb.db.DiagnosticResultItem;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
@@ -31,8 +29,8 @@ public class DisturbDetailsController extends AbstractController {
         name.setText(diagnosticResult.getSpecName());
         description.setText(diagnosticResult.getSpec().description);
         remediation.setText(diagnosticResult.getSpec().remediation);
-        notes.setText(diagnosticResult.notes);
-        details.setText(diagnosticResult.getItems().stream().map(DiagnosticResultItem::toString).collect(Collectors.joining("\n")));
+        notes.setText(diagnosticResult.getNotes());
+        details.setText(diagnosticResult.getDetails());
         // Buttons
         int index = resultsSelectionModel.getSelectedIndex();
         int size = resultsSelectionModel.getTableView().getItems().size();

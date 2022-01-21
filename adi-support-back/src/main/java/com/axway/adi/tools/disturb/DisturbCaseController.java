@@ -5,8 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 import com.axway.adi.tools.AbstractController;
-import com.axway.adi.tools.disturb.db.DbConstants.Level;
-import com.axway.adi.tools.disturb.db.DbConstants.ResourceType;
 import com.axway.adi.tools.disturb.db.DiagnosticResult;
 import com.axway.adi.tools.disturb.db.SupportCase;
 import com.axway.adi.tools.disturb.db.SupportCaseResource;
@@ -15,6 +13,7 @@ import com.axway.adi.tools.disturb.operatiions.DiscoverOperation;
 import com.axway.adi.tools.disturb.operatiions.DownloadOperation;
 import com.axway.adi.tools.disturb.operatiions.OperationExecutor;
 import com.axway.adi.tools.disturb.operatiions.ScanOperation;
+import com.axway.adi.tools.disturb.parsers.GlobalContext;
 import com.axway.adi.tools.util.AlertHelper;
 import com.axway.adi.tools.util.FileUtils;
 import com.axway.adi.tools.util.ImageTableCell;
@@ -22,6 +21,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -41,6 +41,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
+import static com.axway.adi.tools.disturb.db.DbConstants.*;
 import static javafx.scene.control.Alert.AlertType.ERROR;
 
 public class DisturbCaseController extends AbstractController {
@@ -132,7 +133,7 @@ public class DisturbCaseController extends AbstractController {
             //TODO browse open tornado cases
         }
         String remote = "https://jira.axway.com/rest/api/2/issue/" + caseId;
-        try (Reader reader = new InputStreamReader(Runtime.getRuntime().exec("curl --user rd-tnd-viewer:axwaydi2017 --silent " + remote + "?expand=fields").getInputStream())) {
+        try (Reader reader = new InputStreamReader(Runtime.getRuntime().exec("curl --user " + ADI_JIRA_WRITER + ":" + ADI_JIRA_WRITER_TOKEN + " --silent " + remote + "?expand=fields").getInputStream())) {
             JsonElement element = JsonParser.parseReader(reader);
             JsonObject root = element.getAsJsonObject();
             JsonObject fields = root.getAsJsonObject("fields");
@@ -140,10 +141,26 @@ public class DisturbCaseController extends AbstractController {
                 AlertHelper.show(ERROR, "Cannot read issue");
                 return;
             }
-            JsonElement child = fields.get("customfield_11830");
-            if (child instanceof JsonArray) {
-                customerName.setText(((JsonArray)child).get(0).getAsString());
+            String customer = "";
+            { // Customer name may be set in several fields
+                JsonElement child = fields.get("customfield_11830");
+                if (child instanceof JsonArray) {
+                    customer = ((JsonArray) child).get(0).getAsString();
+                }
+                if (customer.isEmpty()) {
+                    child = fields.get("customfield_12531");
+                    if (child instanceof JsonPrimitive) {
+                        customer = child.getAsString().strip();
+                    }
+                }
+                if (customer.isEmpty()) {
+                    child = fields.get("customfield_15330");
+                    if (child instanceof JsonPrimitive) {
+                        customer = child.getAsString();
+                    }
+                }
             }
+            customerName.setText(customer.replaceAll("\n", ""));
             releaseName.setText(fields.getAsJsonArray("versions").get(0).getAsJsonObject().getAsJsonPrimitive("name").getAsString());
             summary.setText(fields.getAsJsonPrimitive("summary").getAsString());
             JsonArray atts = fields.getAsJsonArray("attachment");
@@ -193,7 +210,7 @@ public class DisturbCaseController extends AbstractController {
                 supportCase.id = caseId;
                 // search local path
                 Path root = Path.of(DisturbMain.MAIN.getRootDirectory());
-                if (Files.exists(root)) {
+                if (!Files.exists(root)) {
                     Files.createDirectories(root);
                 }
                 if (Files.isDirectory(root)) {
@@ -272,7 +289,11 @@ public class DisturbCaseController extends AbstractController {
         resultTable.getItems().clear();
         // build executor
         executor = new OperationExecutor(this::addResult);
-        resourceTable.getItems().forEach(this::submit);
+        GlobalContext globalContext = new GlobalContext();
+        resourceTable.getItems().forEach(res -> {
+            res.setGlobalContext(globalContext);
+            submit(res);
+        });
         // bind progress properties
         progress.progressProperty().bind(executor.progressProperty());
         progressLabel.textProperty().bind(executor.messageProperty());
@@ -321,17 +342,28 @@ public class DisturbCaseController extends AbstractController {
         if (testName.endsWith(".zip") || testName.endsWith(".gz") || testName.endsWith(".tar") || res.getResourceType() == ResourceType.Appx) {
             // deploy
             executor.addOperation(new DeployOperation(res));
-            // discover
-            if (res.getResourceType() == ResourceType.SupportArchive) {
-                executor.addOperation(new DiscoverOperation(res));
-            }
         }
-        executor.addOperation(new ScanOperation(res));
+        // discover
+        if (res.getResourceType() == ResourceType.SupportArchive) {
+            executor.addOperation(new DiscoverOperation(res));
+        } else {
+            executor.addOperation(new ScanOperation(res));
+        }
     }
 
     public void onSave(ActionEvent actionEvent) {
         // flush editor fields
         supportCase.id = supportCaseId.getText();
+        supportCase.customer = customerName.getText();
+        try {
+            supportCase.local_path = Path.of(DisturbMain.MAIN.getRootDirectory()).relativize(Path.of(localPath.getText())).toString();
+        } catch (RuntimeException e) {
+            // skip
+            supportCase.local_path = "";
+        }
+        supportCase.remote_path = remotePath.getText();
+        supportCase.summary = summary.getText();
+        supportCase.release = releaseName.getText();
 
         if (DisturbMain.MAIN.isOnline()) {
             DiagnosticPersistence.DB.insert(supportCase);

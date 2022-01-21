@@ -10,6 +10,7 @@ public enum AppFieldType {
     IndicatorConfiguration("[Semantic:Indicator].Semantic:configurationBlob"), //
     DataMember("[Semantic:IndicatorData].Semantic:dataUUID"), //
     DataInterest("[Semantic:IndicatorData].Semantic:interest"), //
+    MemberName("[System:Member].System:Name"), //
     MemberTTL("[System:Member].System:TimeToLiveRequested"), //
     // relations
     Indicator2Role("[Semantic:Indicator].Semantic:roles"), //

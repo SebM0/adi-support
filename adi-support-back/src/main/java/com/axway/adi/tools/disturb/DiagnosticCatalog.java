@@ -20,6 +20,8 @@ import com.axway.adi.tools.disturb.diagnostics.LogManyReplicas;
 import com.axway.adi.tools.disturb.diagnostics.LogManyZooKeeperClients;
 import com.axway.adi.tools.disturb.diagnostics.LogStatistics;
 import com.axway.adi.tools.disturb.diagnostics.SupportArchiveAttributeError;
+import com.axway.adi.tools.disturb.diagnostics.SupportArchiveColumnSize;
+import com.axway.adi.tools.disturb.diagnostics.SupportArchiveRecomputing;
 import com.axway.adi.tools.disturb.diagnostics.ThreadDumpBlocked;
 import com.axway.adi.tools.disturb.diagnostics.ThreadDumpFlowedAbsorption;
 import com.axway.adi.tools.disturb.diagnostics.ThreadDumpLowPerformancePlanOperators;
@@ -97,6 +99,8 @@ public class DiagnosticCatalog {
         addDiagnostic(new AppxPurge());
         // Support archive
         addDiagnostic(new SupportArchiveAttributeError());
+        addDiagnostic(new SupportArchiveColumnSize());
+        addDiagnostic(new SupportArchiveRecomputing());
     }
 
     public List<SupportCase> getSupportCasesByStatus(DbConstants.Status status) {

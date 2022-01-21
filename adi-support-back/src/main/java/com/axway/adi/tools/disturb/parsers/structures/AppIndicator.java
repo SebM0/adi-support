@@ -12,6 +12,7 @@ public class AppIndicator extends AppIdentifiable {
     public String rhythm;
     public String periodRhythm;
     public String ttl = "";
+    public UUID memberUuid = null;
 
     public AppIndicator(UUID uuid) {
         super(uuid);
@@ -27,6 +28,6 @@ public class AppIndicator extends AppIdentifiable {
                 .map(e -> e.name)
                 .sorted(CASE_INSENSITIVE_ORDER)
                 .collect(Collectors.joining(" x "));
-        return "[" + entityNames + "]." + name;
+        return "[" + entityNames + "]." + name + " (" + type + (configuration.isBlank() ? ")" : "*)");
     }
 }

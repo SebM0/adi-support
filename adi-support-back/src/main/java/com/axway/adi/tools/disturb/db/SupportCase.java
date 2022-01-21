@@ -1,5 +1,6 @@
 package com.axway.adi.tools.disturb.db;
 
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.util.*;
 import com.axway.adi.tools.disturb.DisturbMain;
@@ -40,7 +41,13 @@ public class SupportCase implements DbObject {
     public String getLocalPath() {
         if (local_path == null || local_path.isEmpty())
             return "";
-        return Path.of(DisturbMain.MAIN.getRootDirectory(), local_path).toString();
+        Path localPath;
+        try {
+            localPath = Path.of(DisturbMain.MAIN.getRootDirectory(), local_path);
+        } catch (InvalidPathException e) {
+            localPath = Path.of(local_path);
+        }
+        return localPath.toString();
     }
 
     @Override

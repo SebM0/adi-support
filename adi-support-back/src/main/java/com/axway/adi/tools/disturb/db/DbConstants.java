@@ -3,6 +3,9 @@ package com.axway.adi.tools.disturb.db;
 import java.util.*;
 
 public class DbConstants {
+    public static final String ADI_JIRA_WRITER = "msa.rd.adi.robot";
+    public static final String ADI_JIRA_WRITER_TOKEN = "4JKZIIGFNLOG6MKWHLSGPEBRH5A3JGDTKMV4B3HDYEQWF5ZP5SMB6NHAKFIPUZ7D7HLKLYSW4AJL3VV5E6GUKISFBVYPNDBB6673IFTSXOGG6LIXIOMSQUEA6FHFYNWW";
+
     public enum Status {
         New, InProgress, Done
     }

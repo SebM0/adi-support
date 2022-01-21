@@ -49,6 +49,9 @@ public class DiscoverOperation extends Operation {
                 SupportCaseResource sub = new SupportCaseResource(resource, extendedPath.resolve(LOG_FOLDER), DbConstants.ResourceType.Log);
                 driver.addOperation(new ScanOperation(sub));
             }
+            if (resource.getResourceType() == DbConstants.ResourceType.SupportArchive) {
+                driver.addOperation(new ScanOperation(resource));
+            }
         } catch (Exception e) {
             System.err.println(e.getMessage());
             //AlertHelper.show(ERROR, e.getMessage());

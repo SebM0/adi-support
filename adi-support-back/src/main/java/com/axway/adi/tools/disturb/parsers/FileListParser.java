@@ -9,18 +9,16 @@ import com.axway.adi.tools.disturb.db.DiagnosticResult;
 import com.axway.adi.tools.disturb.db.DiagnosticSpecification;
 import com.axway.adi.tools.disturb.db.SupportCaseResource;
 import com.axway.adi.tools.disturb.parsers.structures.FileDescription;
-import com.axway.adi.tools.util.AlertHelper;
 
 import static com.axway.adi.tools.disturb.DiagnosticCatalog.CAT;
 import static java.util.stream.Collectors.*;
-import static javafx.scene.control.Alert.AlertType.WARNING;
 
-public class FileListParser extends Parser {
+public class FileListParser extends CsvParser {
     int count = 0;
     List<DiagnosticParseContext<FileDescription>> diagnosticContexts;
 
     public FileListParser(SupportCaseResource resource) {
-        super(resource);
+        super(resource, true);
     }
 
     @Override
@@ -34,7 +32,7 @@ public class FileListParser extends Parser {
                 .collect(toList());
 
         // read log file
-        readFileList(filePath);
+        readCsv(filePath);
 
         // Publish results
         diagnosticContexts.forEach(context -> {
@@ -55,32 +53,19 @@ public class FileListParser extends Parser {
         return (DiagnosticParseContext<FileDescription>) diag.createContext(resource);
     }
 
-    private void readFileList(Path redoLogFile) {
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(redoLogFile.toFile()))) {
-            boolean header = true;
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (header) {
-                    header = false;
-                    continue; // skip header
-                }
-                line = line.trim();
-                // Read header
-                FileDescription current = FileDescription.parse(line);
-                process(current);
-            }
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-            AlertHelper.show(WARNING, "Failed to read file list: " + redoLogFile + "\n" + ioException.getMessage());
-        }
-    }
-
-    private void process(FileDescription current) {
+    @Override
+    protected void process(String[] split) {
+        FileDescription current = FileDescription.parse(split);
         if (current != null) {
             count++;
             //feed log message to diags
-            diagnosticContexts.forEach(action -> action.analyse(getRelativePath(), current));
+            diagnosticContexts.forEach(action -> {
+                try {
+                    action.analyse(getRelativePath(), current);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
         }
     }
 }

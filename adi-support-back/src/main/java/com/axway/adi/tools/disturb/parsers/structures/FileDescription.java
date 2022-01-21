@@ -14,8 +14,7 @@ public class FileDescription {
         return "D".equals(type);
     }
 
-    public static FileDescription parse(String line) {
-        String[] split = line.split(",");
+    public static FileDescription parse(String[] split) {
         if (split.length != 4)
             return null;
         FileDescription fd = new FileDescription();

@@ -45,6 +45,10 @@ public class DisturbWelcomeController extends AbstractController {
     }
 
     void loadData() {
+        // clear
+        supportInProgressList.getItems().clear();
+        diagTable.getItems().clear();
+        // load
         CAT.getSupportCasesByStatus(InProgress).forEach(sc -> supportInProgressList.getItems().add(sc));
         ResourceType.concrete().forEach(rt -> {
             List<DiagnosticSpecification> diagnostics = CAT.getDiagnosticsByType(rt);

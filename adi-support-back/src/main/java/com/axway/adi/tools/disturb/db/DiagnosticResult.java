@@ -1,6 +1,7 @@
 package com.axway.adi.tools.disturb.db;
 
 import java.util.*;
+import java.util.stream.*;
 
 import static com.axway.adi.tools.disturb.DiagnosticCatalog.CAT;
 
@@ -47,7 +48,25 @@ public class DiagnosticResult implements DbObject {
         return res != null ? res.name : "";
     }
 
-    public String toString() {
+    public String getNotes() {
         return notes;
+    }
+
+    public String getDetails() {
+        return getItems().stream().map(DiagnosticResultItem::toString).collect(Collectors.joining("\n"));
+    }
+
+    private static final int LIMIT = 5;
+    public String toString() {
+        if (notes == null) {
+            return "";
+        }
+        // limit to 5 lines
+        int lineCount = 0;
+        int pos = -1;
+        while ((pos = notes.indexOf('\n', pos+1)) > 0 && lineCount < LIMIT) {
+            lineCount++;
+        }
+        return pos > 0 ? notes.substring(0, pos) : notes;
     }
 }

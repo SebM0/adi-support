@@ -69,6 +69,8 @@ public class ApplicationParser extends Parser {
         parseEntities(xmlApplication);
         parseAttributeValues(xmlApplication);
         parseRelationBindings(xmlApplication);
+        // Update global context
+        resource.getGlobalContext().registerApplication(entities, indicators);
         // run diagnostics
         CAT.getDiagnosticsByType(DbConstants.ResourceType.Appx).forEach(diag -> {
             DiagnosticParseContext<AppIdentifiable> context = createDiagnosticContext(diag);
@@ -167,9 +169,11 @@ public class ApplicationParser extends Parser {
                                 indicatorData.interest = value;
                                 break;
                         }
-                    } else if (fieldType == AppFieldType.MemberTTL) {
+                    } else if (fieldType.isMember()) {
                         AppMember member = this.members.computeIfAbsent(instances.get(0), AppMember::new);
-                        member.ttl = value;
+                        if (fieldType == AppFieldType.MemberTTL) {
+                            member.ttl = value;
+                        }
                     }
                 }
             }
@@ -239,6 +243,7 @@ public class ApplicationParser extends Parser {
                 if (indicator != null && member != null) {
                     indicator.rhythm = member.rhythm;
                     indicator.ttl = member.ttl;
+                    indicator.memberUuid = member.uuid;
                 }
             } else {
                 // remove virtual indicators
