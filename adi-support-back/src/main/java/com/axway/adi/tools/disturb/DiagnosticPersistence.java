@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.*;
 import com.axway.adi.tools.disturb.db.DbBind;
 import com.axway.adi.tools.disturb.db.DbObject;
@@ -139,7 +140,11 @@ public class DiagnosticPersistence {
                 }
                 boolean isForeign = fieldBind != null && fieldBind.foreign();
                 boolean isString = field.getType().isAssignableFrom(String.class);
-                String valueStr = isString ? "'" + value.toString() + "'" : value.toString();
+                boolean isTime = field.getType().isAssignableFrom(Timestamp.class);
+                String valueStr = isTime || isString ? "'" + value + "'" : value.toString();
+                if (isTime) {
+                    valueStr = "timestamp " + valueStr;
+                }
                 if (isPrimary) {
                     dbAnalysis.valueList.addFirst(valueStr);
                 } else {

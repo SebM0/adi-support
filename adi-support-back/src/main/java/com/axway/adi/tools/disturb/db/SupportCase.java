@@ -2,6 +2,7 @@ package com.axway.adi.tools.disturb.db;
 
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
+import java.sql.Timestamp;
 import java.util.*;
 import com.axway.adi.tools.disturb.DisturbMain;
 
@@ -12,7 +13,8 @@ public class SupportCase implements DbObject {
     public String summary;
     public String release;
     public String customer;
-    public int run_version;
+    public int run_version = 0;
+    public Timestamp run_time;
     public int status;
     public String remote_path = "";
     public String local_path = "";
@@ -48,6 +50,15 @@ public class SupportCase implements DbObject {
             localPath = Path.of(local_path);
         }
         return localPath.toString();
+    }
+
+    public String getLastExecution() {
+        return run_time != null ? run_time.toString() : "-";
+    }
+
+    public void onExecuted() {
+        run_version++;
+        run_time = new Timestamp(System.currentTimeMillis());
     }
 
     @Override

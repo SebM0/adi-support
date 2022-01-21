@@ -276,6 +276,7 @@ public class DisturbCaseController extends AbstractController {
     }
 
     public void onRun(ActionEvent actionEvent) {
+        supportCase.onExecuted();
         if (resourceTable.getItems().isEmpty()) {
             AlertHelper.show(ERROR, "No resource to analyze");
             return;

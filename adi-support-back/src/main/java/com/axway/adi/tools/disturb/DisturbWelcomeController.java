@@ -5,11 +5,12 @@ import com.axway.adi.tools.AbstractController;
 import com.axway.adi.tools.disturb.db.DbConstants.ResourceType;
 import com.axway.adi.tools.disturb.db.DiagnosticSpecification;
 import com.axway.adi.tools.disturb.db.SupportCase;
-import javafx.event.Event;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.ObservableList;
 import javafx.scene.control.ContextMenu;
-import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -22,19 +23,36 @@ import static com.axway.adi.tools.disturb.DisturbMain.MAIN;
 import static com.axway.adi.tools.disturb.db.DbConstants.Status.InProgress;
 
 public class DisturbWelcomeController extends AbstractController {
-    public ListView<SupportCase> supportInProgressList;
     public TableView<Map<String, Object>> diagTable;
-    private ContextMenu itemContextMenu = new ContextMenu();
-    private ContextMenu emptyContextMenu = new ContextMenu();
+    public TableView<SupportCase> caseTable;
+    private final ContextMenu itemContextMenu = new ContextMenu();
+    private final ContextMenu emptyContextMenu = new ContextMenu();
 
+    @SuppressWarnings("unchecked")
     @Override
     protected void bindControls(Stage parentStage)
     {
         super.bindControls(parentStage);
+        // Bind caseTable
+        {
+            ObservableList<TableColumn<SupportCase, ?>> columns = caseTable.getColumns();
+            TableColumn<SupportCase, String> nameColumn = (TableColumn<SupportCase, String>) columns.get(0);
+            nameColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().toString()));
+            TableColumn<SupportCase, String> dateColumn = (TableColumn<SupportCase, String>) columns.get(1);
+            dateColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getLastExecution()));
+            caseTable.getSortOrder().add(nameColumn);
+        }
+        // Bind diagTable
+        {
+            ObservableList<TableColumn<Map<String, Object>, ?>> columns = diagTable.getColumns();
+            TableColumn<Map<String, Object>, String> nameColumn = (TableColumn<Map<String, Object>, String>) columns.get(0);
+            diagTable.getSortOrder().add(nameColumn);
+        }
+        // Bind contextual menus
         MenuItem item1 = new MenuItem("Edit case");
-        item1.setOnAction(event -> editCase(supportInProgressList.getSelectionModel().getSelectedItem()));
+        item1.setOnAction(event -> editCase(caseTable.getSelectionModel().getSelectedItem()));
         MenuItem item2 = new MenuItem("Delete case");
-        item2.setOnAction(event -> deleteCase(supportInProgressList.getSelectionModel().getSelectedItem()));
+        item2.setOnAction(event -> deleteCase(caseTable.getSelectionModel().getSelectedItem()));
         MenuItem item3 = new MenuItem("New case");
         item3.setOnAction(event -> newCase());
         MenuItem item4 = new MenuItem("New case");
@@ -46,43 +64,41 @@ public class DisturbWelcomeController extends AbstractController {
 
     void loadData() {
         // clear
-        supportInProgressList.getItems().clear();
+        caseTable.getItems().clear();
         diagTable.getItems().clear();
         // load
-        CAT.getSupportCasesByStatus(InProgress).forEach(sc -> supportInProgressList.getItems().add(sc));
+        CAT.getSupportCasesByStatus(InProgress).forEach(sc -> caseTable.getItems().add(sc));
         ResourceType.concrete().forEach(rt -> {
             List<DiagnosticSpecification> diagnostics = CAT.getDiagnosticsByType(rt);
             if (!diagnostics.isEmpty()) {
                 diagTable.getItems().add(Map.of("name", rt.name(), "count", diagnostics.size()));
             }
         });
+        caseTable.sort();
+        diagTable.sort();
     }
 
-    public void onSupportInProgress(Event event) {
-        // TODO implement method
-    }
-
-    public void onSupportInProgressClicked(MouseEvent mouseEvent) {
+    public void onCaseClicked(MouseEvent mouseEvent) {
         if (mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.getClickCount() == 2) {
             //your code for double click handling here
-            SupportCase selectedItem = supportInProgressList.getSelectionModel().getSelectedItem();
+            SupportCase selectedItem = caseTable.getSelectionModel().getSelectedItem();
             if (selectedItem != null && mouseEvent.getTarget() != null && mouseEvent.getTarget().toString().contains(selectedItem.toString())) {
                 editCase(selectedItem);
                 mouseEvent.consume();
             }
         } else if (mouseEvent.getButton() == MouseButton.SECONDARY) {
-            SupportCase selectedItem = supportInProgressList.getSelectionModel().getSelectedItem();
+            SupportCase selectedItem = caseTable.getSelectionModel().getSelectedItem();
             if (selectedItem != null && mouseEvent.getTarget() != null && mouseEvent.getTarget().toString().contains(selectedItem.toString())) {
-                supportInProgressList.setContextMenu(itemContextMenu);
+                caseTable.setContextMenu(itemContextMenu);
             } else {
-                supportInProgressList.setContextMenu(emptyContextMenu);
+                caseTable.setContextMenu(emptyContextMenu);
             }
             mouseEvent.consume();
         }
     }
 
-    public void onSupportInProgressKey(KeyEvent keyEvent) {
-        SupportCase selectedItem = supportInProgressList.getSelectionModel().getSelectedItem();
+    public void onCaseKeyPressed(KeyEvent keyEvent) {
+        SupportCase selectedItem = caseTable.getSelectionModel().getSelectedItem();
         if (selectedItem == null)
             return;
         if ("N".equals(keyEvent.getCode().getChar()) && keyEvent.isControlDown()) {
@@ -97,10 +113,6 @@ public class DisturbWelcomeController extends AbstractController {
         }
     }
 
-    public void onSupportClosed(Event event) {
-        // TODO implement method
-    }
-
     private void editCase(SupportCase selectedItem) {
         //AlertHelper.show(INFORMATION, "Item " + selectedItem + " launched");
         if (selectedItem != null)
@@ -110,7 +122,7 @@ public class DisturbWelcomeController extends AbstractController {
     private void deleteCase(SupportCase selectedItem) {
         if (selectedItem != null) {
             CAT.deleteSupportCase(selectedItem);
-            supportInProgressList.getItems().remove(selectedItem);
+            caseTable.getItems().remove(selectedItem);
         }
     }
 
