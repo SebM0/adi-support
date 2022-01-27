@@ -83,7 +83,7 @@ public class SupportArchiveRecomputing extends DiagnosticSpecification {
                         if (totalRecomputing > totalLive) {
                             result = buildResult();
                             double recomputingRatio = (totalRecomputing * 100.0) / ((double)(totalRecomputing + totalLive));
-                            result.notes = "Recomputing ratio is big: " + String.format("%.4f", recomputingRatio) + " (" + totalRecomputing + " vs " + totalLive + ")\nTop recomputers:\n\t";
+                            result.notes = "Recomputing ratio is big: " + String.format("%.4f %%", recomputingRatio) + " (" + totalRecomputing + " vs " + totalLive + ")\nTop recomputers:\n\t";
                             result.notes += indicatorReports.values().stream().sorted(Comparator.comparingDouble(f -> -f.getRatio())) //
                                     .limit(10) //
                                     .map(IndicatorReport::toString) //
