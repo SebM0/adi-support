@@ -15,6 +15,7 @@ public class GlobalContext {
                                                         UUID.fromString("0000001e-0000-0000-1427-f983b4100000"), "Last login date", //
                                                         UUID.fromString("0000001e-0000-0000-1427-f983b4100800"), "Last logout date" //
     );
+    private String detectedRelease = null;
 
     public void registerApplication(Map<UUID, AppEntity> entities, Map<UUID, AppIndicator> indicators) {
         this.entities.putAll(entities);
@@ -48,5 +49,13 @@ public class GlobalContext {
         }
         // unknown
         return storeName;
+    }
+
+    public void setDetectedRelease(String productRelease) {
+        this.detectedRelease = productRelease;
+    }
+
+    public String getDetectedRelease() {
+        return detectedRelease;
     }
 }

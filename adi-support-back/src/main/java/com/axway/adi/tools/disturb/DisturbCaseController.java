@@ -123,6 +123,7 @@ public class DisturbCaseController extends AbstractController {
         ObservableList<SupportCaseResource> resourceTableItems = resourceTable.getItems();
         resourceTableItems.clear();
         supportCase.getResources().stream().filter(i -> !i.ignored).forEach(resourceTableItems::add);
+        resultTable.getItems().clear();
     }
 
     public void onLoadJira(ActionEvent actionEvent) {
@@ -321,6 +322,13 @@ public class DisturbCaseController extends AbstractController {
         if (executor != null) {
             executor.kill();
             executor = null;
+        }
+        // update product release if needed
+        if (!resourceTable.getItems().isEmpty()) {
+            String detectedRelease = resourceTable.getItems().get(0).getGlobalContext().getDetectedRelease();
+            if (detectedRelease != null && !detectedRelease.isBlank()) {
+                releaseName.setText(detectedRelease);
+            }
         }
         progressLabel.setText("Done");
         runButton.setDisable(false);

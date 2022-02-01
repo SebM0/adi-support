@@ -9,6 +9,7 @@ import com.axway.adi.tools.disturb.db.DiagnosticResult;
 import com.axway.adi.tools.disturb.db.DiagnosticSpecification;
 import com.axway.adi.tools.disturb.db.SupportCaseResource;
 import com.axway.adi.tools.disturb.parsers.DiagnosticParseContext;
+import com.axway.adi.tools.util.TimeUtils;
 
 import static com.axway.adi.tools.disturb.db.DbConstants.ResourceType.SupportArchive;
 
@@ -26,17 +27,6 @@ public class SupportArchiveCheckConfiguration extends DiagnosticSpecification {
         return new StatisticsContext(this, res);
     }
 
-    private static class IndicatorReport {
-        String name;
-        long liveCount = 0;
-        long recomputingCount = 0;
-        double getRatio() {
-            return liveCount == 0 && recomputingCount == 0 ? 0.0 : (recomputingCount * 100.0) / ((double) (recomputingCount + liveCount));
-        }
-        public String toString() {
-            return name + " : " + String.format("%.4f", getRatio()) + " (" + recomputingCount + " vs " + liveCount + ")";
-        }
-    }
     private static class StatisticsContext extends DiagnosticParseContext<Path> {
         private DiagnosticResult result = null;
 
@@ -50,7 +40,9 @@ public class SupportArchiveCheckConfiguration extends DiagnosticSpecification {
                 Path propertiesPath = path.resolve("conf/platform.properties");
                 if (Files.isRegularFile(propertiesPath)) {
                     Properties platformProperties = new Properties();
-                    platformProperties.load(new FileReader(propertiesPath.toFile()));
+                    try (FileReader fileReader = new FileReader(propertiesPath.toFile())) {
+                        platformProperties.load(fileReader);
+                    }
                     // Check late data
                     String lateTTL = platformProperties.getProperty("com.systar.krypton.scheduler.lateDataHandler.maximumTimeToLive");
                     if (lateTTL != null && !lateTTL.isBlank()) {
@@ -64,23 +56,10 @@ public class SupportArchiveCheckConfiguration extends DiagnosticSpecification {
                             String[] split = lateTTL.split(" ");
                             if (split.length == 2) {
                                 duration = Long.parseLong(split[0]);
-                                switch (split[1]) {
-                                    case "days":
-                                        duration *= 24;
-                                        // no break;
-                                    case "hours":
-                                        duration *= 60;
-                                        // no break;
-                                    case "minutes":
-                                        duration *= 60;
-                                        // no break;
-                                    case "seconds":
-                                        duration *= 1000;
-                                        break;
-                                }
+                                duration = TimeUtils.computeDuration(duration, split[1]);
                             }
                         }
-                        if (duration < 5 * 60 * 1000) { // Warning threashold at 5 minutes
+                        if (duration < 5 * 60 * 1000) { // Warning threshold at 5 minutes
                             result = buildResult();
                             result.notes = "LateData maximumTimeToLive is low: " + lateTTL;
                         }

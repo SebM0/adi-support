@@ -16,8 +16,8 @@ public class FileListHuge extends DiagnosticSpecification {
     public FileListHuge() {
         id = "BUILTIN-FL-0002";
         name = "Huge data files";
-        description = "High volume in orphaned data folders: (> " + FileUtils.formatFileSize(MAX_SIZE) + ")";
-        remediation = "Delete 'titanium-temporal/**/orphaned' folders";
+        description = "High volume in data folders: (> " + FileUtils.formatFileSize(MAX_SIZE) + ")";
+        remediation = "Trigger purge";
         setLevel(DbConstants.Level.Warning);
         setResourceType(DbConstants.ResourceType.FileList);
     }
