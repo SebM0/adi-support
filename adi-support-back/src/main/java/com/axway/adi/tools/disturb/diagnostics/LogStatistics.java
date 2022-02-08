@@ -1,6 +1,7 @@
 package com.axway.adi.tools.disturb.diagnostics;
 
 import java.nio.file.Path;
+import java.util.*;
 import com.axway.adi.tools.disturb.db.DbConstants;
 import com.axway.adi.tools.disturb.db.DiagnosticResult;
 import com.axway.adi.tools.disturb.db.DiagnosticSpecification;
@@ -28,6 +29,7 @@ public class LogStatistics extends DiagnosticSpecification {
         private int fatalCount = 0;
         private int errorCount = 0;
         private int warnCount = 0;
+        private Set<String> files = new HashSet<>();
 
         protected LogStatisticsContext(DiagnosticSpecification specification, SupportCaseResource resource) {
             super(specification, resource);
@@ -41,6 +43,7 @@ public class LogStatistics extends DiagnosticSpecification {
         @Override
         public void analyse(String resFile, LogMessage msg) {
             totalCount++;
+            files.add(resFile);
             if ("ERROR".equalsIgnoreCase(msg.level)) {
                 if (msg.message.contains("Unrecoverable error found")) {
                     fatalCount++;
@@ -68,6 +71,7 @@ public class LogStatistics extends DiagnosticSpecification {
             sb.append(" , Total: ");
             sb.append(totalCount);
             result.notes = sb.toString();
+            files.forEach(f -> result.addItem(f, ""));
             return result;
         }
     }

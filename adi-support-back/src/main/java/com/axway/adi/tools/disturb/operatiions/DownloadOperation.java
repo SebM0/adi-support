@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import com.axway.adi.tools.disturb.db.SupportCaseResource;
 import com.axway.adi.tools.util.AlertHelper;
 
+import static com.axway.adi.tools.disturb.db.DbConstants.*;
 import static javafx.scene.control.Alert.AlertType.ERROR;
 
 public class DownloadOperation extends Operation {
@@ -22,7 +23,7 @@ public class DownloadOperation extends Operation {
                 return;
             }
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    Runtime.getRuntime().exec("curl --user rd-tnd-viewer:axwaydi2017 --silent " + resource.remote_path + " --output " + resource.local_path).getInputStream()))) {
+                    Runtime.getRuntime().exec("curl --user " + ADI_JIRA_WRITER + ":" + ADI_JIRA_WRITER_TOKEN + " --silent " + resource.remote_path + " --output " + resource.local_path).getInputStream()))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     System.out.println(line);

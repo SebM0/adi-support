@@ -119,7 +119,7 @@ public class DisturbCaseController extends AbstractController {
         localPath.setText(supportCase.getLocalPath());
 
         // Reset other fields
-        lastRunLabel.setText("Last run: -");
+        lastRunLabel.setText("Last run: " + supportCase.getLastExecution());
         ObservableList<SupportCaseResource> resourceTableItems = resourceTable.getItems();
         resourceTableItems.clear();
         supportCase.getResources().stream().filter(i -> !i.ignored).forEach(resourceTableItems::add);
@@ -162,18 +162,23 @@ public class DisturbCaseController extends AbstractController {
                 }
             }
             customerName.setText(customer.replaceAll("\n", ""));
-            releaseName.setText(fields.getAsJsonArray("versions").get(0).getAsJsonObject().getAsJsonPrimitive("name").getAsString());
+            JsonArray versions = fields.getAsJsonArray("versions");
+            if (!versions.isEmpty()) {
+                releaseName.setText(versions.get(0).getAsJsonObject().getAsJsonPrimitive("name").getAsString());
+            }
             summary.setText(fields.getAsJsonPrimitive("summary").getAsString());
             JsonArray atts = fields.getAsJsonArray("attachment");
-            atts.forEach(att -> {
-                JsonObject attachment = att.getAsJsonObject();
-                if (!attachment.getAsJsonPrimitive("mimeType").getAsString().startsWith("image")) {
-                    String name = attachment.getAsJsonPrimitive("filename").getAsString();
-                    if (supportCase.getItem(name) == null) {
-                        addResource(name, attachment.getAsJsonPrimitive("content").getAsString());
+            if (atts != null) {
+                atts.forEach(att -> {
+                    JsonObject attachment = att.getAsJsonObject();
+                    if (!attachment.getAsJsonPrimitive("mimeType").getAsString().startsWith("image")) {
+                        String name = attachment.getAsJsonPrimitive("filename").getAsString();
+                        if (supportCase.getItem(name) == null) {
+                            addResource(name, attachment.getAsJsonPrimitive("content").getAsString());
+                        }
                     }
-                }
-            });
+                });
+            }
             remotePath.setText(remote);
             supportCase.remote_path = remote;
             buildDefaultLocalDirectory();
@@ -277,7 +282,6 @@ public class DisturbCaseController extends AbstractController {
     }
 
     public void onRun(ActionEvent actionEvent) {
-        supportCase.onExecuted();
         if (resourceTable.getItems().isEmpty()) {
             AlertHelper.show(ERROR, "No resource to analyze");
             return;
@@ -313,6 +317,8 @@ public class DisturbCaseController extends AbstractController {
 
     private void onRunStarted() {
         runButton.setDisable(true);
+        supportCase.onExecuted();
+        lastRunLabel.setText("Last run: " + supportCase.getLastExecution());
     }
 
     private void onRunTerminated() {
