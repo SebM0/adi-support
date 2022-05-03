@@ -38,7 +38,10 @@ public class ActivityNodeSelector {
         String value = pathCombo.getValue();
         DirectoryChooser fileChooser = new DirectoryChooser();
         if (!value.isBlank()) {
-            fileChooser.setInitialDirectory(new File(value));
+            File initialDirectory = new File(value);
+            if (initialDirectory.isDirectory()) {
+                fileChooser.setInitialDirectory(initialDirectory);
+            }
         }
         File file = fileChooser.showDialog(null);
         if (file != null) {

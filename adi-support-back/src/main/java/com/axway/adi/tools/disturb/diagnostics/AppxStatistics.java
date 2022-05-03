@@ -5,7 +5,7 @@ import com.axway.adi.tools.disturb.db.DbConstants;
 import com.axway.adi.tools.disturb.db.DiagnosticResult;
 import com.axway.adi.tools.disturb.db.DiagnosticSpecification;
 import com.axway.adi.tools.disturb.db.SupportCaseResource;
-import com.axway.adi.tools.disturb.parsers.DiagnosticParseContext;
+import com.axway.adi.tools.disturb.parsers.contexts.DiagnosticParseContext;
 import com.axway.adi.tools.disturb.parsers.structures.AppEntity;
 import com.axway.adi.tools.disturb.parsers.structures.AppIdentifiable;
 import com.axway.adi.tools.disturb.parsers.structures.AppIndicator;

@@ -53,6 +53,17 @@ public class LogTest {
         Assert.assertEquals(result.get().notes, "GC paused more than 50%, 6 times", "expected GC alert message in notes");
     }
 
+    @Test
+    public void testLogSlowCheckpoint() throws IOException {
+        List<DiagnosticResult> results = new ArrayList<>();
+        parseTestResource("node.log_slowCheckpoint", results);
+
+        Assert.assertFalse(results.isEmpty(), "expected results");
+        Optional<DiagnosticResult> result = results.stream().filter(r -> r.spec.equals("BUILTIN-LG-0008")).findFirst();
+        Assert.assertTrue(result.isPresent(), "expected slow checkpoint result");
+        Assert.assertEquals(result.get().notes, "1 / 1 slow checkpoints detected");
+    }
+
     private Parser parseTestResource(String resourceName, List<DiagnosticResult> results) throws IOException {
         SupportCaseResource res = new SupportCaseResource();
         res.name = "Test resource";

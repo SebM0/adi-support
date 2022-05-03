@@ -29,7 +29,7 @@ public class AppxTest {
         Assert.assertTrue(result.isPresent(), "expected appx statistics result");
         Assert.assertTrue(result.get().notes.contains("Entities: 2"), "expected 2 entities in notes");
         Assert.assertTrue(result.get().notes.contains("Attributes: 5"), "expected 5 attributes in notes");
-        Assert.assertTrue(result.get().notes.contains("BaselinePointDecimal: 1"), "expected 1 baseline in notes");
+        Assert.assertTrue(result.get().getItems().stream().anyMatch(item -> item.item.equals("BaselinePointDecimal") && item.notes.equals("1")), "expected 1 baseline in notes");
     }
 
     @Test
@@ -40,7 +40,7 @@ public class AppxTest {
         Assert.assertFalse(results.isEmpty(), "expected results");
         Optional<DiagnosticResult> result = results.stream().filter(r -> r.spec.equals("BUILTIN-AP-0002")).findFirst();
         Assert.assertTrue(result.isPresent(), "expected appx obsolete result");
-        Assert.assertTrue(result.get().notes.contains("Baseline: 1"), "expected 1 baseline in notes");
+        Assert.assertEquals(result.get().notes, "Baseline: [[EntityB].BaselineNew (Baseline)]");
     }
 
     @Test

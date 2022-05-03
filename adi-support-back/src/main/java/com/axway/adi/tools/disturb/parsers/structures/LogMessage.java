@@ -1,10 +1,15 @@
 package com.axway.adi.tools.disturb.parsers.structures;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 public class LogMessage {
+    private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,SSS");
+
     public String date;
     public String domain;
     public String level;
@@ -13,12 +18,20 @@ public class LogMessage {
     public JsonObject args;
     public List<String> dump;
 
+    public Date parseDate() {
+        try {
+            return DATE_FORMATTER.parse(date);
+        } catch (ParseException e) {
+            return null;
+        }
+    }
     public void addDump(String line) {
         if (dump == null) {
             dump = new ArrayList<>();
         }
         dump.add(line);
     }
+
     public static boolean startsWithDate(String line) {
         if (line.length() < 24)
             return false;
@@ -118,6 +131,19 @@ public class LogMessage {
             }
         }
         msg.message = line.substring(scanPos).trim();
+        return msg;
+    }
+
+    public static LogMessage parseJsonLog(String line) {
+        //{"time": "2021-10-28 09:09:28,899", "metric": "runtimeSummary", "args": {"plans": "10/20/0", "abs:default": "16/16/9", "abs:indicator_computing": "16/16/3", "abs:cube_computing": "0/16/0", "abs:data_integration": "0/16/0", "abs:ws_data_integration": "0/16/0", "live": "10/10/27", "correction": "0/5/0", "h:com.systar.hvp.model.impl.PaymentStp": 4676, "h:Collector": 1, "h:Cube": 2711}}
+        LogMessage msg = new LogMessage();
+
+        JsonObject object = JsonParser.parseString(line).getAsJsonObject();
+
+        msg.date = object.get("time").getAsString();
+        msg.message = object.get("metric").getAsString();
+        JsonElement args = object.get("args");
+        msg.args = args != null ? args.getAsJsonObject() : new JsonObject();
         return msg;
     }
 }

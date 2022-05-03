@@ -1,4 +1,4 @@
-package com.axway.adi.tools.disturb.parsers;
+package com.axway.adi.tools.disturb.parsers.contexts;
 
 import com.axway.adi.tools.disturb.db.DiagnosticResult;
 import com.axway.adi.tools.disturb.db.DiagnosticSpecification;
@@ -11,7 +11,7 @@ import com.google.gson.JsonParser;
 public class ThreadDumpContext extends DiagnosticParseContext<ThreadDump> {
     private int totalCount = 0;
 
-    protected ThreadDumpContext(DiagnosticSpecification specification, SupportCaseResource resource) {
+    public ThreadDumpContext(DiagnosticSpecification specification, SupportCaseResource resource) {
         super(specification, resource);
         if (specification.diagnostic != null && !specification.diagnostic.isEmpty()) {
             JsonElement element = JsonParser.parseString(specification.diagnostic);

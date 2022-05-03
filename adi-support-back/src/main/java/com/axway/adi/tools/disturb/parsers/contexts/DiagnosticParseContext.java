@@ -1,4 +1,4 @@
-package com.axway.adi.tools.disturb.parsers;
+package com.axway.adi.tools.disturb.parsers.contexts;
 
 import java.nio.file.Path;
 import com.axway.adi.tools.disturb.db.DiagnosticResult;

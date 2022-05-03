@@ -1,6 +1,6 @@
 package com.axway.adi.tools.disturb.db;
 
-import com.axway.adi.tools.disturb.parsers.DiagnosticParseContext;
+import com.axway.adi.tools.disturb.parsers.contexts.DiagnosticParseContext;
 
 @DbBind("DIAG_SPEC")
 public class DiagnosticSpecification implements DbObject {

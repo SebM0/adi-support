@@ -9,6 +9,7 @@ import com.axway.adi.tools.disturb.db.DbConstants;
 import com.axway.adi.tools.disturb.db.DiagnosticResult;
 import com.axway.adi.tools.disturb.db.DiagnosticSpecification;
 import com.axway.adi.tools.disturb.db.SupportCaseResource;
+import com.axway.adi.tools.disturb.parsers.contexts.DiagnosticParseContext;
 import com.axway.adi.tools.disturb.parsers.structures.LogMessage;
 import com.axway.adi.tools.util.AlertHelper;
 
@@ -19,6 +20,8 @@ import static javafx.scene.control.Alert.AlertType.WARNING;
 public class LogParser extends Parser {
     public static final Predicate<Path> NODE_LOG = f -> f.getFileName().toString().toLowerCase().startsWith("node.log");
     public static final Predicate<Path> GC_LOG = f -> f.getFileName().toString().toLowerCase().startsWith("gc.log");
+    public static final Predicate<Path> ACTIVITY_LOG = f -> f.getFileName().toString().toLowerCase().startsWith("internal-runtime-activity.log");
+    public static final Predicate<Path> MEMORY_LOG = f -> f.getFileName().toString().toLowerCase().startsWith("internal-summary-memory.log");
 
     LogMessage currentMessage = null;
     int count = 0;
@@ -68,11 +71,12 @@ public class LogParser extends Parser {
     }
 
     private void readLogs(Path filePath) {
-
         if (NODE_LOG.test(filePath)) {
             readNodeLogs(filePath);
         } else if (GC_LOG.test(filePath)) {
             readGCLogs(filePath);
+        } else if (MEMORY_LOG.test(filePath) || ACTIVITY_LOG.test(filePath)) {
+            readSummaryLogs(filePath);
         } else {
             System.err.println("Unsupported log file " + filePath);
         }
@@ -110,6 +114,22 @@ public class LogParser extends Parser {
                     currentMessage = LogMessage.parseGCLog(line);
                     processLogMessage();
                 }
+            }
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+            AlertHelper.show(WARNING, "Failed to Log file: " + filePath + "\n" + ioException.getMessage());
+        }
+    }
+
+    private void readSummaryLogs(Path filePath) {
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath.toFile()))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                line = line.trim();
+                // Read header
+                currentMessage = LogMessage.parseJsonLog(line);
+                processLogMessage();
             }
         } catch (IOException ioException) {
             ioException.printStackTrace();

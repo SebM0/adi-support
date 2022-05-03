@@ -13,6 +13,7 @@ import com.axway.adi.tools.disturb.db.DbConstants;
 import com.axway.adi.tools.disturb.db.DiagnosticResult;
 import com.axway.adi.tools.disturb.db.DiagnosticSpecification;
 import com.axway.adi.tools.disturb.db.SupportCaseResource;
+import com.axway.adi.tools.disturb.parsers.contexts.DiagnosticParseContext;
 import com.axway.adi.tools.disturb.parsers.structures.AppEntity;
 import com.axway.adi.tools.disturb.parsers.structures.AppFieldType;
 import com.axway.adi.tools.disturb.parsers.structures.AppIdentifiable;
@@ -70,7 +71,9 @@ public class ApplicationParser extends Parser {
         parseAttributeValues(xmlApplication);
         parseRelationBindings(xmlApplication);
         // Update global context
-        resource.getGlobalContext().registerApplication(entities, indicators);
+        GlobalContext globalContext = resource.getGlobalContext();
+        if (globalContext != null)
+            globalContext.registerApplication(entities, indicators);
         // run diagnostics
         CAT.getDiagnosticsByType(DbConstants.ResourceType.Appx).forEach(diag -> {
             DiagnosticParseContext<AppIdentifiable> context = createDiagnosticContext(diag);

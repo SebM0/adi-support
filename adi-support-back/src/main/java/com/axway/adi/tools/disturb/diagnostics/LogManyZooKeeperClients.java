@@ -6,7 +6,8 @@ import com.axway.adi.tools.disturb.db.DbConstants;
 import com.axway.adi.tools.disturb.db.DiagnosticResult;
 import com.axway.adi.tools.disturb.db.DiagnosticSpecification;
 import com.axway.adi.tools.disturb.db.SupportCaseResource;
-import com.axway.adi.tools.disturb.parsers.DiagnosticParseContext;
+import com.axway.adi.tools.disturb.parsers.contexts.DiagnosticParseContext;
+import com.axway.adi.tools.disturb.parsers.contexts.LogContext;
 import com.axway.adi.tools.disturb.parsers.structures.LogMessage;
 
 import static com.axway.adi.tools.disturb.parsers.LogParser.NODE_LOG;
@@ -29,7 +30,7 @@ public class LogManyZooKeeperClients extends DiagnosticSpecification {
         return new LogStatisticsContext(this, res);
     }
 
-    private static class LogStatisticsContext extends DiagnosticParseContext<LogMessage> {
+    private static class LogStatisticsContext extends LogContext {
         Set<String> consumers = new HashSet<>();
 
         protected LogStatisticsContext(DiagnosticSpecification specification, SupportCaseResource resource) {
@@ -52,6 +53,7 @@ public class LogManyZooKeeperClients extends DiagnosticSpecification {
                         int end = details.indexOf(",", start);
                         if (end > 0) {
                             String node = details.substring(start, end);
+                            super.analyse(resFile, msg);
                             consumers.add(node);
                         }
                     }
@@ -70,7 +72,7 @@ public class LogManyZooKeeperClients extends DiagnosticSpecification {
             sb.append(" client detected: ");
             sb.append(String.join(", ", consumers));
             result.notes = sb.toString();
-            return result;
+            return update(result);
         }
     }
 }

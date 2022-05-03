@@ -1,6 +1,7 @@
 package com.axway.adi.tools.disturb.diagnostics;
 
 import java.nio.file.Path;
+import java.util.*;
 import com.axway.adi.tools.disturb.db.DbConstants;
 import com.axway.adi.tools.disturb.db.DiagnosticResult;
 import com.axway.adi.tools.disturb.db.DiagnosticSpecification;
@@ -11,13 +12,13 @@ import com.axway.adi.tools.disturb.parsers.structures.LogMessage;
 
 import static com.axway.adi.tools.disturb.parsers.LogParser.NODE_LOG;
 
-public class LogLVStorageNotActivated extends DiagnosticSpecification {
+public class LogObsoleteComputing extends DiagnosticSpecification {
 
-    public LogLVStorageNotActivated() {
-        id = "BUILTIN-LG-0004";
-        name = "LV storage not activated";
-        description = "Low Volume storage not activated. It cause performance issues at startup and model changes";
-        remediation = "Activate it with property 'com.systar.titanium.lowVolumeColumn=forceOn'";
+    public LogObsoleteComputing() {
+        id = "BUILTIN-LG-0006";
+        name = "Obsolete computing";
+        description = "Computing has unsupported configuration";
+        remediation = "Update application to replace old configurations by new ones";
         setLevel(DbConstants.Level.Warning);
         setResourceType(DbConstants.ResourceType.Log);
     }
@@ -28,8 +29,7 @@ public class LogLVStorageNotActivated extends DiagnosticSpecification {
     }
 
     private static class LogStatisticsContext extends LogContext {
-        String date = null;
-        String file = null;
+        Map<String,Set<String>> consumers = new HashMap<>();
 
         protected LogStatisticsContext(DiagnosticSpecification specification, SupportCaseResource resource) {
             super(specification, resource);
@@ -42,21 +42,26 @@ public class LogLVStorageNotActivated extends DiagnosticSpecification {
 
         @Override
         public void analyse(String resFile, LogMessage msg) {
-            if ("Low Volume persistence system is not activated".equalsIgnoreCase(msg.message)) {
+            if ("Unsupported computing configuration".equalsIgnoreCase(msg.message)) {
                 super.analyse(resFile, msg);
-                date = msg.date;
-                file = resFile;
+                String name = msg.args.getAsJsonPrimitive("indicatorName").getAsString();
+                String vt = msg.args.getAsJsonPrimitive("interval").getAsString();
+                consumers.computeIfAbsent(name, n -> new HashSet<>()).add(vt);
             }
         }
 
         @Override
         public DiagnosticResult getResult() {
-            if (date != null) {
-                DiagnosticResult result = buildResult();
-                result.notes = "Detected at " + date + " in " + file;
-                return update(result);
+            if (consumers.isEmpty()) {
+                return null; // acceptable
             }
-            return null;
+            DiagnosticResult result = buildResult();
+            StringBuilder sb = new StringBuilder();
+            sb.append(consumers.size());
+            sb.append(" obsolete configurations detected: ");
+            result.notes = sb.toString();
+            consumers.forEach((name, vts) -> result.addItem(name, String.join(", ", vts)));
+            return result;
         }
     }
 }

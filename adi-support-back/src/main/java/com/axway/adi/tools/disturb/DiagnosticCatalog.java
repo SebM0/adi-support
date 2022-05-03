@@ -18,6 +18,9 @@ import com.axway.adi.tools.disturb.diagnostics.LogGarbageCollectorAlert;
 import com.axway.adi.tools.disturb.diagnostics.LogLVStorageNotActivated;
 import com.axway.adi.tools.disturb.diagnostics.LogManyReplicas;
 import com.axway.adi.tools.disturb.diagnostics.LogManyZooKeeperClients;
+import com.axway.adi.tools.disturb.diagnostics.LogObsoleteComputing;
+import com.axway.adi.tools.disturb.diagnostics.LogRedoOutOfSync;
+import com.axway.adi.tools.disturb.diagnostics.LogSlowCheckpoint;
 import com.axway.adi.tools.disturb.diagnostics.LogStatistics;
 import com.axway.adi.tools.disturb.diagnostics.SupportArchiveAttributeError;
 import com.axway.adi.tools.disturb.diagnostics.SupportArchiveCheckConfiguration;
@@ -91,6 +94,9 @@ public class DiagnosticCatalog {
         addDiagnostic(new LogManyZooKeeperClients());
         addDiagnostic(new LogLVStorageNotActivated());
         addDiagnostic(new LogGarbageCollectorAlert());
+        addDiagnostic(new LogObsoleteComputing());
+        addDiagnostic(new LogRedoOutOfSync());
+        addDiagnostic(new LogSlowCheckpoint());
         // File list
         addDiagnostic(new FileListOrphaned());
         addDiagnostic(new FileListHuge());

@@ -4,6 +4,7 @@ import java.util.*;
 import org.kordamp.ikonli.javafx.FontIcon;
 import com.axway.adi.tools.util.AlertHelper;
 import com.axway.adi.tools.util.MemorySizeFormatter;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import javafx.application.Platform;
@@ -21,8 +22,8 @@ import static java.util.stream.Collectors.*;
 import static javafx.scene.control.Alert.AlertType.INFORMATION;
 
 public class ActivityController implements ActivityHandler {
+    private static final long NO_DATA = Long.MAX_VALUE;
     private static final Map<String, String> CHANNELS = new LinkedHashMap<>();
-
     static {
         CHANNELS.put("abs:default", "default");
         CHANNELS.put("abs:indicator_computing", "computing");
@@ -52,8 +53,8 @@ public class ActivityController implements ActivityHandler {
     public Button playButton;
     public Button clearButton;
     public Button detailsButton;
-    public Label liveLabel;
-    public Label corrLabel;
+    public Label computingLabel;
+    public Label redologLabel;
     private FontIcon playIcon;
     private FontIcon pauseIcon;
 
@@ -238,16 +239,20 @@ public class ActivityController implements ActivityHandler {
             sliceCUBE.setPieValue(0);
             sliceUNK.setPieValue(0);
             sliceFREE.setPieValue(0);
-            liveLabel.setText("0");
-            corrLabel.setText("0");
+            computingLabel.setText("0 / 0");
+            redologLabel.setText("-");
             channelData.values().forEach(data -> data.setYValue(0));
             return;
         }
         timeLabel.setText(object.get("time").getAsString());
         JsonObject args = object.get("args").getAsJsonObject();
-        if (args.has("jvmUsed")) {
+        if (args.has("jvmUsed")) { // Memory stats
+            JsonElement absorptionQueues = args.get("absorptionQueues");
+            if (absorptionQueues == null) {
+                absorptionQueues = args.get("mainAbsorbQueue"); // PMDATNDPF-16065
+            }
             long DB = args.get("memtables").getAsLong() + args.get("alive").getAsLong() + args.get("hvOpen").getAsLong() + args.get("ssTableCache").getAsLong()
-                    + args.get("absorptionQueues").getAsLong();
+                    + absorptionQueues.getAsLong();
             long WF = 0;
             try {
                 WF = args.get("plans").getAsLong();
@@ -265,13 +270,43 @@ public class ActivityController implements ActivityHandler {
             sliceUNK.setPieValue( (double) UNK / 1_000_000);
             sliceFREE.setPieValue( (double) FREE / 1_000_000);
         }
-        if (args.has("abs:default")) {
+        if (args.has("abs:default")) { // Runtime stats
             String live = args.get("live").getAsString();
-            String[] comp = live.split("/");
-            liveLabel.setText(comp[2]);
+            String[] lives = live.split("/");
             String correction = args.get("correction").getAsString();
-            comp = correction.split("/");
-            corrLabel.setText(comp[2]);
+            String[] corrections = correction.split("/");
+            computingLabel.setText(lives[2] + " / " + corrections[2]);
+            RedoStatus mainRedoStatus = RedoStatus.readFromJson("main", args);
+            if (mainRedoStatus != null) {
+                // search for replicas
+                List<RedoStatus> consumerRedoStatuses = RedoStatus.searchConsumers(args);
+                if (!consumerRedoStatuses.isEmpty()) {
+                    long worseDbOffset = NO_DATA;
+                    long worseWfOffset = NO_DATA;
+                    boolean badCheckpoint = false;
+                    for (RedoStatus consumerStatus : consumerRedoStatuses) {
+                        if (mainRedoStatus.getCheckpoint() != consumerStatus.getCheckpoint()) {
+                            badCheckpoint = true;
+                            break;
+                        }
+                        worseDbOffset = Math.min(worseDbOffset, consumerStatus.getDbOffset());
+                        if (consumerStatus.getWfOffset() != -1) {
+                            worseWfOffset = Math.min(worseWfOffset, consumerStatus.getWfOffset());
+                        }
+                    }
+                    if (badCheckpoint) {
+                        redologLabel.setText("Bad checkpoint");
+                    } else {
+                        String db = mainRedoStatus.getDbOffset() > 0 && worseDbOffset != NO_DATA ? String.format("%d%%", 100 * worseDbOffset / mainRedoStatus.getDbOffset()) : "-";
+                        String wf = mainRedoStatus.getWfOffset() > 0 && worseWfOffset != NO_DATA ? String.format("%d%%", 100 * worseWfOffset / mainRedoStatus.getWfOffset()) : "-";
+                        redologLabel.setText(db + " / " + wf);
+                    }
+                } else {
+                    redologLabel.setText("n/c");
+                }
+            } else {
+                redologLabel.setText("-");
+            }
             channelData.forEach((channel, data) -> {
                 String value = args.get(channel).getAsString();
                 String[] split = value.split("/");
@@ -344,7 +379,7 @@ public class ActivityController implements ActivityHandler {
                 long alive = memArgs.get("alive").getAsLong();
                 long hvOpen = memArgs.get("hvOpen").getAsLong();
                 long ssTableCache = memArgs.get("ssTableCache").getAsLong();
-                long absorptionQueues = memArgs.get("absorptionQueues").getAsLong();
+                long absorptionQueues = memArgs.get("absorptionQueues") != null ? memArgs.get("absorptionQueues").getAsLong() : memArgs.get("mainAbsorbQueue").getAsLong();
                 long DB = memtables + alive + hvOpen + ssTableCache + absorptionQueues;
                 long plans = memArgs.get("plans").getAsLong();
                 long cubeCache = memArgs.get("cubeCache").getAsLong();
@@ -358,7 +393,7 @@ public class ActivityController implements ActivityHandler {
                 sb.append("    - alive: ").append(MemorySizeFormatter.toHumanAndRealSize(alive)).append("\n");
                 sb.append("    - hvOpen: ").append(MemorySizeFormatter.toHumanAndRealSize(hvOpen)).append("\n");
                 sb.append("    - ssTableCache: ").append(MemorySizeFormatter.toHumanAndRealSize(ssTableCache)).append("\n");
-                sb.append("    - absorptionQueues: ").append(MemorySizeFormatter.toHumanAndRealSize(absorptionQueues)).append("\n");
+                sb.append("    - absorptionQueue: ").append(MemorySizeFormatter.toHumanAndRealSize(absorptionQueues)).append("\n");
                 sb.append("- QR plans: ").append(MemorySizeFormatter.toHumanAndRealSize(plans)).append("\n");
                 sb.append("- Cubes: ").append(MemorySizeFormatter.toHumanAndRealSize(cubeCache)).append("\n");
             }
@@ -400,6 +435,13 @@ public class ActivityController implements ActivityHandler {
                     for (String h : handlers) {
                         sb.append("\n- ").append(h.substring(2)).append(": ").append(rtArgs.get(h).getAsString());
                     }
+                }
+                RedoStatus mainRedoStatus = RedoStatus.readFromJson("main", rtArgs);
+                if (mainRedoStatus != null) {
+                    sb.append("Redo log synchronization\n");
+                    sb.append(mainRedoStatus);
+                    // search for replicas
+                    RedoStatus.searchConsumers(rtArgs).forEach(c -> sb.append("\n").append(c));
                 }
             }
             AlertHelper.show(INFORMATION, sb.toString());

@@ -8,8 +8,8 @@ import com.axway.adi.tools.disturb.db.DbConstants;
 import com.axway.adi.tools.disturb.db.DiagnosticResult;
 import com.axway.adi.tools.disturb.db.DiagnosticSpecification;
 import com.axway.adi.tools.disturb.db.SupportCaseResource;
-import com.axway.adi.tools.disturb.parsers.DiagnosticParseContext;
 import com.axway.adi.tools.disturb.parsers.GlobalContext;
+import com.axway.adi.tools.disturb.parsers.contexts.DiagnosticParseContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 

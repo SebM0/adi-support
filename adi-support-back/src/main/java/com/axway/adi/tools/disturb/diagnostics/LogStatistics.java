@@ -1,12 +1,12 @@
 package com.axway.adi.tools.disturb.diagnostics;
 
 import java.nio.file.Path;
-import java.util.*;
 import com.axway.adi.tools.disturb.db.DbConstants;
 import com.axway.adi.tools.disturb.db.DiagnosticResult;
 import com.axway.adi.tools.disturb.db.DiagnosticSpecification;
 import com.axway.adi.tools.disturb.db.SupportCaseResource;
-import com.axway.adi.tools.disturb.parsers.DiagnosticParseContext;
+import com.axway.adi.tools.disturb.parsers.contexts.DiagnosticParseContext;
+import com.axway.adi.tools.disturb.parsers.contexts.LogContext;
 import com.axway.adi.tools.disturb.parsers.structures.LogMessage;
 
 import static com.axway.adi.tools.disturb.parsers.LogParser.NODE_LOG;
@@ -24,12 +24,11 @@ public class LogStatistics extends DiagnosticSpecification {
         return new LogStatisticsContext(this, res);
     }
 
-    private static class LogStatisticsContext extends DiagnosticParseContext<LogMessage> {
+    private static class LogStatisticsContext extends LogContext {
         private int totalCount = 0;
         private int fatalCount = 0;
         private int errorCount = 0;
         private int warnCount = 0;
-        private Set<String> files = new HashSet<>();
 
         protected LogStatisticsContext(DiagnosticSpecification specification, SupportCaseResource resource) {
             super(specification, resource);
@@ -42,8 +41,8 @@ public class LogStatistics extends DiagnosticSpecification {
 
         @Override
         public void analyse(String resFile, LogMessage msg) {
+            super.analyse(resFile, msg);
             totalCount++;
-            files.add(resFile);
             if ("ERROR".equalsIgnoreCase(msg.level)) {
                 if (msg.message.contains("Unrecoverable error found")) {
                     fatalCount++;
@@ -71,8 +70,7 @@ public class LogStatistics extends DiagnosticSpecification {
             sb.append(" , Total: ");
             sb.append(totalCount);
             result.notes = sb.toString();
-            files.forEach(f -> result.addItem(f, ""));
-            return result;
+            return update(result);
         }
     }
 }

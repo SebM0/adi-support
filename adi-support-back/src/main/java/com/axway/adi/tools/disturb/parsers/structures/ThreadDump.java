@@ -5,7 +5,8 @@ import java.util.stream.*;
 
 public class ThreadDump {
     public static final String THREAD_NAME_HEADER = "\"";
-    public static final String THREAD_ID_HEADER = "\"";
+    private static final String THREAD_ID_HEADER = "#";
+    private static final String DOMAIN_HEADER = "Domain-";
     private static final String STATUS_HEADER = "java.lang.Thread.State:";
     private static final String TRACE_HEADER = "at ";
     private static final String LOCK_HEADER = "- ";
@@ -13,6 +14,8 @@ public class ThreadDump {
     private static final Set<String> UTILITIES = Set.of("tau", "gluon", "boson", "photon");
     public String header;
     public String name;
+    public String domain;
+    public String component;
     public String id;
     public String status = "";
     public boolean idle = false;
@@ -20,11 +23,37 @@ public class ThreadDump {
     public final List<String> locks = new ArrayList<>();
     public final LinkedList<String> traversedComponents = new LinkedList<>();
 
+    @SuppressWarnings("StringConcatenationInLoop")
     public ThreadDump(String header) {
         this.header = header;
         int pos = header.indexOf(THREAD_NAME_HEADER, 1);
-        if (pos > 0)
+        if (pos > 1) {
             name = header.substring(1, pos);
+            if (name.startsWith(DOMAIN_HEADER)) {
+                String[] split = name.substring(DOMAIN_HEADER.length()).split("\\.");
+                split = split[0].split("-");
+                int nb = -1;
+                for (String item : split) {
+                    if (nb <= 0) {
+                        try {
+                            nb = Integer.parseInt(item);
+                        } catch (NumberFormatException e) {
+                            if (domain == null) {
+                                domain = item;
+                            } else {
+                                domain += "-" + item;
+                            }
+                        }
+                    } else {
+                        if (component == null) {
+                            component = item;
+                        } else {
+                            component += "-" + item;
+                        }
+                    }
+                }
+            }
+        }
         pos = header.indexOf(THREAD_ID_HEADER, pos);
         if (pos > 0) {
             pos += THREAD_ID_HEADER.length();
@@ -84,6 +113,13 @@ public class ThreadDump {
             }
         }
         return component;
+    }
+
+    public String getThreadComponent() {
+        if (domain == null || component == null) {
+            return null;
+        }
+        return domain + "." + component;
     }
 
     public String getStackTrace() {

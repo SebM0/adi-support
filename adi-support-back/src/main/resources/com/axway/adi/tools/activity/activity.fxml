@@ -63,12 +63,12 @@
                         </Button>
                         <Button fx:id="clearButton" mnemonicParsing="false" onAction="#onClear" prefWidth="50.0">
                             <graphic>
-                                <FontIcon iconColor="#ff0000" iconLiteral="ci-delete" iconSize="24"/>
+                                <FontIcon iconColor="#ff0000" iconLiteral="ci-delete" iconSize="24" />
                             </graphic>
                         </Button>
                         <Button fx:id="detailsButton" mnemonicParsing="false" onAction="#onDetails" prefWidth="50.0">
                             <graphic>
-                                <FontIcon iconLiteral="ci-report" iconSize="24"/>
+                                <FontIcon iconLiteral="ci-report" iconSize="24" />
                             </graphic>
                         </Button>
                     </children>
@@ -109,11 +109,11 @@
                     <VBox.margin>
                         <Insets left="20.0" top="5.0" />
                     </VBox.margin>
-                    <Label text="Pending live: ">
+                    <Label text="Pending live / correction: ">
                     </Label>
-                    <Label fx:id="liveLabel" text="Label" textFill="#0a6beb">
+                    <Label fx:id="computingLabel" text="Label" textFill="#0a6beb">
                         <HBox.margin>
-                            <Insets left="100.0" />
+                            <Insets left="60.0" />
                         </HBox.margin>
                         <font>
                             <Font name="System Bold" size="13.0" />
@@ -124,11 +124,11 @@
                     <VBox.margin>
                         <Insets left="20.0" top="5.0" />
                     </VBox.margin>
-                    <Label text="Pending Correction:  ">
+                    <Label text="Redolog DB / WF:  ">
                     </Label>
-                    <Label fx:id="corrLabel" prefHeight="19.0" prefWidth="47.0" text="Label" textFill="#0a6beb">
+                    <Label fx:id="redologLabel" text="Label" textFill="#0a6beb">
                         <HBox.margin>
-                            <Insets left="60.0" />
+                            <Insets left="95.0" />
                         </HBox.margin>
                         <font>
                             <Font name="System Bold" size="13.0" />

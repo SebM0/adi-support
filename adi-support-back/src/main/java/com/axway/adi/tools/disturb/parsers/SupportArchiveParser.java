@@ -6,6 +6,7 @@ import java.util.function.*;
 import com.axway.adi.tools.disturb.db.DiagnosticResult;
 import com.axway.adi.tools.disturb.db.DiagnosticSpecification;
 import com.axway.adi.tools.disturb.db.SupportCaseResource;
+import com.axway.adi.tools.disturb.parsers.contexts.DiagnosticParseContext;
 
 import static com.axway.adi.tools.disturb.DiagnosticCatalog.CAT;
 import static com.axway.adi.tools.disturb.db.DbConstants.ResourceType.SupportArchive;

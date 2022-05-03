@@ -7,7 +7,8 @@ import java.util.*;
 import com.axway.adi.tools.disturb.db.DiagnosticResult;
 import com.axway.adi.tools.disturb.db.DiagnosticSpecification;
 import com.axway.adi.tools.disturb.db.SupportCaseResource;
-import com.axway.adi.tools.disturb.parsers.DiagnosticParseContext;
+import com.axway.adi.tools.disturb.parsers.contexts.DiagnosticParseContext;
+import com.axway.adi.tools.disturb.parsers.contexts.LogContext;
 import com.axway.adi.tools.disturb.parsers.structures.LogMessage;
 
 import static com.axway.adi.tools.disturb.db.DbConstants.Level.Warning;
@@ -58,7 +59,7 @@ public class LogGarbageCollectorAlert extends DiagnosticSpecification {
         }
     }
 
-    private static class LogStatisticsContext extends DiagnosticParseContext<LogMessage> {
+    private static class LogStatisticsContext extends LogContext {
         int count = 0;
         String currentLevel = "";
         GCPause previousPause = null;
@@ -75,6 +76,7 @@ public class LogGarbageCollectorAlert extends DiagnosticSpecification {
 
         @Override
         public void analyse(String resFile, LogMessage msg) {
+            super.analyse(resFile, msg);
             String level = msg.level;
             if (level == null || level.isEmpty()) {
                 return;
@@ -108,7 +110,7 @@ public class LogGarbageCollectorAlert extends DiagnosticSpecification {
             }
             DiagnosticResult result = buildResult();
             result.notes = String.format("GC paused more than %d%%, %d times", (int) (PAUSE_RATIO * 100), count);
-            return result;
+            return update(result);
         }
     }
 }
