@@ -13,11 +13,11 @@ import com.axway.adi.tools.disturb.parsers.structures.LogMessage;
 
 import static com.axway.adi.tools.disturb.parsers.LogParser.ACTIVITY_LOG;
 
-public class LogRedoOutOfSync extends DiagnosticSpecification {
+public class LogActivityRedoOutOfSync extends DiagnosticSpecification {
     private static final int SYNC_THRESHOLD = 80;
     private static final int WARN_THRESHOLD = 10;
 
-    public LogRedoOutOfSync() {
+    public LogActivityRedoOutOfSync() {
         id = "BUILTIN-LG-0007";
         name = "HA out of sync";
         description = "HA consume redo log too slowly";

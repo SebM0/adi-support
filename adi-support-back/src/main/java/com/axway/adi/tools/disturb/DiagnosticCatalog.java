@@ -14,12 +14,14 @@ import com.axway.adi.tools.disturb.diagnostics.AppxStatistics;
 import com.axway.adi.tools.disturb.diagnostics.FileListHuge;
 import com.axway.adi.tools.disturb.diagnostics.FileListLVStorageNotActivated;
 import com.axway.adi.tools.disturb.diagnostics.FileListOrphaned;
+import com.axway.adi.tools.disturb.diagnostics.LogActivityRedoOutOfSync;
+import com.axway.adi.tools.disturb.diagnostics.LogCrashDetector;
 import com.axway.adi.tools.disturb.diagnostics.LogGarbageCollectorAlert;
 import com.axway.adi.tools.disturb.diagnostics.LogLVStorageNotActivated;
-import com.axway.adi.tools.disturb.diagnostics.LogManyReplicas;
 import com.axway.adi.tools.disturb.diagnostics.LogManyZooKeeperClients;
+import com.axway.adi.tools.disturb.diagnostics.LogMemoryHighPressure;
 import com.axway.adi.tools.disturb.diagnostics.LogObsoleteComputing;
-import com.axway.adi.tools.disturb.diagnostics.LogRedoOutOfSync;
+import com.axway.adi.tools.disturb.diagnostics.LogPoloniumUndeliverableException;
 import com.axway.adi.tools.disturb.diagnostics.LogSlowCheckpoint;
 import com.axway.adi.tools.disturb.diagnostics.LogStatistics;
 import com.axway.adi.tools.disturb.diagnostics.SupportArchiveAttributeError;
@@ -90,13 +92,16 @@ public class DiagnosticCatalog {
         addDiagnostic(new ThreadDumpBlocked());
         // Log
         addDiagnostic(new LogStatistics());
-        addDiagnostic(new LogManyReplicas());
+        //addDiagnostic(new LogManyReplicas()); // not relevant
         addDiagnostic(new LogManyZooKeeperClients());
         addDiagnostic(new LogLVStorageNotActivated());
         addDiagnostic(new LogGarbageCollectorAlert());
         addDiagnostic(new LogObsoleteComputing());
-        addDiagnostic(new LogRedoOutOfSync());
+        addDiagnostic(new LogActivityRedoOutOfSync());
         addDiagnostic(new LogSlowCheckpoint());
+        addDiagnostic(new LogPoloniumUndeliverableException());
+        addDiagnostic(new LogCrashDetector());
+        addDiagnostic(new LogMemoryHighPressure());
         // File list
         addDiagnostic(new FileListOrphaned());
         addDiagnostic(new FileListHuge());
@@ -140,6 +145,9 @@ public class DiagnosticCatalog {
     }
 
     public void addDiagnostic(DiagnosticSpecification diag) {
+        if (specifications.containsKey(diag.id)) {
+            throw new IllegalArgumentException("Diagnostic " + diag.id + " is duplicated");
+        }
         specifications.put(diag.id, diag);
     }
 

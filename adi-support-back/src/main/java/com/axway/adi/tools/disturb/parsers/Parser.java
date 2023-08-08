@@ -37,19 +37,23 @@ public abstract class Parser {
         return stream.limit(1);
     }
 
+    protected Comparator<Path> getComparator() {
+        return Comparator.comparing((Path f) -> {
+            try {
+                return Files.getLastModifiedTime(f);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
     protected abstract void parseFile(Path filePath, Consumer<DiagnosticResult> resultConsumer) throws IOException;
 
     protected void parseDirectory(Path path, Consumer<DiagnosticResult> resultConsumer) throws IOException {
         AtomicReference<IOException> excepCollector = new AtomicReference<>();
         try (Stream<Path> stream = Files.walk(path, Integer.MAX_VALUE)) {
             filterFiles(stream.filter(Files::isRegularFile))
-                    .sorted(Comparator.comparing((Path f) -> {
-                        try {
-                            return Files.getLastModifiedTime(f);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }))
+                    .sorted(getComparator())
                     .forEach(subPath -> {
                 try {
                     currentRelativeFile = path.relativize(subPath).toString();

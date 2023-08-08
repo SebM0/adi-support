@@ -1,0 +1,85 @@
+2022-07-01 11:47:34,660 [Camel (benchmarks.BenchLive) thread #1 - timer://run] INFO route1 - Query benchmark: {paymentCount=0, Live__0Filter=7, Live__0Filter_1Order=8, Live__1BooleanFilter=10, Live__1DecimalFilter=10, Live__1DimensionFilter=11, Live__2Filters=13, Live__3Filters=12, Live__1Filter_1Order=11, Live__2Filters_1Order=11, Live__3Filters_1Order=12}
+2022-07-01 11:47:34,668 [Camel (benchmarks.BenchLive) thread #1 - timer://run] INFO route1 - Starting round 2 / 16
+2022-07-01 11:47:34,669 [Camel (benchmarks.BenchLive) thread #1 - timer://run] INFO route1 - Now injecting 200000 payments
+2022-07-01 11:47:59,255 [Camel (benchmarks.BenchLive) thread #1 - timer://run] INFO route1 - Benchmarking Queries with 200000 payments
+2022-07-01 11:47:59,541 [Camel (benchmarks.BenchLive) thread #1 - timer://run] INFO route4 - Query Live__0Filter executed in 283 msec
+2022-07-01 11:48:00,106 [Camel (benchmarks.BenchLive) thread #1 - timer://run] INFO route4 - Query Live__0Filter_1Order executed in 564 msec
+2022-07-01 11:48:00,282 [Camel (benchmarks.BenchLive) thread #1 - timer://run] INFO route4 - Query Live__1BooleanFilter executed in 175 msec
+2022-07-01 11:48:00,374 [Camel (benchmarks.BenchLive) thread #1 - timer://run] INFO route4 - Query Live__1DecimalFilter executed in 92 msec
+2022-07-01 11:48:00,470 [Camel (benchmarks.BenchLive) thread #1 - timer://run] INFO route4 - Query Live__1DimensionFilter executed in 96 msec
+2022-07-01 11:48:00,469 [RxCachedThreadScheduler-45] WARN aluminium-engine - Uncaught exception
+io.reactivex.rxjava3.exceptions.UndeliverableException: The exception could not be delivered to the consumer because it has already canceled/disposed the flow or the exception has nowhere to go to begin with. Further reading: https://github.com/ReactiveX/RxJava/wiki/What's-different-in-2.0#error-handling | java.lang.RuntimeException: SCAN fail, on store:partition-8, column:ColumnInfo{m_id=60, m_name='I_00000002-0001-0000-12b5-e760d2f03000', m_options=TemporalColumnOptions{rhythm=null, encryptionType=NONE, timeToLive=null, logicalRetentionDate=1970-01-01T00:00:00.000Z, physicalRetentionDate=1970-01-01T00:00:00.000Z}, m_columnType=HIGH_VOLUME, m_encryptionInitializationVector=}, vtBegin:2022-07-01T09:48:00.374Z, vtEnd:2022-07-01T09:48:00.375Z, keyBegin:null, keyEnd:null, transactionTime:1,737,143,227,515,930,626
+	at io.reactivex.rxjava3.plugins.RxJavaPlugins.onError(RxJavaPlugins.java:372) [rxjava-3.1.4.jar:?]
+	at io.reactivex.rxjava3.internal.util.AtomicThrowable.tryAddThrowableOrReport(AtomicThrowable.java:52) [rxjava-3.1.4.jar:?]
+	at io.reactivex.rxjava3.internal.operators.flowable.FlowableFlatMap$MergeSubscriber.onError(FlowableFlatMap.java:311) [rxjava-3.1.4.jar:?]
+	at io.reactivex.rxjava3.internal.operators.flowable.FlowableFlatMap$MergeSubscriber.onNext(FlowableFlatMap.java:134) [rxjava-3.1.4.jar:?]
+	at io.reactivex.rxjava3.internal.operators.flowable.FlowableObserveOn$ObserveOnSubscriber.runAsync(FlowableObserveOn.java:404) [rxjava-3.1.4.jar:?]
+	at io.reactivex.rxjava3.internal.operators.flowable.FlowableObserveOn$BaseObserveOnSubscriber.run(FlowableObserveOn.java:178) [rxjava-3.1.4.jar:?]
+	at io.reactivex.rxjava3.internal.schedulers.ScheduledRunnable.run(ScheduledRunnable.java:65) [rxjava-3.1.4.jar:?]
+	at io.reactivex.rxjava3.internal.schedulers.ScheduledRunnable.call(ScheduledRunnable.java:56) [rxjava-3.1.4.jar:?]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:264) [?:?]
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) [?:?]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) [?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) [?:?]
+	at java.lang.Thread.run(Thread.java:833) [?:?]
+Caused by: java.lang.RuntimeException: SCAN fail, on store:partition-8, column:ColumnInfo{m_id=60, m_name='I_00000002-0001-0000-12b5-e760d2f03000', m_options=TemporalColumnOptions{rhythm=null, encryptionType=NONE, timeToLive=null, logicalRetentionDate=1970-01-01T00:00:00.000Z, physicalRetentionDate=1970-01-01T00:00:00.000Z}, m_columnType=HIGH_VOLUME, m_encryptionInitializationVector=}, vtBegin:2022-07-01T09:48:00.374Z, vtEnd:2022-07-01T09:48:00.375Z, keyBegin:null, keyEnd:null, transactionTime:1,737,143,227,515,930,626
+	at com.systar.titanium.impl.TableTemporalColumn.scan(TableTemporalColumn.java:195) ~[?:?]
+	at com.systar.copper.impl.instance.ModelInstanceColumnSupport.scanInstances(ModelInstanceColumnSupport.java:142) ~[?:?]
+	at com.systar.copper.impl.instance.ModelInstanceColumnImpl.scanInstancesNoSpecialization(ModelInstanceColumnImpl.java:249) ~[?:?]
+	at com.systar.copper.impl.instance.ModelInstanceColumnImpl.lambda$scanInstances$0(ModelInstanceColumnImpl.java:314) ~[?:?]
+	at java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[?:?]
+	at java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625) ~[?:?]
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) ~[?:?]
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[?:?]
+	at java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:960) ~[?:?]
+	at java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:934) ~[?:?]
+	at java.util.stream.AbstractTask.compute(AbstractTask.java:327) ~[?:?]
+	at java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:754) ~[?:?]
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373) ~[?:?]
+	at java.util.concurrent.ForkJoinTask.invoke(ForkJoinTask.java:686) ~[?:?]
+	at java.util.stream.ReduceOps$ReduceOp.evaluateParallel(ReduceOps.java:927) ~[?:?]
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:233) ~[?:?]
+	at java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:682) ~[?:?]
+	at com.systar.copper.impl.instance.ModelInstanceColumnImpl.scanInstances(ModelInstanceColumnImpl.java:316) ~[?:?]
+	at com.systar.copper.impl.instance.ModelInstanceColumnImpl.scanInstances(ModelInstanceColumnImpl.java:92) ~[?:?]
+	at com.systar.polonium.impl.execution.PoloniumPublisher.lambda$scanInstance$25(PoloniumPublisher.java:461) ~[?:?]
+	at io.reactivex.rxjava3.internal.operators.flowable.FlowableFlatMap$MergeSubscriber.onNext(FlowableFlatMap.java:130) ~[?:?]
+	... 9 more
+Caused by: java.lang.IllegalStateException: Interrupted
+	at com.google.common.base.Preconditions.checkState(Preconditions.java:502) ~[guava-31.1-jre.jar:?]
+	at com.systar.titanium.impl.disk.scanutils.ScanContext.getKeyContext(ScanContext.java:103) ~[?:?]
+	at com.systar.titanium.impl.memory.arrhythmic.HVOpenColumn.scanEntries(HVOpenColumn.java:143) ~[?:?]
+	at com.systar.titanium.impl.TableTemporalHVColumn.scanInYoungColumn(TableTemporalHVColumn.java:118) ~[?:?]
+	at com.systar.titanium.impl.TableTemporalHVColumn.scan(TableTemporalHVColumn.java:85) ~[?:?]
+	at com.systar.titanium.impl.TableTemporalHVColumn.scanEntries(TableTemporalHVColumn.java:72) ~[?:?]
+	at com.systar.titanium.impl.TableTemporalColumn.scan(TableTemporalColumn.java:177) ~[?:?]
+	at com.systar.copper.impl.instance.ModelInstanceColumnSupport.scanInstances(ModelInstanceColumnSupport.java:142) ~[?:?]
+	at com.systar.copper.impl.instance.ModelInstanceColumnImpl.scanInstancesNoSpecialization(ModelInstanceColumnImpl.java:249) ~[?:?]
+	at com.systar.copper.impl.instance.ModelInstanceColumnImpl.lambda$scanInstances$0(ModelInstanceColumnImpl.java:314) ~[?:?]
+	at java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197) ~[?:?]
+	at java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625) ~[?:?]
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509) ~[?:?]
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[?:?]
+	at java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:960) ~[?:?]
+	at java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:934) ~[?:?]
+	at java.util.stream.AbstractTask.compute(AbstractTask.java:327) ~[?:?]
+	at java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:754) ~[?:?]
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373) ~[?:?]
+	at java.util.concurrent.ForkJoinTask.invoke(ForkJoinTask.java:686) ~[?:?]
+	at java.util.stream.ReduceOps$ReduceOp.evaluateParallel(ReduceOps.java:927) ~[?:?]
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:233) ~[?:?]
+	at java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:682) ~[?:?]
+	at com.systar.copper.impl.instance.ModelInstanceColumnImpl.scanInstances(ModelInstanceColumnImpl.java:316) ~[?:?]
+	at com.systar.copper.impl.instance.ModelInstanceColumnImpl.scanInstances(ModelInstanceColumnImpl.java:92) ~[?:?]
+	at com.systar.polonium.impl.execution.PoloniumPublisher.lambda$scanInstance$25(PoloniumPublisher.java:461) ~[?:?]
+	at io.reactivex.rxjava3.internal.operators.flowable.FlowableFlatMap$MergeSubscriber.onNext(FlowableFlatMap.java:130) ~[?:?]
+	... 9 more
+2022-07-01 11:48:00,576 [Camel (benchmarks.BenchLive) thread #1 - timer://run] INFO route4 - Query Live__2Filters executed in 106 msec
+2022-07-01 11:48:00,750 [Camel (benchmarks.BenchLive) thread #1 - timer://run] INFO route4 - Query Live__3Filters executed in 173 msec
+2022-07-01 11:48:01,193 [Camel (benchmarks.BenchLive) thread #1 - timer://run] INFO route4 - Query Live__1Filter_1Order executed in 443 msec
+2022-07-01 11:48:02,914 [Camel (benchmarks.BenchLive) thread #1 - timer://run] INFO route4 - Query Live__2Filters_1Order executed in 1721 msec
+2022-07-01 11:48:03,198 [Camel (benchmarks.BenchLive) thread #1 - timer://run] INFO route4 - Query Live__3Filters_1Order executed in 283 msec
+2022-07-01 11:48:03,258 [Camel (benchmarks.BenchLive) thread #1 - timer://run] INFO route4 - Query Live__0Filter executed in 59 msec
+2022-07-01 11:48:03,599 [Camel (benchmarks.BenchLive) thread #1 - timer://run] INFO route4 - Query Live__0Filter_1Order executed in 340 msec
+2022-07-01 11:48:03,675 [Camel (benchmarks.BenchLive) thread #1 - timer://run] INFO route4 - Query Live__1BooleanFilter executed in 76 msec
+2022-07-01 11:48:03,741 [Camel (benchmarks.BenchLive) thread #1 - timer://run] INFO route4 - Query Live__1DecimalFilter executed in 66 msec

@@ -1,6 +1,7 @@
 package com.axway.adi.tools.disturb.parsers;
 
 import java.io.*;
+import java.nio.file.Path;
 import java.util.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -62,6 +63,22 @@ public class LogTest {
         Optional<DiagnosticResult> result = results.stream().filter(r -> r.spec.equals("BUILTIN-LG-0008")).findFirst();
         Assert.assertTrue(result.isPresent(), "expected slow checkpoint result");
         Assert.assertEquals(result.get().notes, "1 / 1 slow checkpoints detected");
+    }
+
+    @Test
+    public void testLogPolonium() throws IOException {
+        List<DiagnosticResult> results = new ArrayList<>();
+        parseTestResource("integration.log_polonium", results);
+
+        Assert.assertFalse(results.isEmpty(), "expected results");
+        Optional<DiagnosticResult> result = results.stream().filter(r -> r.spec.equals("BUILTIN-LG-0009")).findFirst();
+        Assert.assertTrue(result.isPresent(), "expected polonium result");
+        Assert.assertEquals(result.get().notes, "1 polonium uncaught exception detected");
+    }
+
+    @Test
+    public void testLogPath() throws IOException {
+        Assert.assertTrue(LogParser.NODE_LOG.test(Path.of("c:", "test", "node (1).log")), "should detect old pattern");
     }
 
     private Parser parseTestResource(String resourceName, List<DiagnosticResult> results) throws IOException {

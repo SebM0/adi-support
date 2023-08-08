@@ -130,6 +130,7 @@ public class DisturbMain extends Application {
         loader.setLocation(getClass().getResource("disturbDetails.fxml"));
         detailScene = new Scene(loader.load(), 1000, 800);
         detailController = loader.getController();
+        detailController.setClosure(a -> editSupportCase(null));
     }
 
     private void loadProperties() {

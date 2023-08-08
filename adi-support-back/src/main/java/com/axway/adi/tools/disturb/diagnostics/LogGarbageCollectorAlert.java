@@ -50,6 +50,16 @@ public class LogGarbageCollectorAlert extends DiagnosticSpecification {
         boolean isSummary(LogMessage msg) {
             return msg.message.startsWith(pauseMsg.message);
         }
+        long getTimestamp(LogMessage msg) {
+            if (msg.domain != null && msg.domain.endsWith("ms")) {
+                try {
+                    return Long.parseLong(msg.domain.substring(0, msg.domain.length() - 2));
+                } catch (NumberFormatException e) {
+                    return 0;
+                }
+            }
+            return 0;
+        }
         void setDuration(String str) {
             // parse full pause summary:[2021-10-06T09:48:54.732+0200][67485ms] GC(35) Pause Full (Ergonomics) 25272M->25197M(42596M) 5844.486ms
             int pos = str.lastIndexOf(' ');
@@ -60,10 +70,17 @@ public class LogGarbageCollectorAlert extends DiagnosticSpecification {
     }
 
     private static class LogStatisticsContext extends LogContext {
+        private static final long LAP = 3_600_000L; // 1 hour in millis
         int count = 0;
+        String lapTime = "";
         String currentLevel = "";
         GCPause previousPause = null;
         GCPause currentPause = null;
+        double totalDuration = 0;
+        long lastTimestamp = 0;
+        double lapDuration = 0;
+        long lapTimestamp = 0;
+        Map<String,Double> laps = new TreeMap<>();
 
         protected LogStatisticsContext(DiagnosticSpecification specification, SupportCaseResource resource) {
             super(specification, resource);
@@ -86,8 +103,20 @@ public class LogGarbageCollectorAlert extends DiagnosticSpecification {
                     previousPause = currentPause;
                 }
                 // new full pause: [2021-10-06T09:48:48.888+0200][61641ms] GC(35) Pause Full (Ergonomics)
-                if (msg.message.startsWith("Pause Full")) {
+                if (msg.message.startsWith("Pause ")) {
                     currentPause = new GCPause(msg);
+                    long timestamp = currentPause.getTimestamp(msg);
+                    if (lapTime.isEmpty()) {
+                        lapTime = msg.date;
+                        lapTimestamp = timestamp;
+                    }
+                    if (timestamp - lapTimestamp >= LAP) {
+                        double ratio = (100.0 * lapDuration) / (timestamp - lapTimestamp);
+                        laps.put(lapTime, ratio);
+                        lapTime = msg.date;
+                        lapTimestamp = timestamp;
+                        lapDuration = 0;
+                    }
                 }
                 currentLevel = level;
             } else if (currentPause != null && currentPause.isSummary(msg)) {
@@ -96,6 +125,9 @@ public class LogGarbageCollectorAlert extends DiagnosticSpecification {
                 // check diagnostic
                 if (previousPause != null) {
                     long deltaTime = currentPause.date.getTime() - previousPause.date.getTime();
+                    totalDuration += currentPause.duration;
+                    lapDuration += currentPause.duration;
+                    lastTimestamp = currentPause.getTimestamp(msg);
                     if ((currentPause.duration / deltaTime) > PAUSE_RATIO) {
                         count++;
                     }
@@ -105,8 +137,21 @@ public class LogGarbageCollectorAlert extends DiagnosticSpecification {
 
         @Override
         public DiagnosticResult getResult() {
+            StringBuilder gcReport = new StringBuilder("Time;Ratio");
+            laps.forEach((time,ratio) -> {
+                gcReport.append("\r\n");
+                gcReport.append(time);
+                gcReport.append(";");
+                gcReport.append(String.format("%.2f", ratio));
+            });
+            String report = gcReport.toString();
             if (count <= MAX_OCCURRENCES) {
-                return null; // acceptable
+                //return null; // acceptable
+                DiagnosticResult result = buildResult();
+                double ratio = (100.0 * totalDuration) / lastTimestamp;
+
+                result.notes = String.format("GC ratio %.2f%%", ratio).replace(",", ".");
+                return update(result);
             }
             DiagnosticResult result = buildResult();
             result.notes = String.format("GC paused more than %d%%, %d times", (int) (PAUSE_RATIO * 100), count);

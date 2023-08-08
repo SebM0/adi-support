@@ -24,7 +24,7 @@ public class DeployOperation extends Operation {
             // 2nd pass if extracted file is a "tar"
             AtomicReference<IOException> excepCollector = new AtomicReference<>();
             try (Stream<Path> stream = Files.walk(Path.of(resource.local_ex_path), Integer.MAX_VALUE)) {
-                stream.filter(Files::isRegularFile).filter(file -> file.getFileName().toString().endsWith(".tar")).forEach(subPath -> {
+                stream.filter(Files::isRegularFile).filter(file -> FileUtils.isArchive(file.getFileName())).forEach(subPath -> {
                     try {
                         unzip(subPath.toString());
                         Files.delete(subPath);

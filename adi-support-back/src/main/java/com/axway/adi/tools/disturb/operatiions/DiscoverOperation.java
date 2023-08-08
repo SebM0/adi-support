@@ -60,8 +60,8 @@ public class DiscoverOperation extends Operation {
 
     private boolean subFolderExists(String folder) {
         try {
-            extendedPath.resolve(folder);
-            return true;
+            Path path = extendedPath.resolve(folder);
+            return Files.isDirectory(path);
         } catch (InvalidPathException e) {
             return false;
         }

@@ -1,6 +1,7 @@
 package com.axway.adi.tools.disturb.diagnostics;
 
 import java.nio.file.Path;
+import java.util.*;
 import com.axway.adi.tools.disturb.db.DbConstants;
 import com.axway.adi.tools.disturb.db.DiagnosticResult;
 import com.axway.adi.tools.disturb.db.DiagnosticSpecification;
@@ -24,11 +25,31 @@ public class LogStatistics extends DiagnosticSpecification {
         return new LogStatisticsContext(this, res);
     }
 
+    private static class LogInterval {
+        private final String startDate;
+        private String endDate;
+
+        LogInterval(String date) {
+            startDate = date;
+        }
+        void increase(String date) {
+            endDate = date;
+        }
+
+        @Override
+        public String toString() {
+            return startDate + " - " + endDate;
+        }
+    }
+
     private static class LogStatisticsContext extends LogContext {
+        private static final Set<String> FATAL_ERRORS = Set.of("Platform did not start correctly, stopping it now", "Unrecoverable error found");
         private int totalCount = 0;
         private int fatalCount = 0;
         private int errorCount = 0;
         private int warnCount = 0;
+        private int sessionCount = 0;
+        private Map<String, LogInterval> fileDates = new HashMap<>();
 
         protected LogStatisticsContext(DiagnosticSpecification specification, SupportCaseResource resource) {
             super(specification, resource);
@@ -41,16 +62,19 @@ public class LogStatistics extends DiagnosticSpecification {
 
         @Override
         public void analyse(String resFile, LogMessage msg) {
-            super.analyse(resFile, msg);
+            fileDates.computeIfAbsent(resFile, file -> new LogInterval(msg.date)).increase(msg.date);
             totalCount++;
             if ("ERROR".equalsIgnoreCase(msg.level)) {
-                if (msg.message.contains("Unrecoverable error found")) {
+                if (FATAL_ERRORS.stream().anyMatch(fatal -> msg.message.contains(fatal))) {
                     fatalCount++;
                 } else {
                     errorCount++;
                 }
             } else if ("WARN".equalsIgnoreCase(msg.level)) {
                 warnCount++;
+            }
+            if ("platform".equals(msg.component) && msg.message.contains("JVM INFORMATION")) {
+                sessionCount++;
             }
         }
 
@@ -69,8 +93,11 @@ public class LogStatistics extends DiagnosticSpecification {
             sb.append(warnCount);
             sb.append(" , Total: ");
             sb.append(totalCount);
+            sb.append("\n New sessions: ");
+            sb.append(sessionCount);
             result.notes = sb.toString();
-            return update(result);
+            fileDates.forEach((f, interval) -> result.addItem(f, interval.toString()));
+            return result;
         }
     }
 }

@@ -22,6 +22,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
+import com.google.gson.stream.JsonReader;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -134,7 +135,8 @@ public class DisturbCaseController extends AbstractController {
             //TODO browse open tornado cases
         }
         String remote = "https://jira.axway.com/rest/api/2/issue/" + caseId;
-        try (Reader reader = new InputStreamReader(Runtime.getRuntime().exec("curl --user " + ADI_JIRA_WRITER + ":" + ADI_JIRA_WRITER_TOKEN + " --silent " + remote + "?expand=fields").getInputStream())) {
+        try (JsonReader reader = new JsonReader(new InputStreamReader(Runtime.getRuntime().exec("curl --user " + ADI_JIRA_WRITER + ":" + ADI_JIRA_WRITER_TOKEN + " --silent " + remote + "?expand=fields").getInputStream()))) {
+            reader.setLenient(true);
             JsonElement element = JsonParser.parseReader(reader);
             JsonObject root = element.getAsJsonObject();
             JsonObject fields = root.getAsJsonObject("fields");
@@ -353,8 +355,7 @@ public class DisturbCaseController extends AbstractController {
 
     private void submit(SupportCaseResource res) {
         executor.addOperation(new DownloadOperation(res));
-        String testName = res.name.toLowerCase();
-        if (testName.endsWith(".zip") || testName.endsWith(".gz") || testName.endsWith(".tar") || res.getResourceType() == ResourceType.Appx) {
+        if (FileUtils.isArchive(res.name) || res.getResourceType() == ResourceType.Appx) {
             // deploy
             executor.addOperation(new DeployOperation(res));
         }

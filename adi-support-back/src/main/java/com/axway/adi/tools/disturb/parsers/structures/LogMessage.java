@@ -32,6 +32,46 @@ public class LogMessage {
         dump.add(line);
     }
 
+    @Override
+    public String toString() {
+        return format();
+    }
+
+    public String format() {
+        StringBuilder sb = new StringBuilder();
+        if (date != null && !date.isEmpty()) {
+            sb.append(date).append(" ");
+        }
+        if (domain != null && !domain.isEmpty()) {
+            sb.append("[").append(domain).append("] ");
+        }
+        if (level != null && !level.isEmpty()) {
+            sb.append(level).append(" ");
+        }
+        if (component != null && !component.isEmpty()) {
+            sb.append(component).append(" - ");
+        }
+        sb.append(message).append(" ");
+        if (args != null) {
+            sb.append("args: {").append(args).append("} ");
+        }
+        sb.append(formatDump());
+        return sb.toString();
+    }
+
+    public String formatDump() {
+        StringBuilder sb = new StringBuilder();
+        if (dump != null) {
+            dump.forEach(s -> {
+                sb.append("\n");
+                if (s.startsWith("at ") || s.startsWith("..."))
+                    sb.append("  ");
+                sb.append(s);
+            });
+        }
+        return sb.toString();
+    }
+
     public static boolean startsWithDate(String line) {
         if (line.length() < 24)
             return false;

@@ -18,10 +18,15 @@ import static java.util.stream.Collectors.*;
 import static javafx.scene.control.Alert.AlertType.WARNING;
 
 public class LogParser extends Parser {
-    public static final Predicate<Path> NODE_LOG = f -> f.getFileName().toString().toLowerCase().startsWith("node.log");
+    private static final String OLD_LOG_PATTERN = "node\\s+\\(\\d+\\).log";
+    public static final Predicate<Path> NODE_LOG = f -> {
+        String testName = f.getFileName().toString().toLowerCase();
+        return testName.startsWith("node.log") || testName.matches(OLD_LOG_PATTERN);
+    };
     public static final Predicate<Path> GC_LOG = f -> f.getFileName().toString().toLowerCase().startsWith("gc.log");
     public static final Predicate<Path> ACTIVITY_LOG = f -> f.getFileName().toString().toLowerCase().startsWith("internal-runtime-activity.log");
     public static final Predicate<Path> MEMORY_LOG = f -> f.getFileName().toString().toLowerCase().startsWith("internal-summary-memory.log");
+    public static final Predicate<Path> INTEGRATION_LOG = f -> f.getFileName().toString().toLowerCase().startsWith("integration.log");
 
     LogMessage currentMessage = null;
     int count = 0;
@@ -34,6 +39,21 @@ public class LogParser extends Parser {
     @Override
     protected Stream<Path> filterFiles(Stream<Path> stream) {
         return stream.filter(f -> f.getFileName().toString().toLowerCase().contains(".log"));
+    }
+
+    @Override
+    protected Comparator<Path> getComparator() {
+        // for log compare by name taking log4j2 file rotator
+        return Comparator.comparing((Path f) -> {
+            String normalizedName = f.getFileName().toString().toLowerCase();
+            int index = normalizedName.indexOf(".log");
+            int lastDot = normalizedName.lastIndexOf('.');
+            if (lastDot > index) {
+                int rotator = Integer.parseInt(normalizedName.substring(lastDot + 1));
+                normalizedName = String.format("%s.%03d", normalizedName.substring(0, lastDot), rotator);
+            }
+            return normalizedName;
+        });
     }
 
     @Override
@@ -71,7 +91,7 @@ public class LogParser extends Parser {
     }
 
     private void readLogs(Path filePath) {
-        if (NODE_LOG.test(filePath)) {
+        if (NODE_LOG.test(filePath) || INTEGRATION_LOG.test(filePath)) {
             readNodeLogs(filePath);
         } else if (GC_LOG.test(filePath)) {
             readGCLogs(filePath);

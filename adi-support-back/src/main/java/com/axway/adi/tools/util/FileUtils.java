@@ -78,4 +78,10 @@ public class FileUtils {
             throw new RuntimeException(e);
         }
     }
+
+    public static boolean isArchive(Object fileName) {
+        String testName = fileName.toString().toLowerCase();
+        return testName.endsWith(".zip") || testName.endsWith(".gz") || testName.endsWith(".tar") || testName.endsWith(".7z");
+
+    }
 }

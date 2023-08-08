@@ -1,5 +1,6 @@
 package com.axway.adi.tools.disturb;
 
+import java.util.function.*;
 import com.axway.adi.tools.AbstractController;
 import com.axway.adi.tools.disturb.db.DiagnosticResult;
 import javafx.event.ActionEvent;
@@ -17,6 +18,11 @@ public class DisturbDetailsController extends AbstractController {
     public Button prevButton;
     public Button nextButton;
     private TableView.TableViewSelectionModel<DiagnosticResult> resultsSelectionModel;
+    private Consumer<ActionEvent> closure;
+
+    public void setClosure(Consumer<ActionEvent> closure) {
+        this.closure = closure;
+    }
 
     public void setResult(TableView.TableViewSelectionModel<DiagnosticResult> resultsSelectionModel) {
         this.resultsSelectionModel = resultsSelectionModel;
@@ -39,7 +45,7 @@ public class DisturbDetailsController extends AbstractController {
     }
 
     public void onClose(ActionEvent actionEvent) {
-        DisturbMain.MAIN.editSupportCase(null);
+        closure.accept(actionEvent);
         actionEvent.consume();
     }
 

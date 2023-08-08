@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import com.axway.adi.tools.disturb.db.DbConstants;
 import com.axway.adi.tools.disturb.db.DiagnosticResult;
 import com.axway.adi.tools.disturb.db.SupportCaseResource;
 import com.axway.adi.tools.disturb.operatiions.DeployOperation;
@@ -17,7 +18,10 @@ import com.axway.adi.tools.disturb.parsers.LogParser;
 import com.axway.adi.tools.disturb.parsers.Parser;
 import com.axway.adi.tools.disturb.parsers.ThreadDumpParser;
 import com.axway.adi.tools.util.AlertHelper;
+import com.axway.adi.tools.util.ImageTableCell;
 import javafx.application.Platform;
+import javafx.beans.property.ReadOnlyIntegerWrapper;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -26,11 +30,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -51,12 +54,11 @@ public class SingleFileParserController implements Initializable {
     public TextField redoFile;
     public Label transactionCount;
     public Label errorCount;
-    public TableView<Map<String,Object>> errorTable;
+    public TableView<DiagnosticResult> resultTable;
     public Button browseButton;
     public Button runButton;
     public CheckBox hideIdleThreads;
 
-    private boolean inited = false;
     private Stage parentStage;
     private Properties properties;
     private final Statistics statistics = new Statistics();
@@ -72,16 +74,42 @@ public class SingleFileParserController implements Initializable {
     void bindControls(Stage parentStage) {
         this.parentStage = parentStage;
         redoFile.setText(properties.getProperty(MRU));
+
+        // Bind resultTable
+        {
+            ObservableList<TableColumn<DiagnosticResult, ?>> columns = resultTable.getColumns();
+            resultTable.setRowFactory(tv -> {
+                TableRow<DiagnosticResult> row = new TableRow<>();
+                row.setOnMouseClicked(event -> {
+                    if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                        SingleFileParserMain.MAIN.showDiagnosticDetails(resultTable.getSelectionModel());
+                    }
+                });
+                return row;
+            });
+            TableColumn<DiagnosticResult, Number> LevelColumn = (TableColumn<DiagnosticResult, Number>) columns.get(0);
+            LevelColumn.setCellFactory(column -> new ImageTableCell<>(Arrays.stream(DbConstants.Level.values()).map(DbConstants.Level::toImage).toArray(String[]::new)));
+            LevelColumn.setCellValueFactory(cellData -> new ReadOnlyIntegerWrapper(cellData.getValue().getLevel()));
+            TableColumn<DiagnosticResult, String> diagColumn = (TableColumn<DiagnosticResult, String>) columns.get(1);
+            diagColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getSpecName()));
+            TableColumn<DiagnosticResult, String> resultColumn = (TableColumn<DiagnosticResult, String>) columns.get(2);
+            resultColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().toString()));
+        }
     }
 
     @FXML
     public void onBrowse(Event e) {
         FileChooser fileChooser = new FileChooser();
+        File folder = null;
         if (!redoFile.getText().isBlank()) {
-            fileChooser.setInitialDirectory(new File(redoFile.getText()).getParentFile());
+            folder = new File(redoFile.getText()).getParentFile();
         } else if (properties.containsKey(MRU)){
-            fileChooser.setInitialDirectory(new File(properties.getProperty(MRU)).getParentFile());
+            folder = new File(properties.getProperty(MRU)).getParentFile();
         }
+        if (folder == null || !folder.isDirectory()) {
+            folder = new File("C:\\QA");
+        }
+        fileChooser.setInitialDirectory(folder);
         File file = fileChooser.showOpenDialog(parentStage);
         if (file != null) {
             redoFile.setText(file.getPath());
@@ -107,27 +135,11 @@ public class SingleFileParserController implements Initializable {
 
     @SuppressWarnings("unchecked")
     private void startExecution() {
-        if (!inited) {
-            inited = true;
-            ObservableList<TableColumn<Map<String, Object>, ?>> columns = errorTable.getColumns();
-            TableColumn<Map<String, Object>, Object> nameColumn = (TableColumn<Map<String, Object>, Object>) columns.get(0);
-            nameColumn.setCellFactory(column -> new TableCell<>() {
-                @Override
-                protected void updateItem(Object item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (item instanceof DiagnosticResult) {
-                        DiagnosticResult result = (DiagnosticResult) item;
-                        setText(result.getSpecName());
-                        setTooltip(new Tooltip(result.notes));
-                    }
-                }
-            });
-        }
         // Clear view
         statistics.clear();
         transactionCount.setText("-");
         errorCount.setText("-");
-        errorTable.getItems().clear();
+        resultTable.getItems().clear();
         browseButton.setDisable(true);
         runButton.setDisable(true);
     }
@@ -149,8 +161,8 @@ public class SingleFileParserController implements Initializable {
         //boolean hideIdle = hideIdleThreads.isSelected();
         statistics.results.add(key);
         Platform.runLater(() -> {
-            errorTable.getItems().add(Map.of("spec", key, "diag", key.notes));
-            errorTable.refresh();
+            resultTable.getItems().add(key);
+            resultTable.refresh();
         });
     }
 
