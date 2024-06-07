@@ -49,20 +49,35 @@ public class ActivityNodeSelector {
         }
     }
 
-    public void onLaunch(ActionEvent event) {
+    public void onLaunchActivity(ActionEvent event) {
         event.consume();
+        Path runnerPath = checkRunnerPath();
+        if (runnerPath != null) {
+            parent.launchActivityScene(runnerPath);
+        }
+    }
+
+    public void onLaunchComputing(ActionEvent event) {
+        event.consume();
+        Path runnerPath = checkRunnerPath();
+        if (runnerPath != null) {
+            parent.launchComputingScene(runnerPath);
+        }
+    }
+
+    private Path checkRunnerPath() {
         String value = pathCombo.getValue();
         Path runnerPath = Path.of(value);
         if (!Files.isDirectory(runnerPath)) {
             AlertHelper.show(ERROR, value + " is not a folder");
-            return;
+            return null;
         }
         if (!ActivityParser.hasActivityFiles(runnerPath)) {
             AlertHelper.show(ERROR, value + " has no activity log");
-            return;
+            return null;
         }
         updateProperties(value);
-        parent.launchActivityScene(runnerPath);
+        return runnerPath;
     }
 
     private void loadProperties() {

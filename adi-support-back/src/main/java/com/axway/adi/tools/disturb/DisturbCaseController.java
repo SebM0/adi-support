@@ -43,6 +43,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import static com.axway.adi.tools.disturb.db.DbConstants.*;
+import static com.axway.adi.tools.util.StringHelper.normalize;
 import static javafx.scene.control.Alert.AlertType.ERROR;
 
 public class DisturbCaseController extends AbstractController {
@@ -163,12 +164,12 @@ public class DisturbCaseController extends AbstractController {
                     }
                 }
             }
-            customerName.setText(customer.replaceAll("\n", ""));
+            customerName.setText(normalize(customer));
             JsonArray versions = fields.getAsJsonArray("versions");
             if (!versions.isEmpty()) {
-                releaseName.setText(versions.get(0).getAsJsonObject().getAsJsonPrimitive("name").getAsString());
+                releaseName.setText(normalize(versions.get(0).getAsJsonObject().getAsJsonPrimitive("name").getAsString()));
             }
-            summary.setText(fields.getAsJsonPrimitive("summary").getAsString());
+            summary.setText(normalize(fields.getAsJsonPrimitive("summary").getAsString()));
             JsonArray atts = fields.getAsJsonArray("attachment");
             if (atts != null) {
                 atts.forEach(att -> {

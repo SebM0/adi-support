@@ -5,7 +5,8 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
-<BorderPane prefHeight="138.0" prefWidth="603.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.axway.adi.tools.activity.ActivityNodeSelector">
+<?import javafx.scene.layout.HBox?>
+<BorderPane prefHeight="138.0" prefWidth="603.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.axway.adi.tools.activity.ActivityNodeSelector">
    <top>
       <Label alignment="CENTER" text="Select ADI root folder" textAlignment="CENTER" BorderPane.alignment="CENTER" />
    </top>
@@ -22,11 +23,15 @@
             </Button>
          </left>
          <right>
-            <Button defaultButton="true" mnemonicParsing="false" onAction="#onLaunch" text="Launch" textFill="#0911f8" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#onLaunchActivity" text="Activity" textFill="#0911f8" />
+                  <Button defaultButton="true" mnemonicParsing="false" onAction="#onLaunchComputing" text="Computing" textFill="#0911f8" />
+               </children>
                <BorderPane.margin>
                   <Insets right="10.0" />
                </BorderPane.margin>
-            </Button>
+            </HBox>
          </right>
       </BorderPane>
    </bottom>

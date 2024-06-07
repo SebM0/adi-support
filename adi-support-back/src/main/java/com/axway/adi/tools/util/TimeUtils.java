@@ -1,7 +1,16 @@
 package com.axway.adi.tools.util;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class TimeUtils {
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
     private TimeUtils() {
+    }
+
+    public static String formatNow() {
+        return LocalDateTime.now().format(FORMATTER);
     }
 
     public static long computeDuration(long duration, String durationFieldType) {

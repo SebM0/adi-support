@@ -36,7 +36,7 @@ public class SupportArchiveRecomputing extends DiagnosticSpecification {
             return liveCount == 0 && recomputingCount == 0 ? 0.0 : (recomputingCount * 100.0) / ((double) (recomputingCount + liveCount));
         }
         public String toString() {
-            return name + " : " + String.format("%.4f", getRatio()) + " (" + recomputingCount + " vs " + liveCount + ")";
+            return name + " : " + String.format("%.4f %%", getRatio()) + " (" + recomputingCount + " vs " + liveCount + ")";
         }
     }
     private static class StatisticsContext extends DiagnosticParseContext<Path> {

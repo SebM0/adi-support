@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<BorderPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.axway.adi.tools.activity.ComputingController">
+    <top>
+        <HBox prefHeight="200.0" prefWidth="1000.0">
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0">
+                <LineChart fx:id="timeChart" axisSortingPolicy="NONE" horizontalZeroLineVisible="false" maxWidth="1000.0" minWidth="800.0" prefHeight="185.0" prefWidth="800.0" verticalGridLinesVisible="false">
+                    <xAxis>
+                        <CategoryAxis side="BOTTOM" visible="false" />
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis side="LEFT" />
+                    </yAxis>
+                </LineChart>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="200.0">
+                <Label text="Time:                  ">
+                    <VBox.margin>
+                        <Insets left="20.0" top="20.0" />
+                    </VBox.margin>
+                </Label>
+                <Label fx:id="timeLabel" text="Label" textFill="#0a6beb">
+                    <VBox.margin>
+                        <Insets left="20.0" top="5.0" />
+                    </VBox.margin>
+                    <font>
+                        <Font name="System Bold" size="13.0" />
+                    </font>
+                </Label>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                    <VBox.margin>
+                        <Insets left="20.0" top="15.0" />
+                    </VBox.margin>
+                    <children>
+                        <Button fx:id="playButton" mnemonicParsing="false" onAction="#onPlay" prefWidth="50.0">
+                            <graphic>
+                                <FontIcon iconColor="#1c25d0" iconLiteral="ci-play-filled-alt" iconSize="24" />
+                            </graphic>
+                        </Button>
+                        <Button fx:id="clearButton" mnemonicParsing="false" onAction="#onClear" prefWidth="50.0">
+                            <graphic>
+                                <FontIcon iconColor="#ff0000" iconLiteral="ci-delete" iconSize="24" />
+                            </graphic>
+                        </Button>
+                        <Button fx:id="acknowledgeButton" mnemonicParsing="false" onAction="#onAcknowledge" prefWidth="50.0">
+                            <graphic>
+                                <FontIcon iconLiteral="ci-checkmark" iconSize="24" />
+                            </graphic>
+                        </Button>
+                    </children>
+                </HBox>
+            <Label layoutX="30.0" layoutY="40.0" text="HVP late payments:                  ">
+               <VBox.margin>
+                  <Insets left="20.0" top="10.0" />
+               </VBox.margin>
+            </Label>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                    <VBox.margin>
+                        <Insets left="20.0" top="5.0" />
+                    </VBox.margin>
+                    <children>
+                        <Label fx:id="lateLabel" prefHeight="19.0" prefWidth="74.0" text="Label" textFill="#ff0000">
+                            <VBox.margin>
+                                <Insets left="20.0" top="10.0" />
+                            </VBox.margin>
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+                        <Button fx:id="lessButton" mnemonicParsing="false" onAction="#onLess" prefHeight="32.0" prefWidth="26.0">
+                            <graphic>
+                                <FontIcon iconColor="#ff0000" iconLiteral="ci-chevron-left" iconSize="24" />
+                            </graphic>
+                        </Button>
+                        <Button fx:id="moreButton" mnemonicParsing="false" onAction="#onMore" prefHeight="32.0" prefWidth="26.0">
+                            <graphic>
+                                <FontIcon iconColor="#ff0000" iconLiteral="ci-chevron-right" iconSize="24" />
+                            </graphic>
+                        </Button>
+                    </children>
+                </HBox>
+            </VBox>
+        </HBox>
+    </top>
+    <center>
+        <VBox prefHeight="500.0" prefWidth="583.0" BorderPane.alignment="CENTER">
+            <children>
+                <TableView fx:id="absorbed" prefHeight="557.0" prefWidth="674.0">
+                    <columns>
+                        <TableColumn editable="false" prefWidth="250.0" text="Name">
+                            <cellValueFactory>
+                                <MapValueFactory key="name" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn editable="false" prefWidth="72.0" text="# Lates">
+                            <cellValueFactory>
+                                <MapValueFactory key="lateCount" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn editable="false" prefWidth="179.0" text="Actual Rhythm/Lag">
+                            <cellValueFactory>
+                                <MapValueFactory key="actual" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn editable="false" prefWidth="171.0" text="Detected Rhythm/Lag">
+                            <cellValueFactory>
+                                <MapValueFactory key="detected" />
+                            </cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                </TableView>
+                <TableView fx:id="computed">
+                    <columns>
+                        <TableColumn editable="false" prefWidth="251.0" text="Name">
+                            <cellValueFactory>
+                                <MapValueFactory key="name" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn editable="false" prefWidth="130.0" text="Live">
+                            <cellValueFactory>
+                                <MapValueFactory key="liveCount" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn editable="false" prefWidth="152.0" text="Recomputing">
+                            <cellValueFactory>
+                                <MapValueFactory key="correctionCount" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn editable="false" prefWidth="140.0" text="Recomputing ratio">
+                            <cellValueFactory>
+                                <MapValueFactory key="ratio" />
+                            </cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                </TableView>
+            </children>
+        </VBox>
+    </center>
+    <right>
+        <VBox prefHeight="500.0" prefWidth="326.0" BorderPane.alignment="CENTER">
+            <children>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                    <VBox.margin>
+                        <Insets left="20.0" top="5.0" />
+                    </VBox.margin>
+                    <Label fx:id="computingLabel" text="Pending live / correction: ">
+                    </Label>
+                    <Label fx:id="computingValue" text="Label" textFill="#0a6beb">
+                        <HBox.margin>
+                            <Insets left="60.0" />
+                        </HBox.margin>
+                        <font>
+                            <Font name="System Bold" size="13.0" />
+                        </font>
+                    </Label>
+                </HBox>
+                <PieChart fx:id="memPie" prefHeight="400.0" prefWidth="342.0" />
+                <BarChart fx:id="channelStack">
+                    <xAxis>
+                        <CategoryAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis side="LEFT" upperBound="32.0" />
+                    </yAxis>
+                </BarChart>
+            </children>
+        </VBox>
+    </right>
+</BorderPane>
