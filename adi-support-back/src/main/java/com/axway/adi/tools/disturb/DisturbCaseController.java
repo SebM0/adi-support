@@ -139,6 +139,10 @@ public class DisturbCaseController extends AbstractController {
         try (JsonReader reader = new JsonReader(new InputStreamReader(Runtime.getRuntime().exec("curl --user " + ADI_JIRA_WRITER + ":" + ADI_JIRA_WRITER_TOKEN + " --silent " + remote + "?expand=fields").getInputStream()))) {
             reader.setLenient(true);
             JsonElement element = JsonParser.parseReader(reader);
+            if (element.isJsonNull()) {
+                AlertHelper.show(ERROR, "Cannot read issue");
+                return;
+            }
             JsonObject root = element.getAsJsonObject();
             JsonObject fields = root.getAsJsonObject("fields");
             if (fields == null) {
@@ -289,6 +293,7 @@ public class DisturbCaseController extends AbstractController {
             AlertHelper.show(ERROR, "No resource to analyze");
             return;
         }
+        DiagnosticCatalog.CAT.updateSupportCase(supportCase);
         onRunStarted();
         // Reset
         progress.progressProperty().unbind();

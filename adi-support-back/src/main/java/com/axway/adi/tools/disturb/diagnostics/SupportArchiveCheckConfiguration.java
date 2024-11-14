@@ -64,6 +64,7 @@ public class SupportArchiveCheckConfiguration extends DiagnosticSpecification {
                             result.notes = "LateData maximumTimeToLive is low: " + lateTTL;
                         }
                     }
+                    //TODO compare memtable size (com.systar.titanium.memtable.globalMaxSize) to jvm.conf Xmx
                 } else {
                     System.err.println("SupportArchiveParser: 'platform.properties' does not exists");
                 }

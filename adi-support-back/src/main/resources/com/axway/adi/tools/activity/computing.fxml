@@ -103,7 +103,7 @@
             <children>
                 <TableView fx:id="absorbed" prefHeight="557.0" prefWidth="674.0">
                     <columns>
-                        <TableColumn editable="false" prefWidth="250.0" text="Name">
+                        <TableColumn editable="false" prefWidth="250.0" text="Collected input name">
                             <cellValueFactory>
                                 <MapValueFactory key="name" />
                             </cellValueFactory>
@@ -127,7 +127,7 @@
                 </TableView>
                 <TableView fx:id="computed">
                     <columns>
-                        <TableColumn editable="false" prefWidth="251.0" text="Name">
+                        <TableColumn editable="false" prefWidth="251.0" text="Computing name">
                             <cellValueFactory>
                                 <MapValueFactory key="name" />
                             </cellValueFactory>

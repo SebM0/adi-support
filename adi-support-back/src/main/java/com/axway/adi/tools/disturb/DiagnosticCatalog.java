@@ -133,6 +133,10 @@ public class DiagnosticCatalog {
         return supportCases.get(id);
     }
 
+    public void updateSupportCase(SupportCase supportCase) {
+        supportCases.put(supportCase.id, supportCase);
+    }
+
     public void deleteSupportCase(SupportCase sc) {
         supportCases.remove(sc.id);
         if (DiagnosticPersistence.DB != null) {
